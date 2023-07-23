@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:view="clr-namespace:Boucher_Double_Front.View"
+             x:Class="Boucher_Double_Front.View.MenuManager"
+             BackgroundColor="Gray">
+  <ContentPage.Content>
+        <StackLayout>
+
+            <Grid ColumnDefinitions="auto,*" RowDefinitions="auto,*" VerticalOptions="StartAndExpand" HorizontalOptions="CenterAndExpand">
+                <Label Text="Nom" Grid.Column="0" Grid.Row="0"/>
+                <Entry Text="{Binding Menu.Name}" Grid.Column="1" Grid.Row="0"/>
+                <Button Text="Choisissez une image d'illustration" Clicked="OnPickPhotoButtonClicked" Grid.Column="0" Grid.Row="1"/>
+                <Image Source="{Binding ImageSource}" HeightRequest="100" WidthRequest="100" Grid.Column="1" Grid.Row="1"/>
+            </Grid>
+            <CollectionView x:Name="allSoldProduct"
+                    SelectionMode="Single" >
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid RowDefinitions="auto,auto" ColumnDefinitions="auto,auto,auto" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+                            <Label Text="{Binding SoldProduct.Name}" Grid.Row="0" Grid.Column="0"/>
+                            <Label Text="{Binding Quantity, StringFormat='Quantité: {0}'}" Grid.Row="0" Grid.Column="1"/>
+                            <Button Text="Supprimer" Grid.Row="1" Grid.Column="2" CommandParameter="{Binding}" Clicked="OnDelete"/>
+                            <Button Text="+" Grid.Row="1" Grid.Column="2" CommandParameter="{Binding}" Clicked="AddProduct"/>
+                            <Button Text="-" Grid.Row="1" Grid.Column="3" CommandParameter="{Binding}" Clicked="RemoveProduct"/>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <Button Text="Ajouter un produit" Clicked="NewProductAsync"/>
+            <Grid ColumnDefinitions="auto,auto,auto" RowDefinitions="auto" VerticalOptions="EndAndExpand" HorizontalOptions="CenterAndExpand">
+                <Label Text="Prix :" Grid.Column="0" Grid.Row="0"/>
+                <Entry Grid.Column="1" Grid.Row="0" Keyboard="Numeric" Text="{Binding Menu.Price.FullMonnaie}"/>
+                <Label Text="," Grid.Column="2" Grid.Row="0"/>
+                <Entry Text="{Binding Menu.Price.Cent}" Grid.Column="3" Keyboard="Numeric" Grid.Row="0"/>
+            </Grid>
+            <Button Text="Valider" Clicked="OnValidateAsync"/>
+            <Button Text="Annuler" x:Name="DeleteButton" Clicked="OnAbortAsync"/>
+        </StackLayout>
+  </ContentPage.Content>
+</ContentPage>

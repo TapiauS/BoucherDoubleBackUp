@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:view="clr-namespace:Boucher_Double_Front.View" x:DataType="view:LogView"
+             x:Class="Boucher_Double_Front.View.LogView"
+             BackgroundColor="Gray">
+    <NavigationPage.TitleView>
+        <Slider HeightRequest="44" WidthRequest="300" />
+    </NavigationPage.TitleView>
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+            <Grid RowDefinitions="*,*,*" ColumnDefinitions="auto,*" HorizontalOptions="Center" VerticalOptions="Center">
+                <Label Grid.Row="0" Grid.Column="0">Entrer un pseudo</Label>
+                <Entry Grid.Row="0" Grid.Column="1" Text="{Binding User.Login , Mode=TwoWay}"/>
+                <Label Grid.Row="1" Grid.Column="0">Entrer votre mot de passe</Label>
+                <Entry Grid.Row="1" Grid.Column="1" Text="{Binding User.Password , Mode=TwoWay}" IsPassword="True"/>
+                <Button Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Text="Se connecter" Clicked="ConnectAsync"/>
+            </Grid>
+        </StackLayout>
+  </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Boucher_Double_Front.View.BillManager"
+             xmlns:view="clr-namespace:Boucher_Double_Front.View" 
+             BackgroundColor="Gray">
+    <ContentPage.Content>
+        <Grid ColumnDefinitions="*,auto" RowDefinitions="*,*,*,*,*,*" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+            <Label Text="Choisissez un paramétrage" Grid.Row="0" Grid.Column="0"/>
+            <Picker x:Name="BillPicker" SelectedIndexChanged="PickerSelectedIndexChanged" Grid.Row="0" Grid.Column="1" ItemsSource="{Binding ExistingsOption}"
+            ItemDisplayBinding="{Binding Name}"/>
+
+            <Label Text="Nom:" Grid.Row="1" Grid.Column="0"/>
+            <Entry Text="{Binding BillOption.Name}" Margin="0,5" Grid.Row="1" Grid.Column="1" />
+
+            <Label Text="Pied:" Margin="0,10" Grid.Row="2" Grid.Column="0"/>
+            <Entry Text="{Binding BillOption.Foot}" Margin="0,5" Grid.Row="2" Grid.Column="1" />
+
+            <Label Text="Mention Speciale:" Margin="0,10" Grid.Row="3" Grid.Column="0"/>
+            <Entry Text="{Binding BillOption.SpecialMention}" Margin="0,5" Grid.Row="3" Grid.Column="1" />
+
+            <Label Text="Mention:" Margin="0,10" Grid.Row="4" Grid.Column="0"/>
+            <Entry Text="{Binding BillOption.Mention}" Margin="0,5" Grid.Row="4" Grid.Column="1" />
+
+            <Button x:Name="ValidationButton" Text="Sauvegarder" Margin="0,20" Clicked="OnValidateAsync" Grid.Row="5" Grid.ColumnSpan="2"/>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

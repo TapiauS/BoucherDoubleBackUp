@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:view="clr-namespace:Boucher_Double_Front.View"
+             x:DataType="view:MailAccessParameter"
+             x:Class="Boucher_Double_Front.View.MailAccessParameter"
+             BackgroundColor="Gray">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label x:Name="MailAdress" HorizontalOptions="CenterAndExpand"/>
+            <Grid ColumnDefinitions="auto,*" RowDefinitions="*,*,*,*,*,*" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+                <Label Text="Type de connexion" Grid.Row="0" Grid.Column="0"/>
+                <Picker x:Name="ConnexionPicker" Grid.Row="0" Grid.Column="1"/> 
+                <Label Text="Port" Grid.Row="1" Grid.Column="0"/>
+                <Entry Text="{Binding MailParameter.Port}" Grid.Row="1" Grid.Column="1"/>
+                <Label Text="Serveur" Grid.Row="2" Grid.Column="0"/>
+                <Entry Text="{Binding MailParameter.Server}" Grid.Row="2" Grid.Column="1"/>
+                <Label Text="Password" Grid.Row="3" Grid.Column="0"/>
+                <Entry Text="{Binding MailParameter.Password}" Grid.Row="3" Grid.Column="1" IsPassword="False"/>
+                <Label Text="Login (facultatif)" Grid.Row="4" Grid.Column="0"/>
+                <Entry Text="{Binding MailParameter.Login}" Grid.Row="4" Grid.Column="1"/>
+                <Button Text="Valider" Clicked="OnValidateAsync" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"/>
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

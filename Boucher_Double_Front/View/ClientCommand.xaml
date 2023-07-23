@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Boucher_Double_Front.View.ClientCommand"
+             BackgroundColor="Gray">
+    <ContentPage.Content>
+        <StackLayout>
+            <Grid RowDefinitions="*,auto,auto" VerticalOptions="FillAndExpand">
+                <CollectionView x:Name="allSoldProduct"
+                        SelectionMode="Single" Grid.Row="0">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Orientation="Vertical"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid RowDefinitions="auto,auto" ColumnDefinitions="auto,auto,auto" VerticalOptions="FillAndExpand">
+                                <Label Text="{Binding SoldProduct.Name}" Grid.Row="0" Grid.Column="0"/>
+                                <Label Text="{Binding Quantity, StringFormat='Quantité: {0}'}" Grid.Row="0" Grid.Column="1"/>
+                                <Button Text="Supprimer" Grid.Row="1" Grid.Column="0" CommandParameter="{Binding}" Clicked="OnDelete"/>
+                                <Button Text="+" Grid.Row="1" Grid.Column="1" CommandParameter="{Binding}" Clicked="AddProduct"/>
+                                <Button Text="-" Grid.Row="1" Grid.Column="2" CommandParameter="{Binding}" Clicked="RemoveProduct"/>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+                <Button Text="Nouveau Produit" Grid.Row="1" Clicked="NewProductAsync"/>
+                <Button Text="Finaliser la Commande" Grid.Row="2"  Clicked="OnValidateAsync"/>
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

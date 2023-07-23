@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:view="clr-namespace:Boucher_Double_Front.View"
+             x:Class="Boucher_Double_Front.View.CategoryManager"
+             BackgroundColor="Gray">
+    <ContentPage.Content>
+        <StackLayout>
+            <Grid RowDefinitions="auto,auto,100" ColumnDefinitions="auto,auto" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+                <Label Grid.Row="0" Grid.Column="0" Text="Nom de la category"/>
+                <Entry Grid.Row="0" Grid.Column="1" Text="{Binding Category.Name, Mode=TwoWay}" />
+                <Button Text="Choisissez une photo" Clicked="OnPickPhotoButtonClicked" Grid.Row="1" Grid.Column="0"/>
+                <Image Source="{Binding ImageSource}" Grid.Row="1" Grid.Column="1" HeightRequest="100" WidthRequest="100"/>
+                <Button Text="Valider" Clicked="OnValidateAsync" Grid.Row="2" Grid.Column="0"/>
+                <Button Text="Supprimer" Clicked="OnSuppressionAsync" Grid.Row="2" Grid.Column="1"/>
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

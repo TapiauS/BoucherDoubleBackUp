@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:view="clr-namespace:Boucher_Double_Front.View"
+             x:DataType="view:RestaurantInfo"
+             x:Class="Boucher_Double_Front.View.RestaurantInfo"
+             BackgroundColor="Gray">
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+            <Button Text="Selectionner une photo" Clicked="OnPickPhotoButtonClicked" />
+            <Image Source="{Binding PicturePath}" HeightRequest="200" WidthRequest="200" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

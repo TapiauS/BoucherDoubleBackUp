@@ -1,0 +1,104 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Boucher_DoubleModel</name>
+    </assembly>
+    <members>
+        <member name="T:Boucher_DoubleModel.Models.Entitys.BillParameter">
+            <summary>
+            Class that reprensent one of the bill parameter of a single shop
+            </summary>
+        </member>
+        <member name="T:Boucher_DoubleModel.Models.Entitys.Category">
+            <summary>
+            Category of product, access is limited by store requiring it to have a field representing that
+            </summary>
+        </member>
+        <member name="T:Boucher_DoubleModel.Models.Entitys.Client">
+            <summary>
+            Represent a client of a given store chain, extends the <see cref="T:Boucher_DoubleModel.Models.Entitys.Person"/> class which hold the other personal infos
+            </summary>
+        </member>
+        <member name="P:Boucher_DoubleModel.Models.Entitys.Client.Surname">
+            <summary>
+            Not nullable
+            </summary>
+        </member>
+        <member name="T:Boucher_DoubleModel.Models.Entitys.MailParameter">
+            <summary>
+            Represent the parameter of the mail box of a given store
+            </summary>
+        </member>
+        <member name="T:Boucher_DoubleModel.Models.Entitys.Menu">
+            <summary>
+            Represent an aglomeration of product sold as a single entity
+            </summary>
+        </member>
+        <member name="P:Boucher_DoubleModel.Models.Entitys.Menu.Content">
+            <summary>
+            Associate each product with its quantity inside the menu
+            </summary>
+        </member>
+        <member name="T:Boucher_DoubleModel.Models.Entitys.Person">
+            <summary>
+            Abstract representation of a person, human or moral
+            </summary>
+        </member>
+        <member name="P:Boucher_DoubleModel.Models.Entitys.Person.Mail">
+            <summary>
+            Mail of the person, can't be null
+            </summary>
+        </member>
+        <member name="T:Boucher_DoubleModel.Models.Entitys.Product">
+            <summary>
+            Represent a product selled by a store, the store selling it is determind by the category field
+            </summary>
+        </member>
+        <member name="T:Boucher_DoubleModel.Models.Entitys.Sellout">
+            <summary>
+            Represent a given sellout
+            </summary>
+        </member>
+        <member name="P:Boucher_DoubleModel.Models.Entitys.Sellout.BuyedProducts">
+            <summary>
+            The type and quantity of product sold associated through a Dictionnary
+            </summary>
+        </member>
+        <member name="T:Boucher_DoubleModel.Models.Entitys.Store">
+            <summary>
+            Represent a given store, extend the <see cref="T:Boucher_DoubleModel.Models.Entitys.Person"/> class wich contain the name of the store
+            </summary>
+        </member>
+        <member name="T:Boucher_DoubleModel.Models.Entitys.User">
+            <summary>
+            Represent an User of the app
+            </summary>
+        </member>
+        <member name="T:Boucher_DoubleModel.Models.Role">
+            <summary>
+            Enum of all the possible <class>Users</class> role
+            </summary>
+        </member>
+        <member name="T:Boucher_DoubleModel.Models.RoleExtensions">
+            <summary>
+            Help to define the function and methodes associated with the <see cref="T:Boucher_DoubleModel.Models.Role"/> enum
+            </summary>
+        </member>
+        <member name="M:Boucher_DoubleModel.Models.RoleExtensions.CompareToString(Boucher_DoubleModel.Models.Role,System.String)">
+            <summary>
+            Compare a string to a Role enum value
+            </summary>
+            <param name="role">The reference role</param>
+            <param name="input">The string to compare</param>
+            <returns></returns>
+        </member>
+        <member name="M:Boucher_DoubleModel.Models.RoleExtensions.GetRoleFromString(System.String)">
+            <summary>
+            Parse a string into a Role
+            </summary>
+            <param name="input">The role name we try to parse</param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentException">Throw if no corresponding role where found</exception>
+        </member>
+    </members>
+</doc>

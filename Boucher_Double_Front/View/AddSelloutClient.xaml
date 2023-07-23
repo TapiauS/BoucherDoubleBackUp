@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:view="clr-namespace:Boucher_Double_Front.View" 
+             xmlns:ViewModels="clr-namespace:Boucher_Double_Front.ViewModel"
+             x:Class="Boucher_Double_Front.View.AddSelloutClient"
+             BackgroundColor="Gray">
+    <ContentPage.Content>
+        <StackLayout>
+            <Grid RowDefinitions="auto,auto,auto">
+                <Grid RowDefinitions="*,*" ColumnDefinitions="*,*" Grid.Row="0">
+                    <Label Text="Choisissez un client" Grid.ColumnSpan="2" Grid.Row="0" Grid.Column="0"/>
+                    <SearchBar Placeholder="Entrer un numéro de télephone" Grid.Column="1" Grid.Row="1" TextChanged="SearchPhoneNumber" Keyboard="Telephone"/>
+                    <CollectionView x:Name="ListPicker" Grid.Column="0" Grid.Row="1" SelectionChanged="OnClientClicked" SelectionMode="Single">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Label Text="{Binding PhoneNumber}">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnClientSelection" CommandParameter="{Binding}"/>
+                                        <!--<ClickGestureRecognizer Clicked="OnClientSelection" CommandParameter="{Binding}"/>-->
+                                    </Label.GestureRecognizers>
+                                </Label>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </Grid>
+                <Grid RowDefinitions="*,*,*,*,*" ColumnDefinitions="*,*" Grid.Row="1" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+                    <Label Text="Nouveau Client" Grid.ColumnSpan="2" Grid.Row="0" Grid.Column="0"/>
+                    <Label Text="Nom" Grid.Column="0" Grid.Row="1"/>
+                    <Entry Text="{Binding Client.Name}" Grid.Column="1" Grid.Row="1" IsEnabled="{Binding IsEditable}"/>
+                    <Label Text="Prenom" Grid.Column="0" Grid.Row="2"/>
+                    <Entry Text="{Binding Client.Surname}" Grid.Column="1" Grid.Row="2" IsEnabled="{Binding IsEditable}"/>
+                    <Label Text="Mail" Grid.Column="0" Grid.Row="3"/>
+                    <Entry Text="{Binding Client.Mail}" Grid.Column="1" Grid.Row="3" Keyboard="Email" IsEnabled="{Binding IsEditable}" />
+                    <Label Text="Numéro de telephone" Grid.Column="0" Grid.Row="4"/>
+                    <Entry Text="{Binding Client.PhoneNumber}" Grid.Column="1" Grid.Row="4" Keyboard="Telephone" IsEnabled="{Binding IsEditable}"/>
+                </Grid>
+                <Grid RowDefinitions="*,*,*" Grid.Row="2" >
+                    <Label Text="Selectionner une date" Grid.Row="0"/>
+                    <DatePicker Date="{Binding Sellout.SelloutDate}" Format="yyyy-MM-dd" Grid.Row="1" />
+                    <Button Text="Valider" Clicked="OnValidateAsync" Grid.Row="2"/>
+                </Grid>
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

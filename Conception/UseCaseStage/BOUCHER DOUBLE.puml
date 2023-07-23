@@ -1,0 +1,31 @@
+@startuml
+'https://plantuml.com/use-case-diagram
+
+:Admin: as Admin
+:User: as User
+
+Admin -|> User
+
+Admin-->(User Management)
+Admin-->(Add a shop)
+Admin-->(Create account)
+package Connect{
+User-->(Log In)
+}
+Connect-->(Management of one shop)
+(Management of one shop)-->(Graphical chart management)
+(Management of one shop)-->(Shop Card management)
+(Management of one shop)-->(Receipt Parameter)
+Connect-->(Parameter a mail)
+Connect-->(Client commands management)
+Connect-->(Parameter app)
+(Parameter app)-->(Change database access):if admin
+(Parameter app)-->(Parameter mail box)
+(Client commands management)-->(Add a client)
+(Add a client)-->(Write a recapitulation)
+(Write a recapitulation)-->:Web Page:
+(Write a recapitulation)-->:Printer:
+(Write a recapitulation)-->(Send a confirmation mail)
+(Send a confirmation mail)-->:Client:
+
+@enduml

@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Boucher_Double_Front.View.AllClient"
+             xmlns:viewmodel="clr-namespace:Boucher_Double_Front.ViewModel"
+             x:DataType="viewmodel:AllClientModel"
+             BackgroundColor="Gray">
+    <ContentPage.Content>
+        <StackLayout>
+            <CollectionView x:Name="allClient"
+                    SelectionMode="Single" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid ColumnDefinitions="*,auto,auto" >
+                            <Label Grid.Column="0">
+                                <Label.Text>
+                                    <MultiBinding StringFormat="Nom: {0} - Tel: {1} - Mail: {2}">
+                                        <Binding Path="Name" />
+                                        <Binding Path="PhoneNumber" />
+                                        <Binding Path="Mail"/>
+                                    </MultiBinding>
+                                </Label.Text>
+                            </Label>
+                            <Button Text="Supprimer" Clicked="OnDeleteAsync" CommandParameter="{Binding}" Grid.Column="1" />
+                            <Button Text="Mettre a jour" Clicked="OnUpdateAsync" CommandParameter="{Binding}" Grid.Column="2"/>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui" 
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:view="clr-namespace:Boucher_Double_Front.View"
+       FlyoutBehavior="Flyout"
+       Title="Boucher_Double_Front"
+       x:Class="Boucher_Double_Front.AppShell"
+       BackgroundColor="Green"
+       Shell.TabBarTitleColor="Gray"
+       Shell.BackgroundColor="Gray"
+       Shell.TabBarIsVisible="False"
+       Shell.NavBarIsVisible="False">
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsEnabled="False" IsVisible="False"/>
+    </Shell.BackButtonBehavior>
+    <Shell.FlyoutHeaderTemplate>
+        <DataTemplate>
+            <Grid BackgroundColor="Black"
+                  HeightRequest="200">
+                <Image Aspect="AspectFill"
+                       Source="{Binding StoreImage}"
+                       Opacity="0.6" HeightRequest="200" WidthRequest="200"/>
+            </Grid>
+        </DataTemplate>
+    </Shell.FlyoutHeaderTemplate>
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
+        <ShellContent Title="Accueil" ContentTemplate="{DataTemplate view:Home}" Shell.BackgroundColor="Gray"/>
+        <ShellContent Title="Paramétrer l'envoi de mail" ContentTemplate="{DataTemplate view:MailParameter}" Shell.BackgroundColor="Gray"/>
+        <ShellContent Title="Paramétrer la facture" ContentTemplate="{DataTemplate view:BillManager}" Shell.BackgroundColor="Gray"/>
+        <ShellContent Title="Ajouter un utilisateur" ContentTemplate="{DataTemplate view:AddUser}" IsVisible="{Binding IsAdmin}" Shell.BackgroundColor="Gray"/>
+        <ShellContent Title="Gestion des commandes" ContentTemplate="{DataTemplate view:AllSellout}" Shell.BackgroundColor="Gray"/>
+        <ShellContent Title="Gestion de la carte" ContentTemplate="{DataTemplate view:AllCategoryList}" Shell.BackgroundColor="Gray"/>
+        <ShellContent Title="Nouvelle Commande" ContentTemplate="{DataTemplate view:AddSelloutClient}" Shell.BackgroundColor="Gray"/>
+        <ShellContent Title="Finir la commande en cours" ContentTemplate="{DataTemplate view:ClientCommand}" Shell.BackgroundColor="Gray"/>
+        <ShellContent Title="Magasin" ContentTemplate="{DataTemplate view:RestaurantInfo}" Shell.BackgroundColor="Gray" IsVisible="{Binding IsAdmin}"/>
+        <ShellContent Title="Modifier son compte" ContentTemplate="{DataTemplate view:LogView}" IsVisible="{Binding IsAdmin}" Shell.BackgroundColor="Gray"/>
+        <ShellContent Title="Gerer l'accés au mail" ContentTemplate="{DataTemplate view:MailAccessParameter}" IsVisible="{Binding IsAdmin}" Shell.BackgroundColor="Gray"/>
+        <ShellContent Title="Paramétres" ContentTemplate="{DataTemplate view:Parameter}" Shell.BackgroundColor="Gray" IsVisible="{Binding IsAdmin}"/>
+        <ShellContent Title="Gerer les clients" ContentTemplate="{DataTemplate view:AllClient}" IsVisible="{Binding IsAdmin}" Shell.BackgroundColor="Gray"/>
+        <ShellContent Title="Ajouter un utilisateur" ContentTemplate="{DataTemplate view:AddUser}" IsVisible="{Binding IsAdmin}" Shell.BackgroundColor="Gray"/>
+    </FlyoutItem>
+</Shell>

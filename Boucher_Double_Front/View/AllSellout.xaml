@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Boucher_Double_Front.View.AllSellout"
+             BackgroundColor="Gray">
+    <ContentPage.Content>
+        <StackLayout>
+            <CollectionView x:Name="allSellout"
+                    SelectionMode="Single" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid RowDefinitions="auto,auto">
+                            <Label Grid.Row="0">
+                                <Label.Text>
+                                    <MultiBinding StringFormat="n°: {0} - Tel: {1} - Date: {2:dd/MM/yyyy}">
+                                        <Binding Path="Id" />
+                                        <Binding Path="Client.PhoneNumber" />
+                                        <Binding Path="SelloutDate"/>
+                                    </MultiBinding>
+                                </Label.Text>
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnLabelTappedAsync" CommandParameter="{Binding}"/>
+                                </Label.GestureRecognizers>
+                            </Label>
+                            <Button Text="Supprimer" Clicked="OnDeleteAsync" Grid.Column="0" CommandParameter="{Binding}" Grid.Row="1"/>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
