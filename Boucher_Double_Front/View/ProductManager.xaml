@@ -6,10 +6,10 @@
              BackgroundColor="Gray">
     <ContentPage.Content>
         <StackLayout>
-            <Grid RowDefinitions="*,*,*,*" ColumnDefinitions="*,*" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+            <Grid RowDefinitions="auto,auto,auto,auto" ColumnDefinitions="*,*" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
                 <Label Grid.Column="0" Text="Nom" Grid.Row="0"/>
                 <Entry Grid.Column="1" Text="{Binding Product.Name}" Grid.Row="0"/>
-                <Grid ColumnDefinitions="auto,auto,auto" RowDefinitions="auto" VerticalOptions="EndAndExpand" HorizontalOptions="CenterAndExpand">
+                <Grid ColumnDefinitions="auto,auto,auto" RowDefinitions="auto" VerticalOptions="EndAndExpand" HorizontalOptions="CenterAndExpand" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
                     <Label Text="Prix :" Grid.Column="0" Grid.Row="0"/>
                     <Entry Grid.Column="1" Grid.Row="0" Keyboard="Numeric" Text="{Binding Product.Price.FullMonnaie}"/>
                     <Label Text="," Grid.Column="2" Grid.Row="0"/>

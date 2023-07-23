@@ -16,7 +16,7 @@ namespace Boucher_Double_Front.View
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MailParameter : ContentPage
     {
-        private MailParameterModel model;
+        private MailParameterModel model=new();
         public MailParameter()
         {
 

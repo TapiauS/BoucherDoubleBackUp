@@ -71,12 +71,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Reference Include="Boucher_DoubleModel">
-	    <HintPath>..\Boucher_Double\Boucher_DoubleModel.dll</HintPath>
-	  </Reference>
-	</ItemGroup>
-
-	<ItemGroup>
 	  <MauiXaml Update="App.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -150,6 +144,12 @@
 
 	<ItemGroup>
 	  <Folder Include="Properties\PublishProfiles\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Reference Include="Boucher_DoubleModel">
+	    <HintPath>..\Boucher_DoubleModel.dll</HintPath>
+	  </Reference>
 	</ItemGroup>
 
 </Project>
