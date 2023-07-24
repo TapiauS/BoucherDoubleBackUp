@@ -30,7 +30,7 @@
         <ShellContent Title="Ajouter un utilisateur" ContentTemplate="{DataTemplate view:AddUser}" IsVisible="{Binding IsAdmin}" Shell.BackgroundColor="Gray"/>
         <ShellContent Title="Gestion des commandes" ContentTemplate="{DataTemplate view:AllSellout}" Shell.BackgroundColor="Gray"/>
         <ShellContent Title="Gestion de la carte" ContentTemplate="{DataTemplate view:AllCategoryList}" Shell.BackgroundColor="Gray"/>
-        <ShellContent Title="Nouvelle Commande" ContentTemplate="{DataTemplate view:AddSelloutClient}" Shell.BackgroundColor="Gray"/>
+        <ShellContent Title="Nouvelle Commande" ContentTemplate="{DataTemplate view:AddClientPhone}" Shell.BackgroundColor="Gray"/>
         <ShellContent Title="Finir la commande en cours" ContentTemplate="{DataTemplate view:ClientCommand}" Shell.BackgroundColor="Gray"/>
         <ShellContent Title="Magasin" ContentTemplate="{DataTemplate view:RestaurantInfo}" Shell.BackgroundColor="Gray" IsVisible="{Binding IsAdmin}"/>
         <ShellContent Title="Modifier son compte" ContentTemplate="{DataTemplate view:LogView}" IsVisible="{Binding IsAdmin}" Shell.BackgroundColor="Gray"/>

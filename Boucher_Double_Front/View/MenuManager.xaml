@@ -23,9 +23,9 @@
                         <Grid RowDefinitions="auto,auto" ColumnDefinitions="auto,auto,auto" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
                             <Label Text="{Binding SoldProduct.Name}" Grid.Row="0" Grid.Column="0"/>
                             <Label Text="{Binding Quantity, StringFormat='Quantité: {0}'}" Grid.Row="0" Grid.Column="1"/>
-                            <Button Text="Supprimer" Grid.Row="1" Grid.Column="2" CommandParameter="{Binding}" Clicked="OnDelete"/>
-                            <Button Text="+" Grid.Row="1" Grid.Column="2" CommandParameter="{Binding}" Clicked="AddProduct"/>
-                            <Button Text="-" Grid.Row="1" Grid.Column="3" CommandParameter="{Binding}" Clicked="RemoveProduct"/>
+                            <Button Text="Supprimer" Grid.Row="0" Grid.Column="2" CommandParameter="{Binding}" Clicked="OnDelete"/>
+                            <Button Text="+" Grid.Row="1" Grid.Column="1" CommandParameter="{Binding}" Clicked="AddProduct"/>
+                            <Button Text="-" Grid.Row="1" Grid.Column="2" CommandParameter="{Binding}" Clicked="RemoveProduct"/>
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>

@@ -59,6 +59,16 @@ CREATE TABLE store (
    FOREIGN KEY (id_person) REFERENCES person (id) ON DELETE CASCADE
 );
 
+CREATE TABLE event(
+   id INT AUTO_INCREMENT,
+   name VARCHAR(255) NOT NULL,
+   start DATE NOT NULL,
+   end DATE NOT NULL,
+   id_store INT NOT NULL,
+   PRIMARY KEY (id),
+   FOREIGN KEY (id_store) REFERENCES store(id)
+)
+
 CREATE TABLE product_category (
    id INT AUTO_INCREMENT,
    name VARCHAR(255) NOT NULL,

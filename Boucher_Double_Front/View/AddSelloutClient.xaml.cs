@@ -22,62 +22,6 @@ namespace Boucher_Double_Front.View
             model.Sellout = new Sellout() { Client = model.Client, ReceiptDate = DateTime.Now, SelloutDate=DateTime.Now,Store=appCurrent.User.Store };
 
             InitializeComponent();
-            Task.Run(async () => await model.GetAllClientAsync()).Wait();
-            ListPicker.ItemsSource= new ObservableCollection<Client>(model.Clients);
-        }
-
-        public void SearchPhoneNumber(object sender, TextChangedEventArgs args)
-        {
-            SearchBar entry=sender as SearchBar;
-            ObservableCollection<Client> filteredClients;
-            if (!string.IsNullOrEmpty(entry.Text))
-            {
-                filteredClients = new(model.Clients.Where(element => element.PhoneNumber.StartsWith(entry.Text)).ToList());
-                filteredClients.Insert(0, new Client() { PhoneNumber = "Aucune selection" });
-            }
-            else
-            {
-                filteredClients = new(model.Clients);
-            }
-            ListPicker.ItemsSource = filteredClients;
-        }
-
-
-        public async void OnClientClicked(object sender, EventArgs e)
-        {
-
-            CollectionView collection = sender as CollectionView;
-            Client client = collection.SelectedItem as Client;
-            if (client.Name != null || client.Name != "")
-            {
-                model.Client = client;
-            }
-            else
-                model.Client = new();
-            BindingContext = null;
-            BindingContext = model;
-        }
-
-        public async void OnClientSelection(object sender, EventArgs e)
-        {
-            
-            CollectionView collection=sender as CollectionView;
-            Client client;
-            if (collection != null)
-            {
-                client = collection.SelectedItem as Client;
-            }
-            else
-            {
-                return;
-            }
-            if (client.Name != null || client.Name != "")
-            {
-                model.Client = client;
-            }
-            else
-                model.Client = new();
-            BindingContext = null;
             BindingContext = model;
         }
 

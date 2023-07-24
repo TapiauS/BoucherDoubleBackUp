@@ -13,8 +13,6 @@
 
 		<!-- Display name -->
 		<ApplicationTitle>Boucher_Double_Front</ApplicationTitle>
-
-		<WindowsPackageType Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">None</WindowsPackageType>
 		<!-- App Identifier -->
 		<ApplicationId>com.companyname.boucher_double_front</ApplicationId>
 		<ApplicationIdGuid>cac8dcfc-c075-44f8-af5d-2af535220226</ApplicationIdGuid>
@@ -67,7 +65,6 @@
 	  <PackageReference Include="SQLitePCLRaw.core" Version="2.1.5" />
 	  <PackageReference Include="SQLitePCLRaw.provider.dynamic_cdecl" Version="2.1.5" />
 	  <PackageReference Include="SQLitePCLRaw.provider.sqlite3" Version="2.1.5" />
-	  <PackageReference Include="XF.Bluetooth.Printer.Plugin" Version="1.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -75,6 +72,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="AppShell.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\AddClientPhone.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\AddSelloutClient.xaml">

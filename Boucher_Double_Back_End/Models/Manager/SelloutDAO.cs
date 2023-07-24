@@ -20,8 +20,9 @@ namespace Boucher_Double_Back_End.Models.Manager
                 
                 using MySqlCommand command = new();
                 command.Connection = connexion;
-                command.CommandText = "INSERT INTO sellout(id_person,receipt_date,livraison_date) VALUES (@id_person,@receipt_date,@sellout_date) RETURNING id";
+                command.CommandText = "INSERT INTO sellout(id_person,receipt_date,livraison_date,id_event) VALUES (@id_person,@receipt_date,@sellout_date,@idevent) RETURNING id";
                 command.Parameters.AddWithValue("@id_person", entity.Client.Id);
+                command.Parameters.AddWithValue("@idevent", entity.Event?.Id);
                 command.Parameters.AddWithValue("@receipt_date", entity.ReceiptDate);
                 command.Parameters.AddWithValue("@sellout_date", entity.SelloutDate);
                 using MySqlDataReader reader = command.ExecuteReader();
@@ -131,6 +132,7 @@ namespace Boucher_Double_Back_End.Models.Manager
                 List<Sellout> sellouts = new();
                 int id = 0;
                 int id_person = 0;
+                Event? _event = new();
                 DateTime receipt_date = DateTime.Now;
                 DateTime sellout_date = DateTime.Now;
                 List<SelloutLine> content = new();
@@ -142,7 +144,18 @@ namespace Boucher_Double_Back_End.Models.Manager
                         id_person = reader.GetInt32(reader.GetOrdinal("id_person"));
                         receipt_date = reader.GetDateTime(reader.GetOrdinal("receipt_date"));
                         sellout_date = reader.GetDateTime(reader.GetOrdinal("livraison_date"));
-                        content.Add(new() { SoldProduct = await new ProductDAO() { User = User, Store = Store }.GetByIdAsync(reader.GetInt32(reader.GetOrdinal("id_product"))), Quantity = reader.GetInt32(reader.GetOrdinal("quantity"))});
+                        _event = reader.IsDBNull(reader.GetOrdinal("id_event")) ? null : new Event
+                        {
+                            Id = reader.GetInt32(reader.GetOrdinal("id_event")),
+                            Name = reader.GetString(reader.GetOrdinal("name")),
+                            Begin = reader.GetDateTime(reader.GetOrdinal("start")),
+                            End = reader.GetDateTime(reader.GetOrdinal("end"))
+                        };
+                        content.Add(new()
+                        {
+                            SoldProduct = await new ProductDAO() { User = User, Store = Store }.GetByIdAsync(reader.GetInt32(reader.GetOrdinal("id_product"))),
+                            Quantity = reader.GetInt32(reader.GetOrdinal("quantity")),
+                        });
                     }
                     else
                     {
@@ -153,8 +166,9 @@ namespace Boucher_Double_Back_End.Models.Manager
                             SelloutDate = sellout_date,
                             BuyedProducts = content,
                             Client = await new ClientDAO() { Store = Store, User = User }.GetByIdAsync(id_person),
-                            Store = Store
-                        });
+                            Store = Store,
+                            Event = _event
+                        }) ;
                         id = reader.GetInt32(reader.GetOrdinal("id"));
                         id_person = reader.GetInt32(reader.GetOrdinal("id_person"));
                         receipt_date = reader.GetDateTime(reader.GetOrdinal("receipt_date"));
@@ -171,7 +185,8 @@ namespace Boucher_Double_Back_End.Models.Manager
                     ReceiptDate = receipt_date,
                     SelloutDate = sellout_date,
                     BuyedProducts = content,
-                    Client = await new ClientDAO() { Store = Store, User = User }.GetByIdAsync(id_person)
+                    Client = await new ClientDAO() { Store = Store, User = User }.GetByIdAsync(id_person),
+                    Event = _event
                 });
                 return sellouts;
             }
@@ -216,12 +231,20 @@ namespace Boucher_Double_Back_End.Models.Manager
                 DateTime receipt_date = DateTime.Now;
                 DateTime sellout_date = DateTime.Now;
                 List<SelloutLine> content = new();
+                Event? _event = new();
                 while (await reader.ReadAsync())
                 {
                     id = reader.GetInt32(reader.GetOrdinal("id"));
                     id_person = reader.GetInt32(reader.GetOrdinal("id_person"));
                     receipt_date = reader.GetDateTime(reader.GetOrdinal("receipt_date"));
                     sellout_date = reader.GetDateTime(reader.GetOrdinal("livraison_date"));
+                    _event = reader.IsDBNull(reader.GetOrdinal("id_event")) ? null : new Event
+                    {
+                        Id = reader.GetInt32(reader.GetOrdinal("id_event")),
+                        Name = reader.GetString(reader.GetOrdinal("name")),
+                        Begin = reader.GetDateTime(reader.GetOrdinal("start")),
+                        End = reader.GetDateTime(reader.GetOrdinal("end"))
+                    };
                     content.Add(new() { SoldProduct = await new ProductDAO() { User = User, Store = Store }.GetByIdAsync(reader.GetInt32(reader.GetOrdinal("id_product"))), Quantity = reader.GetInt32(reader.GetOrdinal("quantity")) });
                 }
                 sellout = new Sellout
@@ -231,7 +254,8 @@ namespace Boucher_Double_Back_End.Models.Manager
                     SelloutDate = sellout_date,
                     BuyedProducts = content,
                     Client = await new ClientDAO() { Store = Store, User = User }.GetByIdAsync(id_person),
-                    Store = Store
+                    Store = Store,
+                    Event=_event
                 };
                 return sellout;
             }
@@ -264,12 +288,13 @@ namespace Boucher_Double_Back_End.Models.Manager
                 using MySqlConnection connexion = Connexion.getConnexion();
                 using MySqlCommand command = new();
                 command.Connection = connexion;
-                command.CommandText = "UPDATE sellout SET id_person=@id_person, receipt_date=@receipt_date, livraison_date=@livraison_date WHERE id=@id AND (SELECT id FROM full_store WHERE id_store=@id_store)=@id_person";
+                command.CommandText = "UPDATE sellout SET id_person=@id_person, receipt_date=@receipt_date,livraison_date=@livraison_date,id_event=@idevent WHERE id=@id AND (SELECT id FROM full_store WHERE id_store=@id_store)=@id_person";
                 command.Parameters.AddWithValue("@id_person", entity.Client.Id);
                 command.Parameters.AddWithValue("@receipt_date", entity.ReceiptDate);
                 command.Parameters.AddWithValue("@livraison_date", entity.SelloutDate);
                 command.Parameters.AddWithValue("@id_store", Store.IdStore);
                 command.Parameters.AddWithValue("@id", entity.Id);
+                command.Parameters.AddWithValue("@idevent", entity.Event?.Id);
                 if (await command.ExecuteNonQueryAsync()>0)
                 {
                     foreach (SelloutLine line in entity.BuyedProducts)

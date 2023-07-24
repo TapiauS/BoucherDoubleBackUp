@@ -57,6 +57,12 @@ namespace Boucher_Double_Front.View
                     await Shell.Current.GoToAsync($"{nameof(ClientCommand)}");
                 }
             }
+            else
+            {
+                app.ActivCommand = sellout;
+                await Shell.Current.GoToAsync($"{nameof(ClientCommand)}");
+            }
+
         }
         private bool FirstAppear = true;
         protected override async void OnAppearing()

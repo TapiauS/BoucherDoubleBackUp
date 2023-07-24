@@ -12,5 +12,6 @@ namespace Boucher_DoubleModel.Models.Entitys
         public string Name { get; set; }
         public DateTime Begin { get; set; }
         public DateTime End { get; set; }
+        public Store Store { get; set; }
     }
 }

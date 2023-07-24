@@ -51,6 +51,8 @@ namespace Boucher_Double_Front
             Routing.RegisterRoute(nameof(RestaurantInfo), typeof(RestaurantInfo));
             Routing.RegisterRoute(nameof(UpdateClient),typeof(UpdateClient));
             Routing.RegisterRoute(nameof(MenuManager), typeof(MenuManager));
+            Routing.RegisterRoute(nameof(AddClientPhone), typeof(AddClientPhone));
+            Routing.RegisterRoute(nameof(EventManager), typeof(EventManager));
             User = user;
             BindingContext = this;
         }

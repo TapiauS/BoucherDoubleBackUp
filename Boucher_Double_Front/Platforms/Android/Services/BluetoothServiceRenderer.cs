@@ -7,7 +7,6 @@ using Android.Bluetooth;
 using Boucher_Double_Front.Services;
 using global::Android.Bluetooth;
 using Java.Util;
-using XF.Bluetooth;
 using Boucher_Double_Front.Platforms.Android.Services;
 
 [assembly: Dependency(typeof(BluetoothServiceRenderer))]

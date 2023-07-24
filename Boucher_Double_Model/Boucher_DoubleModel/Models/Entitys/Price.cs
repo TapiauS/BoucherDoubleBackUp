@@ -17,7 +17,7 @@ namespace Boucher_DoubleModel.Models.Entitys
             get=>_cent; 
             set 
             { 
-                _cent = value%10^2;
+                _cent = value-value/100;
             }
         }
 
@@ -39,7 +39,7 @@ namespace Boucher_DoubleModel.Models.Entitys
         public Price(decimal fullvalue)
         {
             FullMonnaie= (int)fullvalue;
-            Cent =(int)(fullvalue - (int)fullvalue)*100;
+            Cent =(int)((fullvalue - (int)fullvalue)*100);
         }
 
         public decimal GetPrice()

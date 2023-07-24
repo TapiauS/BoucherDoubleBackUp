@@ -196,8 +196,8 @@ namespace Boucher_Double_Front.View
         }
         private void RefreshSoldProducts()
         {
-            BindingContext=null;
-            BindingContext=model;
+            allSoldProduct.ItemsSource = null;
+            allSoldProduct.ItemsSource = model.Lines;
         }
 
         private bool FirstAppear = true;

@@ -14,16 +14,17 @@ namespace Boucher_Double_Front.ViewModel
         public Client Client { get; set; } = new () ;
         public Sellout Sellout { get; set; } = new Sellout();
         public List<Client> Clients { get; set; }
-        private List<Client> filteredClient;
-        public List<Client> FilteredClient
+
+        public bool IsEditable { get=>Client.Id == 0; }
+
+        public AddSelloutClientModel() 
         {
-            get => filteredClient;
-            set
+            App app = Application.Current as App;
+            if (app.ActivCommand != null)
             {
-                filteredClient = value;
+                Client = app.ActivCommand.Client;
             }
         }
-        public bool IsEditable { get=>Client.Id == 0; }
         public async Task GetAllClientAsync()
         {
             App appInstance = Application.Current as App;

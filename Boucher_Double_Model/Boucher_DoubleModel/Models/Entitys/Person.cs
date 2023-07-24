@@ -20,7 +20,7 @@ namespace Boucher_DoubleModel.Models.Entitys
                 id = value;
             }
         }
-        public string Name
+        public string ?Name
         {
             get
             {
@@ -35,7 +35,7 @@ namespace Boucher_DoubleModel.Models.Entitys
         /// <summary>
         /// Mail of the person, can't be null
         /// </summary>
-        public string Mail
+        public string ?Mail
         {
             get
             {

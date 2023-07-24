@@ -50,13 +50,17 @@ SELECT
     livraison_date,
     id_product,
     quantity,
-    sellout.id AS id,
-    id_store
+    sellout.id id,
+    id_store,
+    event.id event_id,
+    start,
+    end
 FROM
     sellout
     JOIN concern ON sellout.id = concern.id_sellout
     JOIN product ON product.id = concern.id_product
     JOIN product_category ON product.id_product_category = product_category.id
+    JOIN event ON sellout.id_event=event_id
 ORDER BY
     sellout.id;
 
