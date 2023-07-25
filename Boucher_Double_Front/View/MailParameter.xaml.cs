@@ -64,14 +64,19 @@ namespace Boucher_Double_Front.View
             }
             else
             {
-                model.CurrentMailParameter = new MailContentParameter();
+                model.CurrentMailParameter = new() { IdStore = (Application.Current as App).User.Store.IdStore };
                 ValidationButton.Text = "Valider";
                 BindingContext = null;
                 BindingContext = model;
             }
         }
 
-
+        protected override async void OnDisappearing()
+        {
+            base.OnDisappearing();
+            BindingContext = null;
+            Shell.Current.Navigation.RemovePage(this);
+        }
 
         private bool FirstAppear = true;
         protected override async void OnAppearing()

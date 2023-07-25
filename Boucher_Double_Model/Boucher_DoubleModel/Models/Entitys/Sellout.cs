@@ -12,8 +12,8 @@ namespace Boucher_DoubleModel.Models.Entitys
 
         public Event? Event { get; set; } 
         public Store Store { get; set; }
-        public DateTime ReceiptDate { get; set; }
-        public DateTime SelloutDate { get; set; }
+        public DateTime ReceiptDate { get; set; }=DateTime.Now;
+        public DateTime SelloutDate { get; set; }=DateTime.Now;
         public Client Client { get; set; }
         /// <summary>
         /// The type and quantity of product sold associated through a Dictionnary

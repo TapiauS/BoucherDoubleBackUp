@@ -39,11 +39,18 @@ namespace Boucher_Double_Front.View
             }
             else
             {
-                model.BillOption =new BillParameter();
+                model.BillOption =new() { IdStore = (Application.Current as App).User.Store.IdStore };
                 ValidationButton.Text = "Valider";
                 BindingContext = null;
                 BindingContext = model;
             }
+        }
+
+        protected override async void OnDisappearing()
+        {
+            base.OnDisappearing();
+            BindingContext = null;
+            Shell.Current.Navigation.RemovePage(this);
         }
 
         public async void OnValidateAsync(Object sender, EventArgs e)
@@ -51,7 +58,7 @@ namespace Boucher_Double_Front.View
             App appInstance = Application.Current as App;
             HttpClient client =await appInstance.PrepareQuery();
             string json;
-            if (BillPicker.SelectedIndex < 1)
+            if (model.BillOption.Id==0)
             {
                 json = JsonConvert.SerializeObject(model.BillOption);
                 StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
@@ -63,12 +70,23 @@ namespace Boucher_Double_Front.View
                     appInstance.DatabaseHelper.SaveBillParameter(model.BillOption);
                     await Shell.Current.GoToAsync("..");
                 }
+                else
+                    await Shell.Current.DisplayAlert("Erreur", "Erreur d'accés au serveur", "Ok");
             } 
             else
             {
-                appInstance.BillParameter = BillPicker.SelectedItem as BillParameter;
-                appInstance.DatabaseHelper.SaveBillParameter(appInstance.BillParameter);
-                await Shell.Current.GoToAsync("..");
+                json = JsonConvert.SerializeObject(model.BillOption);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PutAsync("BillParameter", content);
+                string contentString = await response.Content.ReadAsStringAsync();
+                if (response.IsSuccessStatusCode && bool.Parse(contentString))
+                {
+                    appInstance.BillParameter = BillPicker.SelectedItem as BillParameter;
+                    appInstance.DatabaseHelper.SaveBillParameter(appInstance.BillParameter);
+                    await Shell.Current.GoToAsync("..");
+                }
+                else
+                    await Shell.Current.DisplayAlert("Erreur", "Erreur d'accés au serveur", "Ok");
             }
         }
 

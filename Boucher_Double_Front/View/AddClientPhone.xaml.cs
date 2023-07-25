@@ -22,6 +22,8 @@ public partial class AddClientPhone : ContentPage
         {
             application.ActivCommand = new() { Client = compatibleClients[0] };
         }
+        else
+            application.ActivCommand = new() { Client = model.Client };
         await Shell.Current.GoToAsync($"{nameof(AddSelloutClient)}");
     }
 }

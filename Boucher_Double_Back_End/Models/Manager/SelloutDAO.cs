@@ -288,7 +288,7 @@ namespace Boucher_Double_Back_End.Models.Manager
                 using MySqlConnection connexion = Connexion.getConnexion();
                 using MySqlCommand command = new();
                 command.Connection = connexion;
-                command.CommandText = "UPDATE sellout SET id_person=@id_person, receipt_date=@receipt_date,livraison_date=@livraison_date,id_event=@idevent WHERE id=@id AND (SELECT id FROM full_store WHERE id_store=@id_store)=@id_person";
+                command.CommandText = "UPDATE sellout SET receipt_date=@receipt_date,livraison_date=@livraison_date,id_event=@idevent WHERE id=@id AND (SELECT id_store FROM client WHERE id=@id_person)=@id_store";
                 command.Parameters.AddWithValue("@id_person", entity.Client.Id);
                 command.Parameters.AddWithValue("@receipt_date", entity.ReceiptDate);
                 command.Parameters.AddWithValue("@livraison_date", entity.SelloutDate);
@@ -299,14 +299,13 @@ namespace Boucher_Double_Back_End.Models.Manager
                 {
                     foreach (SelloutLine line in entity.BuyedProducts)
                     {
-                        Product product = await new ProductDAO() { User = User, Store = Store }.GetByIdAsync(line.SoldProduct.Id) ;
+                        Product product = line.SoldProduct ;
                         if (product.Category.Store.IdStore == Store.IdStore)
                         {
                             using MySqlConnection connexion1 = Connexion.getConnexion();
                             using MySqlCommand command1 = new();
                             command1.Connection = connexion1;
                             command1.CommandText = "UPDATE concern SET id_product=@id_product, quantity=@quantity WHERE id_sellout=@id_sellout";
-                            command1.Parameters.Clear();
                             command1.Parameters.AddWithValue("@id_sellout", entity.Id);
                             command1.Parameters.AddWithValue("@id_product", product.Id);
                             command1.Parameters.AddWithValue("@quantity", line.Quantity);

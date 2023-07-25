@@ -6,7 +6,7 @@
     <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
         <Grid ColumnDefinitions="auto,auto" RowDefinitions="auto,auto">
             <Label Text="Entrer un numero de télephone :" Grid.Row="0" Grid.Column="0"/>
-            <Entry Text="{Binding Client.PhoneNumber}" Grid.Row="0" Grid.Column="1"/>
+            <Entry Text="{Binding Client.PhoneNumber}" Grid.Row="0" Grid.Column="1" Keyboard="Telephone"/>
             <Button Text="Valider" Clicked="OnValidateAsync" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"/>
         </Grid>
     </VerticalStackLayout>

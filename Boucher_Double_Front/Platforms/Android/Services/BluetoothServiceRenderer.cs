@@ -15,12 +15,69 @@ namespace Boucher_Double_Front.Platforms.Android.Services
 
     class BluetoothServiceRenderer : IPrintService
     {
-        public IList<string> GetDeviceList()
+        public async Task<IList<string>> GetDeviceList()
         {
-            using (BluetoothAdapter bluetoothAdapter = BluetoothAdapter.DefaultAdapter)
+            try
             {
-                var btdevice = bluetoothAdapter?.BondedDevices.Select(i => i.Name).ToList();
-                return btdevice;
+                using (BluetoothAdapter bluetoothAdapter = BluetoothAdapter.DefaultAdapter)
+                {
+                    if (await CheckBluetoothStatus())
+                    {
+                        var btdevice = bluetoothAdapter?.BondedDevices.Select(i => i.Name).ToList();
+                        return btdevice;
+                    }
+                    else
+                        return default;
+                }
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e);
+                return default;
+            }
+        }
+
+        private async Task<bool> CheckBluetoothStatus()
+        {
+            try
+            {
+                if (DeviceInfo.Version.Major < 12)
+                {
+                    var status = PermissionStatus.Unknown;
+                    status = await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>();
+                    if (status == PermissionStatus.Granted)
+                    {
+                        return true;
+                    }
+                    if (Permissions.ShouldShowRationale<Permissions.LocationWhenInUse>())
+                    {
+                        await Shell.Current.DisplayAlert("Permission d'accéder au bluetooth", "Permission nécessaire pour imprimer la facture", "Ok");
+                    }
+
+                    status = await Permissions.RequestAsync<Permissions.LocationWhenInUse>();
+                    return status == PermissionStatus.Granted;
+                }
+                else
+                {
+                    var status = PermissionStatus.Unknown;
+                    status = await Permissions.CheckStatusAsync<BluetoothPermissions>();
+                    if (status == PermissionStatus.Granted)
+                    {
+                        return true;
+                    }
+                    if (Permissions.ShouldShowRationale<BluetoothPermissions>())
+                    {
+                        await Shell.Current.DisplayAlert("Permission d'accéder au bluetooth", "Permission nécessaire pour imprimer la facture", "Ok");
+                    }
+
+                    status = await Permissions.RequestAsync<BluetoothPermissions>();
+                    return status == PermissionStatus.Granted;
+                }
+            }
+            catch (Exception ex)
+            {
+                // logger.LogError(ex);
+                return false;
             }
         }
 

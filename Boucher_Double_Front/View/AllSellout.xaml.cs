@@ -36,8 +36,8 @@ namespace Boucher_Double_Front.View
             if (response.IsSuccessStatusCode && bool.Parse(jsonresult))
             {
                 model.AwaitingSellouts.Remove(sellout);
-                BindingContext = null;
-                BindingContext = model;
+                allSellout.ItemsSource = null;
+                allSellout.ItemsSource = model.AwaitingSellouts;
             }
             else
                 await Shell.Current.DisplayAlert("Erreur", "Erreur de connexion avec le serveur", "Ok");

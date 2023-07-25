@@ -60,6 +60,9 @@ namespace Boucher_Double_Back_End.Controllers
                         case Type type when type == typeof(Menu):
                             daoInstance=new MenuDAO() as IDAO<T>; 
                             break;
+                        case Type type when type == typeof(Event):
+                            daoInstance=new EventDAO() as IDAO<T>;
+                            break;
                         default:
                             return null;
                     }

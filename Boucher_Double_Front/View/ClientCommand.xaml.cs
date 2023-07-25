@@ -22,8 +22,16 @@ namespace Boucher_Double_Front.View
         public ClientCommand()
         {
             InitializeComponent();
+            Task.Run(async () => await model.GetAllEventAsync()).Wait();
             BindingContext = model;
             allSoldProduct.ItemsSource = model.Lines;
+        }
+
+        protected override async void OnDisappearing()
+        {
+            base.OnDisappearing();
+            BindingContext = null;
+            Shell.Current.Navigation.RemovePage(this);
         }
 
         public void OnDelete(object sender,EventArgs args)
@@ -32,7 +40,18 @@ namespace Boucher_Double_Front.View
             SelloutLine line = button.CommandParameter as SelloutLine;
             model.Lines.Remove(line);
         }
-
+        public async void PickerSelectedIndexChanged(object sender,EventArgs args)
+        {
+            App app = Application.Current as App;
+            if (EventPicker.SelectedIndex >= 1)
+            {
+                app.ActivCommand.Event = EventPicker.SelectedItem as Event;
+            }
+            else
+            {
+                app.ActivCommand.Event = null;
+            }
+        }
         protected override async void OnAppearing()
         {
             App app = Application.Current as App;

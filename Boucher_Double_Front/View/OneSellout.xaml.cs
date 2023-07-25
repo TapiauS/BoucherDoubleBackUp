@@ -14,6 +14,10 @@ using MimeKit;
 using MailKit.Security;
 using MailKit.Net.Smtp;
 using Boucher_Double_Front.Services;
+using Microsoft.Maui.ApplicationModel.Communication;
+using System.Net.Mail;
+
+
 
 namespace Boucher_Double_Front.View
 {
@@ -24,46 +28,40 @@ namespace Boucher_Double_Front.View
         public OneSellout()
         {
             InitializeComponent();
-            try
+            App appInstance = Application.Current as App;
+            Sellout sellout = appInstance.ActivCommand;
+            BillParameter billParameter=appInstance.BillParameter;
+            int totalWidth = 60; // Définissez la largeur totale de la facture
+            string invoiceNumber = $"n° de facture: {sellout.Id}";
+            string centeredInvoiceNumber = invoiceNumber.PadLeft(invoiceNumber.Length/2 + totalWidth);
+            string boughtItems = string.Join("\n", sellout.BuyedProducts.Select(p => $"{p.SoldProduct.Name} Quantité: {p.Quantity} Prix:{p.SoldProduct.Price.GetPrice()} ({p.SoldProduct.Price.GetPrice() * p.Quantity})"));
+            decimal total=0;
+            foreach(var item in sellout.BuyedProducts)
             {
-                
-                App appInstance = Application.Current as App;
-                Sellout sellout = appInstance.ActivCommand;
-                BillParameter billParameter=appInstance.BillParameter;
-                int totalWidth = 60; // Définissez la largeur totale de la facture
-                string invoiceNumber = $"n° de facture: {sellout.Id}";
-                string centeredInvoiceNumber = invoiceNumber.PadLeft(invoiceNumber.Length/2 + totalWidth);
-                string boughtItems = string.Join("\n", sellout.BuyedProducts.Select(p => $"{p.SoldProduct.Name} Quantité: {p.Quantity} Prix:{p.SoldProduct.Price.GetPrice()} ({p.SoldProduct.Price.GetPrice() * p.Quantity})"));
-                decimal total=0;
-                foreach(var item in sellout.BuyedProducts)
-                {
-                    total += item.SoldProduct.Price.GetPrice() * item.Quantity;
-                }
-                Bill = $"{centeredInvoiceNumber}\n" +
-                            $"------------------------------------------------\n" +
-                            $"{sellout.SelloutDate.ToString("dd/MM/yyyy")}\n" +
-                            $"------------------------------------------------\n" +
-                            $"{sellout.Client.Name.ToUpper()} {sellout.Client.Surname.ToUpper()} n°tel: {sellout.Client.PhoneNumber}\n" +
-                            $"Mail: {sellout.Client.Mail} Crée le : {sellout.ReceiptDate.ToString("dd/MM/yyyy")}\n" +
-                            $"------------------------------------------------\n" +
-                            $"\n{boughtItems}\n" +
-                            $"------------------------------------------------\n" +
-                            $"{billParameter.Foot}\n" +
-                            $"Mention spéciale: {billParameter.SpecialMention}\n" +
-                            $"Total :{total} €\n" +
-                            $"Mention: {billParameter.Mention}\n";
-                BindingContext = this;
+                total += item.SoldProduct.Price.GetPrice() * item.Quantity;
             }
-            catch(Exception ex) 
-            {
-                Console.WriteLine(ex.Message);
-            }
+            Bill = $"{centeredInvoiceNumber}\n" +
+                        $"------------------------------------------------\n" +
+                        $"{sellout.SelloutDate.ToString("dd/MM/yyyy")}\n" +
+                        $"------------------------------------------------\n" +
+                        $"{sellout.Client.Name.ToUpper()} {sellout.Client.Surname.ToUpper()} n°tel: {sellout.Client.PhoneNumber}\n" +
+                        $"Mail: {sellout.Client.Mail} Crée le : {sellout.ReceiptDate.ToString("dd/MM/yyyy")}\n" +
+                        $"------------------------------------------------\n" +
+                        $"\n{boughtItems}\n" +
+                        $"------------------------------------------------\n" +
+                        $"{billParameter.Foot}\n" +
+                        $"Mention spéciale: {billParameter.SpecialMention}\n" +
+                        $"Total :{total} €\n" +
+                        $"Mention: {billParameter.Mention}\n";
+            BindingContext = this;
+            GetDeviceList();
+
         }
 
-        public void GetDeviceList()
+        public async void GetDeviceList()
         {
             IPrintService printService=DependencyService.Get<IPrintService>();
-            BlueToothPicker.ItemsSource = printService.GetDeviceList().ToList();
+            BlueToothPicker.ItemsSource = (await printService.GetDeviceList()).ToList();
         }
 
 
@@ -83,14 +81,14 @@ namespace Boucher_Double_Front.View
                                   $"{Bill}\n" +
                                   $"{app.MailParameter.MailFoot}";
                     var email = new MimeMessage();
-                    email.From.Add(app.MailAccessParameter.Login == null || app.MailAccessParameter.Login == ""?MailboxAddress.Parse(fromEmail): MailboxAddress.Parse(app.MailAccessParameter.Login));
+                    email.From.Add(app.MailAccessParameter.Login == null || app.MailAccessParameter.Login == "" ? MailboxAddress.Parse(fromEmail) : MailboxAddress.Parse(app.MailAccessParameter.Login));
                     email.To.Add(MailboxAddress.Parse(toEmail));
                     email.Subject = subject;
                     email.Body = new TextPart(TextFormat.Plain) { Text = body };
-
-                    var smtp = new SmtpClient();
-                    smtp.Connect(app.MailAccessParameter.Server, app.MailAccessParameter.Port, app.MailAccessParameter.ConnexionType == null? SecureSocketOptions.StartTls: (SecureSocketOptions)app.MailAccessParameter.ConnexionType);
-                    smtp.Authenticate(app.MailAccessParameter.Login == null || app.MailAccessParameter.Login == ""?fromEmail: app.MailAccessParameter.Login, password);
+                    var smtp = new MailKit.Net.Smtp.SmtpClient();
+                    smtp.ServerCertificateValidationCallback = (s, c, h, e) => true;
+                    smtp.Connect(app.MailAccessParameter.Server,app.MailAccessParameter.Port,app.MailAccessParameter.ConnexionType == null ? SecureSocketOptions.StartTls : (SecureSocketOptions)app.MailAccessParameter.ConnexionType);
+                    smtp.Authenticate(app.MailAccessParameter.Login == null || app.MailAccessParameter.Login == "" ? fromEmail : app.MailAccessParameter.Login, password);
                     smtp.Send(email);
                     smtp.Disconnect(true);
                     smtp.Dispose();

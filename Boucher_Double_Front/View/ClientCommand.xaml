@@ -5,9 +5,11 @@
              BackgroundColor="Gray">
     <ContentPage.Content>
         <StackLayout>
-            <Grid RowDefinitions="*,auto,auto" VerticalOptions="FillAndExpand">
+            <Grid RowDefinitions="auto,*,auto,auto" VerticalOptions="FillAndExpand">
+                <Picker x:Name="EventPicker" Grid.Row="0" ItemsSource="{Binding CompatibleEvents}" SelectedIndexChanged="PickerSelectedIndexChanged" 
+            ItemDisplayBinding="{Binding Name}"/>
                 <CollectionView x:Name="allSoldProduct"
-                        SelectionMode="Single" Grid.Row="0">
+                        SelectionMode="Single" Grid.Row="1">
                     <CollectionView.ItemsLayout>
                         <GridItemsLayout Orientation="Vertical"/>
                     </CollectionView.ItemsLayout>
@@ -23,8 +25,8 @@
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
-                <Button Text="Nouveau Produit" Grid.Row="1" Clicked="NewProductAsync"/>
-                <Button Text="Finaliser la Commande" Grid.Row="2"  Clicked="OnValidateAsync"/>
+                <Button Text="Nouveau Produit" Grid.Row="2" Clicked="NewProductAsync"/>
+                <Button Text="Finaliser la Commande" Grid.Row="3"  Clicked="OnValidateAsync"/>
             </Grid>
         </StackLayout>
     </ContentPage.Content>

@@ -14,7 +14,12 @@ namespace Boucher_Double_Front.View
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Parameter : ContentPage
     {
-
+        protected override async void OnDisappearing()
+        {
+            base.OnDisappearing();
+            BindingContext = null;
+            Shell.Current.Navigation.RemovePage(this);
+        }
         public bool ClientSafe 
         { 
             get

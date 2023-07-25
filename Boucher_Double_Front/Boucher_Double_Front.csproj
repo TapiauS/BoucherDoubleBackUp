@@ -104,6 +104,9 @@
 	  <MauiXaml Update="View\DataBaseManager.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="View\EventManager.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="View\Home.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

@@ -38,5 +38,6 @@
         <ShellContent Title="Paramétres" ContentTemplate="{DataTemplate view:Parameter}" Shell.BackgroundColor="Gray" IsVisible="{Binding IsAdmin}"/>
         <ShellContent Title="Gerer les clients" ContentTemplate="{DataTemplate view:AllClient}" IsVisible="{Binding IsAdmin}" Shell.BackgroundColor="Gray"/>
         <ShellContent Title="Ajouter un utilisateur" ContentTemplate="{DataTemplate view:AddUser}" IsVisible="{Binding IsAdmin}" Shell.BackgroundColor="Gray"/>
+        <ShellContent Title="Gérer les évenements" ContentTemplate="{DataTemplate view:EventManager}" Shell.BackgroundColor="Gray"/>
     </FlyoutItem>
 </Shell>

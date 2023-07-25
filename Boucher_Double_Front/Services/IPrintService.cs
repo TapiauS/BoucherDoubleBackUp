@@ -8,7 +8,7 @@ namespace Boucher_Double_Front.Services
 {
     public interface IPrintService
     {
-        IList<string> GetDeviceList();
+        Task<IList<string>> GetDeviceList();
         Task Print(string deviceName, string text);
     }
 }

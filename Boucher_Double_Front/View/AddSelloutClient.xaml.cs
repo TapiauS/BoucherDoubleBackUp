@@ -13,14 +13,7 @@ namespace Boucher_Double_Front.View
         public AddSelloutClient()
         {
             App appCurrent = Application.Current as App;
-            if (appCurrent.ActivCommand!=null&&appCurrent.ActivCommand.Id != 0)
-            {
-                model.Client = appCurrent.ActivCommand.Client;
-                model.Sellout = appCurrent.ActivCommand;
-            }
-
             model.Sellout = new Sellout() { Client = model.Client, ReceiptDate = DateTime.Now, SelloutDate=DateTime.Now,Store=appCurrent.User.Store };
-
             InitializeComponent();
             BindingContext = model;
         }
