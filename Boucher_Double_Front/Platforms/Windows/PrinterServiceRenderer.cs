@@ -10,7 +10,7 @@ namespace Boucher_Double_Front.Platforms.Windows
 { 
     public class PrinterServiceRenderer : IPrintService
     {
-        public IList<string> GetDeviceList()
+        public async Task<IList<string>> GetDeviceList()
         {
             return default;
         }

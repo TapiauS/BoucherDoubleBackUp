@@ -137,6 +137,9 @@
 	  <MauiXaml Update="View\ProductManager.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="View\RecapTableView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="View\RestaurantInfo.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

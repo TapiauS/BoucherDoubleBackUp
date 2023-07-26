@@ -6,10 +6,17 @@
        Title="Boucher_Double_Front"
        x:Class="Boucher_Double_Front.AppShell"
        BackgroundColor="Green"
-       Shell.TabBarTitleColor="Gray"
-       Shell.BackgroundColor="Gray"
+       Shell.TabBarTitleColor="{StaticResource ShellColor}"
+       Shell.TabBarBackgroundColor="{StaticResource ShellColor}"
+       Shell.BackgroundColor="{StaticResource BackgroundColor}"
        Shell.TabBarIsVisible="False"
        Shell.NavBarIsVisible="False">
+    <Shell.Resources>
+        <ResourceDictionary>
+            <Color x:Key="BackgroundColor">Blue</Color>
+            <Color x:Key="ShellColor">Grey</Color>
+        </ResourceDictionary>
+    </Shell.Resources>
     <Shell.BackButtonBehavior>
         <BackButtonBehavior IsEnabled="False" IsVisible="False"/>
     </Shell.BackButtonBehavior>
@@ -24,20 +31,21 @@
         </DataTemplate>
     </Shell.FlyoutHeaderTemplate>
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
-        <ShellContent Title="Accueil" ContentTemplate="{DataTemplate view:Home}" Shell.BackgroundColor="Gray"/>
-        <ShellContent Title="Paramétrer l'envoi de mail" ContentTemplate="{DataTemplate view:MailParameter}" Shell.BackgroundColor="Gray"/>
-        <ShellContent Title="Paramétrer la facture" ContentTemplate="{DataTemplate view:BillManager}" Shell.BackgroundColor="Gray"/>
-        <ShellContent Title="Ajouter un utilisateur" ContentTemplate="{DataTemplate view:AddUser}" IsVisible="{Binding IsAdmin}" Shell.BackgroundColor="Gray"/>
-        <ShellContent Title="Gestion des commandes" ContentTemplate="{DataTemplate view:AllSellout}" Shell.BackgroundColor="Gray"/>
-        <ShellContent Title="Gestion de la carte" ContentTemplate="{DataTemplate view:AllCategoryList}" Shell.BackgroundColor="Gray"/>
-        <ShellContent Title="Nouvelle Commande" ContentTemplate="{DataTemplate view:AddClientPhone}" Shell.BackgroundColor="Gray"/>
-        <ShellContent Title="Finir la commande en cours" ContentTemplate="{DataTemplate view:ClientCommand}" Shell.BackgroundColor="Gray"/>
-        <ShellContent Title="Magasin" ContentTemplate="{DataTemplate view:RestaurantInfo}" Shell.BackgroundColor="Gray" IsVisible="{Binding IsAdmin}"/>
-        <ShellContent Title="Modifier son compte" ContentTemplate="{DataTemplate view:LogView}" IsVisible="{Binding IsAdmin}" Shell.BackgroundColor="Gray"/>
-        <ShellContent Title="Gerer l'accés au mail" ContentTemplate="{DataTemplate view:MailAccessParameter}" IsVisible="{Binding IsAdmin}" Shell.BackgroundColor="Gray"/>
-        <ShellContent Title="Paramétres" ContentTemplate="{DataTemplate view:Parameter}" Shell.BackgroundColor="Gray" IsVisible="{Binding IsAdmin}"/>
-        <ShellContent Title="Gerer les clients" ContentTemplate="{DataTemplate view:AllClient}" IsVisible="{Binding IsAdmin}" Shell.BackgroundColor="Gray"/>
-        <ShellContent Title="Ajouter un utilisateur" ContentTemplate="{DataTemplate view:AddUser}" IsVisible="{Binding IsAdmin}" Shell.BackgroundColor="Gray"/>
-        <ShellContent Title="Gérer les évenements" ContentTemplate="{DataTemplate view:EventManager}" Shell.BackgroundColor="Gray"/>
+        <ShellContent Title="Accueil" ContentTemplate="{DataTemplate view:Home}" Shell.BackgroundColor="{StaticResource ShellColor}"/>
+        <ShellContent Title="Paramétrer l'envoi de mail" ContentTemplate="{DataTemplate view:MailParameter}" Shell.BackgroundColor="{StaticResource ShellColor}"/>
+        <ShellContent Title="Paramétrer la facture" ContentTemplate="{DataTemplate view:BillManager}" Shell.BackgroundColor="{StaticResource ShellColor}"/>
+        <ShellContent Title="Ajouter un utilisateur" ContentTemplate="{DataTemplate view:AddUser}" IsVisible="{Binding IsAdmin}" Shell.BackgroundColor="{StaticResource ShellColor}"/>
+        <ShellContent Title="Gestion des commandes" ContentTemplate="{DataTemplate view:AllSellout}" Shell.BackgroundColor="{StaticResource ShellColor}"/>
+        <ShellContent Title="Gestion de la carte" ContentTemplate="{DataTemplate view:AllCategoryList}" Shell.BackgroundColor="{StaticResource ShellColor}"/>
+        <ShellContent Title="Nouvelle Commande" ContentTemplate="{DataTemplate view:AddClientPhone}" Shell.BackgroundColor="{StaticResource ShellColor}"/>
+        <ShellContent Title="Finir la commande en cours" ContentTemplate="{DataTemplate view:ClientCommand}" Shell.BackgroundColor="{StaticResource ShellColor}"/>
+        <ShellContent Title="Magasin" ContentTemplate="{DataTemplate view:RestaurantInfo}" Shell.BackgroundColor="{StaticResource ShellColor}" IsVisible="{Binding IsAdmin}"/>
+        <ShellContent Title="Modifier son compte" ContentTemplate="{DataTemplate view:LogView}" IsVisible="{Binding IsAdmin}" Shell.BackgroundColor="{StaticResource ShellColor}"/>
+        <ShellContent Title="Gerer l'accés au mail" ContentTemplate="{DataTemplate view:MailAccessParameter}" IsVisible="{Binding IsAdmin}" Shell.BackgroundColor="{StaticResource ShellColor}"/>
+        <ShellContent Title="Paramétres" ContentTemplate="{DataTemplate view:Parameter}" Shell.BackgroundColor="{StaticResource ShellColor}" IsVisible="{Binding IsAdmin}"/>
+        <ShellContent Title="Gerer les clients" ContentTemplate="{DataTemplate view:AllClient}" IsVisible="{Binding IsAdmin}" Shell.BackgroundColor="{StaticResource ShellColor}"/>
+        <ShellContent Title="Ajouter un utilisateur" ContentTemplate="{DataTemplate view:AddUser}" IsVisible="{Binding IsAdmin}" Shell.BackgroundColor="{StaticResource ShellColor}"/>
+        <ShellContent Title="Gérer les évenements" ContentTemplate="{DataTemplate view:EventManager}" Shell.BackgroundColor="{StaticResource ShellColor}"/>
+        <ShellContent Title="Tableau récapitulatif" ContentTemplate="{DataTemplate view:RecapTableView}" Shell.BackgroundColor="{StaticResource ShellColor}"/>
     </FlyoutItem>
 </Shell>
