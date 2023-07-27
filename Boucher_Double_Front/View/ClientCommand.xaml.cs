@@ -22,9 +22,7 @@ namespace Boucher_Double_Front.View
         public ClientCommand()
         {
             InitializeComponent();
-            Task.Run(async () => await model.GetAllEventAsync()).Wait();
-            BindingContext = model;
-            allSoldProduct.ItemsSource = model.Lines;
+
         }
 
         protected override async void OnDisappearing()
@@ -56,7 +54,12 @@ namespace Boucher_Double_Front.View
         {
             App app = Application.Current as App;
             if (app.ActivCommand != null)
+            {
+                Task.Run(async () => await model.GetAllEventAsync()).Wait();
+                BindingContext = model;
+                allSoldProduct.ItemsSource = model.Lines;
                 base.OnAppearing();
+            }
             else
             {
                 await Shell.Current.DisplayAlert("Erreur de commande", "Aucune commande active", "Ok");

@@ -21,6 +21,7 @@ namespace Boucher_Double_Front.View
         FileResult FileResult { get; set; }
         public RestaurantInfo()
         {
+            Resources = StyleDictionnary.GetInstance();
             InitializeComponent();
             BindingContext = this;
         }

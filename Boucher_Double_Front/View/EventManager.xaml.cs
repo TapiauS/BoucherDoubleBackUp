@@ -11,7 +11,8 @@ public partial class EventManager : ContentPage
 	private EventManagerModel model=new();
 	public EventManager()
 	{
-		InitializeComponent();
+        Resources = StyleDictionnary.GetInstance();
+        InitializeComponent();
 		Task.Run(async ()=>await model.GetAllEvent()).Wait();
 		BindingContext = model;
 	}

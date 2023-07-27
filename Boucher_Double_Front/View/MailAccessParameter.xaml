@@ -4,7 +4,7 @@
              xmlns:view="clr-namespace:Boucher_Double_Front.View"
              x:DataType="view:MailAccessParameter"
              x:Class="Boucher_Double_Front.View.MailAccessParameter"
-             BackgroundColor="Gray">
+             BackgroundColor="{DynamicResource BackgroundColor}">
     <ContentPage.Content>
         <StackLayout>
             <Label x:Name="MailAdress" HorizontalOptions="CenterAndExpand"/>

@@ -19,7 +19,7 @@ namespace Boucher_Double_Front.View
         private MailParameterModel model=new();
         public MailParameter()
         {
-
+            Resources = StyleDictionnary.GetInstance();
             InitializeComponent();
             Task.Run(async () => await model.LoadMailContentParameterAsync()).Wait();
             MailContentPicker.ItemsSource = model.MailParameters;

@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Boucher_Double_Front.View.UpdateClient"
              xmlns:view="clr-namespace:Boucher_Double_Front.View"
-             BackgroundColor="Gray">
+             BackgroundColor="{DynamicResource BackgroundColor}">
   <StackLayout>
         <Grid RowDefinitions="*,*,*,*" ColumnDefinitions="*,*" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
             <Label Text="Nom" Grid.Column="0" Grid.Row="0"/>

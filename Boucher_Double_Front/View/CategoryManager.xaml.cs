@@ -38,6 +38,7 @@ namespace Boucher_Double_Front.View
         } 
         public CategoryManager()
         {
+            Resources = StyleDictionnary.GetInstance();
             InitializeComponent();
             BindingContext = model;
         }

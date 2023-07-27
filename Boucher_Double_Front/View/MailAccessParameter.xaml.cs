@@ -11,6 +11,7 @@ namespace Boucher_Double_Front.View
         public Boucher_DoubleModel.Models.Entitys.MailParameter MailParameter { get; set; }=new() ;
         public MailAccessParameter()
         {
+            Resources = StyleDictionnary.GetInstance();
             InitializeComponent();
             App app=Application.Current as App;
             if(app.MailAccessParameter != null )

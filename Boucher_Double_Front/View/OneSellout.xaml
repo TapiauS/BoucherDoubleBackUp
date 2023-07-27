@@ -4,7 +4,7 @@
              xmlns:view="clr-namespace:Boucher_Double_Front.View" 
              x:DataType="view:OneSellout"
              x:Class="Boucher_Double_Front.View.OneSellout"
-             BackgroundColor="Gray">
+             BackgroundColor="{DynamicResource BackgroundColor}">
     <ContentPage.Content>
         <StackLayout>
             <Label Text="{Binding Bill}"

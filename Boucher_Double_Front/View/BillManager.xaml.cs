@@ -19,6 +19,7 @@ namespace Boucher_Double_Front.View
         private BillManagerModel model=new();
         public BillManager()
         {
+            Resources = StyleDictionnary.GetInstance();
             InitializeComponent();
             Task.Run(async () => await model.GetAllOptionsAsync()).Wait();
             BillPicker.ItemsSource = model.ExistingsOption;

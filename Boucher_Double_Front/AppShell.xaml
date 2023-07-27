@@ -5,24 +5,29 @@
        FlyoutBehavior="Flyout"
        Title="Boucher_Double_Front"
        x:Class="Boucher_Double_Front.AppShell"
-       BackgroundColor="Green"
-       Shell.TabBarTitleColor="{StaticResource ShellColor}"
-       Shell.TabBarBackgroundColor="{StaticResource ShellColor}"
-       Shell.BackgroundColor="{StaticResource BackgroundColor}"
+       FlyoutBackgroundColor="{DynamicResource ShellColor}"
+       BackgroundColor="{DynamicResource ShellColor}"
+       Shell.TabBarTitleColor="{DynamicResource ShellColor}"
+       Shell.TabBarBackgroundColor="{DynamicResource ShellColor}"
        Shell.TabBarIsVisible="False"
        Shell.NavBarIsVisible="False">
     <Shell.Resources>
         <ResourceDictionary>
-            <Color x:Key="BackgroundColor">Blue</Color>
-            <Color x:Key="ShellColor">Grey</Color>
         </ResourceDictionary>
+        <Style TargetType="Layout"
+       Class="FlyoutItemLayoutStyle"
+       ApplyToDerivedTypes="True">
+            <Setter Property="BackgroundColor"
+            Value="{DynamicResource ShellColor}" />
+        </Style>
     </Shell.Resources>
+    
     <Shell.BackButtonBehavior>
         <BackButtonBehavior IsEnabled="False" IsVisible="False"/>
     </Shell.BackButtonBehavior>
     <Shell.FlyoutHeaderTemplate>
         <DataTemplate>
-            <Grid BackgroundColor="Black"
+            <Grid 
                   HeightRequest="200">
                 <Image Aspect="AspectFill"
                        Source="{Binding StoreImage}"
@@ -30,22 +35,67 @@
             </Grid>
         </DataTemplate>
     </Shell.FlyoutHeaderTemplate>
-    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
-        <ShellContent Title="Accueil" ContentTemplate="{DataTemplate view:Home}" Shell.BackgroundColor="{StaticResource ShellColor}"/>
-        <ShellContent Title="Paramétrer l'envoi de mail" ContentTemplate="{DataTemplate view:MailParameter}" Shell.BackgroundColor="{StaticResource ShellColor}"/>
-        <ShellContent Title="Paramétrer la facture" ContentTemplate="{DataTemplate view:BillManager}" Shell.BackgroundColor="{StaticResource ShellColor}"/>
-        <ShellContent Title="Ajouter un utilisateur" ContentTemplate="{DataTemplate view:AddUser}" IsVisible="{Binding IsAdmin}" Shell.BackgroundColor="{StaticResource ShellColor}"/>
-        <ShellContent Title="Gestion des commandes" ContentTemplate="{DataTemplate view:AllSellout}" Shell.BackgroundColor="{StaticResource ShellColor}"/>
-        <ShellContent Title="Gestion de la carte" ContentTemplate="{DataTemplate view:AllCategoryList}" Shell.BackgroundColor="{StaticResource ShellColor}"/>
-        <ShellContent Title="Nouvelle Commande" ContentTemplate="{DataTemplate view:AddClientPhone}" Shell.BackgroundColor="{StaticResource ShellColor}"/>
-        <ShellContent Title="Finir la commande en cours" ContentTemplate="{DataTemplate view:ClientCommand}" Shell.BackgroundColor="{StaticResource ShellColor}"/>
-        <ShellContent Title="Magasin" ContentTemplate="{DataTemplate view:RestaurantInfo}" Shell.BackgroundColor="{StaticResource ShellColor}" IsVisible="{Binding IsAdmin}"/>
-        <ShellContent Title="Modifier son compte" ContentTemplate="{DataTemplate view:LogView}" IsVisible="{Binding IsAdmin}" Shell.BackgroundColor="{StaticResource ShellColor}"/>
-        <ShellContent Title="Gerer l'accés au mail" ContentTemplate="{DataTemplate view:MailAccessParameter}" IsVisible="{Binding IsAdmin}" Shell.BackgroundColor="{StaticResource ShellColor}"/>
-        <ShellContent Title="Paramétres" ContentTemplate="{DataTemplate view:Parameter}" Shell.BackgroundColor="{StaticResource ShellColor}" IsVisible="{Binding IsAdmin}"/>
-        <ShellContent Title="Gerer les clients" ContentTemplate="{DataTemplate view:AllClient}" IsVisible="{Binding IsAdmin}" Shell.BackgroundColor="{StaticResource ShellColor}"/>
-        <ShellContent Title="Ajouter un utilisateur" ContentTemplate="{DataTemplate view:AddUser}" IsVisible="{Binding IsAdmin}" Shell.BackgroundColor="{StaticResource ShellColor}"/>
-        <ShellContent Title="Gérer les évenements" ContentTemplate="{DataTemplate view:EventManager}" Shell.BackgroundColor="{StaticResource ShellColor}"/>
-        <ShellContent Title="Tableau récapitulatif" ContentTemplate="{DataTemplate view:RecapTableView}" Shell.BackgroundColor="{StaticResource ShellColor}"/>
+    <FlyoutItem Title="Accueil" Shell.BackgroundColor="Transparent" >
+        <ShellContent Title="Accueil" ContentTemplate="{DataTemplate view:Home}" Shell.BackgroundColor="Transparent"  />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Paramétrer l'envoi de mail" Shell.BackgroundColor="Transparent">
+        <ShellContent Title="Paramétrer l'envoi de mail" ContentTemplate="{DataTemplate view:MailParameter}" Shell.BackgroundColor="Transparent" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Paramétrer la facture" Shell.BackgroundColor="Transparent">
+        <ShellContent Title="Paramétrer la facture" ContentTemplate="{DataTemplate view:BillManager}" Shell.BackgroundColor="Transparent" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Ajouter un utilisateur" Shell.BackgroundColor="Transparent">
+        <ShellContent Title="Ajouter un utilisateur" ContentTemplate="{DataTemplate view:AddUser}" IsVisible="{Binding IsAdmin}" Shell.BackgroundColor="Transparent" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Gestion des commandes" Shell.BackgroundColor="Transparent">
+        <ShellContent Title="Gestion des commandes" ContentTemplate="{DataTemplate view:AllSellout}" Shell.BackgroundColor="Transparent" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Gestion de la carte" Shell.BackgroundColor="Transparent">
+        <ShellContent Title="Gestion de la carte" ContentTemplate="{DataTemplate view:AllCategoryList}" Shell.BackgroundColor="Transparent" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Nouvelle Commande" Shell.BackgroundColor="Transparent">
+        <ShellContent Title="Nouvelle Commande" ContentTemplate="{DataTemplate view:AddClientPhone}" Shell.BackgroundColor="Transparent" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Finir la commande en cours" Shell.BackgroundColor="Transparent">
+        <ShellContent Title="Finir la commande en cours" ContentTemplate="{DataTemplate view:ClientCommand}" Shell.BackgroundColor="Transparent" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Magasin" Shell.BackgroundColor="Transparent">
+        <ShellContent Title="Magasin" ContentTemplate="{DataTemplate view:RestaurantInfo}" IsVisible="{Binding IsAdmin}" Shell.BackgroundColor="Transparent" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Modifier son compte" Shell.BackgroundColor="Transparent">
+        <ShellContent Title="Modifier son compte" ContentTemplate="{DataTemplate view:LogView}" IsVisible="{Binding IsAdmin}" Shell.BackgroundColor="Transparent" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Gerer l'accés au mail" Shell.BackgroundColor="Transparent">
+        <ShellContent Title="Gerer l'accés au mail" ContentTemplate="{DataTemplate view:MailAccessParameter}" IsVisible="{Binding IsAdmin}" Shell.BackgroundColor="Transparent" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Paramétres" Shell.BackgroundColor="Transparent">
+        <ShellContent Title="Paramétres" ContentTemplate="{DataTemplate view:Parameter}" IsVisible="{Binding IsAdmin}" Shell.BackgroundColor="Transparent" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Gerer les clients" Shell.BackgroundColor="Transparent">
+        <ShellContent Title="Gerer les clients" ContentTemplate="{DataTemplate view:AllClient}" IsVisible="{Binding IsAdmin}" Shell.BackgroundColor="Transparent" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Ajouter un utilisateur" Shell.BackgroundColor="Transparent">
+        <ShellContent Title="Ajouter un utilisateur" ContentTemplate="{DataTemplate view:AddUser}" IsVisible="{Binding IsAdmin}" Shell.BackgroundColor="Transparent" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Gérer les évenements" Shell.BackgroundColor="Transparent">
+        <ShellContent Title="Gérer les évenements" ContentTemplate="{DataTemplate view:EventManager}" Shell.BackgroundColor="Transparent" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Tableau récapitulatif" Shell.BackgroundColor="Transparent">
+        <ShellContent Title="Tableau récapitulatif" ContentTemplate="{DataTemplate view:RecapTableView}" Shell.BackgroundColor="Transparent" />
     </FlyoutItem>
 </Shell>

@@ -1,13 +1,5 @@
-﻿using Boucher_DoubleModel.Models.Entitys;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
-
-using Microsoft.Maui;
-using Microsoft.Maui.Controls.Xaml;
+﻿
+using System.Reflection;
 
 namespace Boucher_Double_Front.View
 {
@@ -17,9 +9,12 @@ namespace Boucher_Double_Front.View
         protected override async void OnDisappearing()
         {
             base.OnDisappearing();
+            App app = Application.Current as App;
+            app.DatabaseHelper.SaveTheme(app.Theme);
             BindingContext = null;
             Shell.Current.Navigation.RemovePage(this);
         }
+        private Dictionary<string, object> colorMap = new();
         public bool ClientSafe 
         { 
             get
@@ -35,7 +30,17 @@ namespace Boucher_Double_Front.View
         }
         public Parameter()
         {
+            Resources = StyleDictionnary.GetInstance();
             InitializeComponent();
+            const BindingFlags flags = BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic;
+            foreach (var field in typeof(Colors).GetFields(flags))
+            {
+                colorMap[field.Name] = field.GetValue(null);
+            }
+            BackgroundColorPicker.ItemsSource= colorMap.Keys.ToList();
+            ShellColorPicker.ItemsSource = colorMap.Keys.ToList();
+            ButtonColorPicker.ItemsSource = colorMap.Keys.ToList();
+            TextColorPicker.ItemsSource = colorMap.Keys.ToList();
             BindingContext = this;
         }
 
@@ -57,7 +62,38 @@ namespace Boucher_Double_Front.View
                 }
             }
         }
+        public void OnBackgroundChanged(object sender, EventArgs e)
+        {
+            App app = Application.Current as App;
+            Color color = colorMap[(string)BackgroundColorPicker.SelectedItem] as Color;
 
+            app.Theme.BackgroundColorHexCode=color.ToArgbHex();
+            Resources["BackgroundColor"] = color;
+        }
+
+        public void OnTextColorChanged(object sender, EventArgs e)
+        {
+            App app = Application.Current as App;
+            Color color = colorMap[(string)TextColorPicker.SelectedItem] as Color;
+            (Resources as StyleDictionnary).TextColor = color;
+            Resources = null;
+            Resources = StyleDictionnary.GetInstance();
+            app.Theme.TextColorHexCode = color.ToArgbHex();
+        }
+        public void OnButtonColorChanged(object sender, EventArgs e)
+        {
+            App app = Application.Current as App;
+            Color color = colorMap[(string)ButtonColorPicker.SelectedItem] as Color;
+            Resources["ButtonColor"] = color;
+            app.Theme.ButtonColorHexCode = color.ToArgbHex();
+        }
+        public void OnShellColorChanged(object sender, EventArgs e)
+        {
+            App app = Application.Current as App;
+            Color color = colorMap[(string)ShellColorPicker.SelectedItem] as Color;
+            Resources["ShellColor"] = color;
+            app.Theme.ShellColorHexCode = color.ToArgbHex();
+        }
         public async void OnDisconnectAsync(object sender,EventArgs args)
         {
             bool choice=await Shell.Current.DisplayAlert("Confirmation", "Voulez vous vraiment vous deconnecter?", "Oui", "Non");

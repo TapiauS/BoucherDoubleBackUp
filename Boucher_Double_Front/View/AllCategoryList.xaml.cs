@@ -32,6 +32,7 @@ namespace Boucher_Double_Front.View
 
         public AllCategoryList()
         {
+            Resources = StyleDictionnary.GetInstance();
             InitializeComponent();
             BindingContext = model;
         }

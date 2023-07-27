@@ -24,6 +24,7 @@ namespace Boucher_Double_Front.View
             if (appInstance.User == null)
             {
                 User = new User() { Login = "Placeholder", Password = "Placeholder" };
+                Resources = StyleDictionnary.GetInstance();
                 InitializeComponent();
                 BindingContext = this;
             }

@@ -4,7 +4,7 @@
              xmlns:view="clr-namespace:Boucher_Double_Front.View" 
              xmlns:ViewModels="clr-namespace:Boucher_Double_Front.ViewModel"
              x:Class="Boucher_Double_Front.View.AddSelloutClient"
-             BackgroundColor="Gray">
+             BackgroundColor="{DynamicResource BackgroundColor}">
     <ContentPage.Content>
         <StackLayout>
             <Grid RowDefinitions="*,*,*,*,*" ColumnDefinitions="*,*" Grid.Row="1" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">

@@ -19,6 +19,7 @@ namespace Boucher_Double_Front.View
         public AllClientModel model = new();
         public AllClient()
         {
+            Resources = StyleDictionnary.GetInstance();
             InitializeComponent();
             Task.Run(async ()=>await model.GetAllClientAsync()).Wait();
             allClient.ItemsSource = model.Clients;

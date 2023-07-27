@@ -1,13 +1,5 @@
 ﻿using Boucher_Double_Front.View;
 using Boucher_DoubleModel.Models.Entitys;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Microsoft.Maui;
-using Microsoft.Maui.Controls.Xaml;
 using MailParameter = Boucher_Double_Front.View.MailParameter;
 
 namespace Boucher_Double_Front
@@ -17,27 +9,8 @@ namespace Boucher_Double_Front
     {
         public  User User { get; set; } = new User();
         public  Store Store { get; set; } = new Store();
-        private Color backGroundColor;
-        public Color BackGroundColor 
-        { 
-            get=>backGroundColor;
-            set 
-            {
-                backGroundColor = value;
-                this.Resources["BackgroundColor"] = value;
-            }
-        }
 
-        private Color shellColor;
-        public Color ShellColor
-        {
-            get=> shellColor;
-            set
-            {
-                shellColor = value;
-                Resources["ShellColor"] = value;
-            }
-        }
+
         public string StoreImage
         {
             get
@@ -51,8 +24,7 @@ namespace Boucher_Double_Front
         public bool IsAdmin { get=> User.Role >= Boucher_DoubleModel.Models.Role.ADMIN; }
         public AppShell(User user)
         {
-            BackgroundColor = Colors.Blue;
-            ShellColor = Colors.Red;
+            Resources = StyleDictionnary.GetInstance();
             InitializeComponent();
             Routing.RegisterRoute(nameof(LogView), typeof(LogView));
             Routing.RegisterRoute(nameof(Home), typeof(Home));
@@ -77,7 +49,6 @@ namespace Boucher_Double_Front
             Routing.RegisterRoute(nameof(AddClientPhone), typeof(AddClientPhone));
             Routing.RegisterRoute(nameof(EventManager), typeof(EventManager));
             Routing.RegisterRoute(nameof(RecapTableView), typeof(RecapTableView));
-
             User = user;
             BindingContext = this;
         }

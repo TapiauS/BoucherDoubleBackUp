@@ -4,7 +4,7 @@
              x:Class="Boucher_Double_Front.View.AllClient"
              xmlns:viewmodel="clr-namespace:Boucher_Double_Front.ViewModel"
              x:DataType="viewmodel:AllClientModel"
-             BackgroundColor="Gray">
+             BackgroundColor="{DynamicResource BackgroundColor}">
     <ContentPage.Content>
         <StackLayout>
             <CollectionView x:Name="allClient"

@@ -28,6 +28,7 @@ namespace Boucher_Double_Front.View
 
         public ProductManager()
         {
+            Resources = StyleDictionnary.GetInstance();
             InitializeComponent();
         }
 

@@ -143,6 +143,9 @@
 	  <MauiXaml Update="View\RestaurantInfo.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="View\StyleDictionnary.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="View\UpdateClient.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

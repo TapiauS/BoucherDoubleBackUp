@@ -19,6 +19,7 @@ namespace Boucher_Double_Front.View
         private AllSelloutModel model = new();
         public AllSellout()
         {
+            Resources = StyleDictionnary.GetInstance();
             InitializeComponent();
             allSellout.ItemsSource=Task.Run(async () => await model.GetAllSelloutAsync()).Result;
             BindingContext = model;

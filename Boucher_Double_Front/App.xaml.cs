@@ -16,6 +16,7 @@ namespace Boucher_Double_Front
         public string BaseUrl { get; }="https://boucheedouble.fr/api/";
         public  string CsrfToken { get; set; } = "";
 
+        public Theme Theme { get; set; }
         public bool ClientProtectionActivated { get; set; } = false;
         public Menu ActivMenu { get; set; }
         public Sellout ActivCommand { get; set; }
@@ -34,17 +35,22 @@ namespace Boucher_Double_Front
             } }
         public App()
         {
+
             InitializeComponent();
+
         }
 
 
         protected override Window CreateWindow(IActivationState activationState)
         {
+            string databasePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "database.db");
+            DatabaseHelper = new DatabaseHelper(databasePath);
+            Theme = DatabaseHelper.GetTheme() ?? new();
+            Resources = StyleDictionnary.GetInstance();
             if (MainPage == null)
             {
                 MainPage = new Home(); 
             }
-
             return base.CreateWindow(activationState);
         }
 
@@ -123,8 +129,7 @@ namespace Boucher_Double_Front
 
         protected async override void OnStart()
         {
-            string databasePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "database.db");
-            DatabaseHelper = new DatabaseHelper(databasePath);
+
             UserAccess LogInfo = DatabaseHelper.GetKnowUser();
             if (await Connect(LogInfo))
             {

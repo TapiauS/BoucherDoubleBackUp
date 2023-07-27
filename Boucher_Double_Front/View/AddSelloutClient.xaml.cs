@@ -14,6 +14,7 @@ namespace Boucher_Double_Front.View
         {
             App appCurrent = Application.Current as App;
             model.Sellout = new Sellout() { Client = model.Client, ReceiptDate = DateTime.Now, SelloutDate=DateTime.Now,Store=appCurrent.User.Store };
+            Resources = StyleDictionnary.GetInstance();
             InitializeComponent();
             BindingContext = model;
         }

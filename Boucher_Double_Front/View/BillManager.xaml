@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Boucher_Double_Front.View.BillManager"
              xmlns:view="clr-namespace:Boucher_Double_Front.View" 
-             BackgroundColor="Gray">
+             BackgroundColor="{DynamicResource BackgroundColor}">
     <ContentPage.Content>
         <Grid ColumnDefinitions="*,auto" RowDefinitions="*,*,*,*,*,*" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
             <Label Text="Choisissez un paramétrage" Grid.Row="0" Grid.Column="0"/>

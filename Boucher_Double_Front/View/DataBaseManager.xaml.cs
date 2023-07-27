@@ -14,6 +14,7 @@ namespace Boucher_Double_Front.View
     {
         public DataBaseManager()
         {
+            Resources = StyleDictionnary.GetInstance();
             InitializeComponent();
         }
     }

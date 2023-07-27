@@ -32,8 +32,8 @@ namespace Boucher_Double_Front.View
 
         public UpdateClient()
         {
+            Resources = StyleDictionnary.GetInstance();
             InitializeComponent();
-
         }
 
 

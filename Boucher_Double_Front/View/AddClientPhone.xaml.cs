@@ -10,6 +10,7 @@ public partial class AddClientPhone : ContentPage
     {
         BindingContext = model;
         Task.Run(async() =>model.GetAllClientAsync()).Wait();
+        Resources = StyleDictionnary.GetInstance();
         InitializeComponent();
     }
 

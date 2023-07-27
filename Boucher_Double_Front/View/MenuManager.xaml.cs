@@ -60,6 +60,7 @@ namespace Boucher_Double_Front.View
 
         public MenuManager()
         {
+            Resources = StyleDictionnary.GetInstance();
             InitializeComponent();
             BindingContext = model;
             allSoldProduct.ItemsSource = model.Lines;

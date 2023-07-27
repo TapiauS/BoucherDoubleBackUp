@@ -23,6 +23,7 @@ namespace Boucher_Double_Front.View
 
         public AddUser()
         {
+            Resources = StyleDictionnary.GetInstance();
             InitializeComponent();
             RolePicker.ItemsSource=Enum.GetValues(typeof(Role)).Cast<Role>().ToList();
             Task.Run(async () => await model.GetAllStoreAsync()).Wait();

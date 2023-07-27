@@ -2,11 +2,15 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Boucher_Double_Front.View.Parameter"
-             BackgroundColor="Gray">
+             BackgroundColor="{DynamicResource BackgroundColor}">
     <ContentPage.Content>
         <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
             <Button Text="Se deconnecter" Clicked="OnDisconnectAsync" />
             <StackLayout Orientation="Vertical">
+                <Picker Title="Couleur de fond" x:Name="BackgroundColorPicker" SelectedIndexChanged="OnBackgroundChanged"/>
+                <Picker Title="Couleur des menus" x:Name="ShellColorPicker" SelectedIndexChanged="OnShellColorChanged"/>
+                <Picker Title="Couleur des bouttons" x:Name="ButtonColorPicker" SelectedIndexChanged="OnButtonColorChanged"/>
+                <Picker Title="Couleur du texte" x:Name="TextColorPicker" SelectedIndexChanged="OnTextColorChanged"/>
                 <Label Text="Mode 'Client Safe' activaté"/>
                 <CheckBox IsChecked="{Binding ClientSafe}"/>
             </StackLayout>

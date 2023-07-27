@@ -11,16 +11,10 @@ public partial class RecapTableView : ContentPage
 	private RecapTableViewModel model=new();
 	public RecapTableView()
 	{
-        try
-        {
-            InitializeComponent();
-            BindingContext = model;
-            FillGrid();
-        }
-        catch(Exception ex)
-        {
-            Console.WriteLine(ex.Message);  
-        }
+        Resources = StyleDictionnary.GetInstance();
+        InitializeComponent();
+        BindingContext = model;
+        FillGrid();
 	}
 
     public void OnEventSelection(object sender, EventArgs e)

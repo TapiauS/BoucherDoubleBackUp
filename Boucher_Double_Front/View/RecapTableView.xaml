@@ -2,7 +2,8 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Boucher_Double_Front.View.RecapTableView"
-             Title="RecapTableView">
+             Title="RecapTableView"
+             BackgroundColor="{DynamicResource BackgroundColor}">
     <VerticalStackLayout>
         <Picker ItemsSource="{Binding AllEvents}" SelectedIndexChanged="OnEventSelection" x:Name="EventPicker" ItemDisplayBinding="{Binding Name}"/>
         <Grid x:Name="table"  >

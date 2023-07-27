@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:view="clr-namespace:Boucher_Double_Front.View"
              x:Class="Boucher_Double_Front.View.MenuManager"
-             BackgroundColor="Gray">
+             BackgroundColor="{DynamicResource BackgroundColor}">
   <ContentPage.Content>
         <StackLayout>
 

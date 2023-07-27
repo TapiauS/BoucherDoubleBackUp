@@ -4,7 +4,7 @@
              xmlns:view="clr-namespace:Boucher_Double_Front.View"
              x:DataType="view:RestaurantInfo"
              x:Class="Boucher_Double_Front.View.RestaurantInfo"
-             BackgroundColor="Gray">
+             BackgroundColor="{DynamicResource BackgroundColor}">
     <ContentPage.Content>
         <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
             <Button Text="Selectionner une photo" Clicked="OnPickPhotoButtonClicked" />

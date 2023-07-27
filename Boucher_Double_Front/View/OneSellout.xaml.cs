@@ -27,6 +27,7 @@ namespace Boucher_Double_Front.View
         public string Bill { get; set; }
         public OneSellout()
         {
+            Resources = StyleDictionnary.GetInstance();
             InitializeComponent();
             App appInstance = Application.Current as App;
             Sellout sellout = appInstance.ActivCommand;

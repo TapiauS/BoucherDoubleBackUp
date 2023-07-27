@@ -5,7 +5,7 @@
              xmlns:view="clr-namespace:Boucher_Double_Front.View"
              xmlns:viewmodels="clr-namespace:Boucher_Double_Front.ViewModel"
              x:DataType="viewmodels:AddUserModel"
-             BackgroundColor="Gray">
+             BackgroundColor="{DynamicResource BackgroundColor}">
     <ContentPage.Content>
         <StackLayout>
             <Grid IsVisible="{Binding IsSuperAdmin}" RowDefinitions="*,*,*,*,*,*,*,*,*" ColumnDefinitions="*,*" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">

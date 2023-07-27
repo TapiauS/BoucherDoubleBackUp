@@ -17,8 +17,19 @@ namespace Boucher_Double_Front.Database
             database.CreateTable<UserAccess>();
             database.CreateTable<MailContentParameter>();
             database.CreateTable<BillParameter>();
+            database.CreateTable<Theme>();
         }
 
+        public Theme GetTheme()
+        {
+            return database.Table<Theme>().FirstOrDefault();
+        }
+
+        public void SaveTheme(Theme theme)
+        {
+            database.DeleteAll<Theme>();
+            database.InsertOrReplace(theme);
+        }
         public UserAccess GetKnowUser()
         {
             return database.Table<UserAccess>().FirstOrDefault();
