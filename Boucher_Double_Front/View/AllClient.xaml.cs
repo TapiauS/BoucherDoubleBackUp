@@ -41,9 +41,8 @@ namespace Boucher_Double_Front.View
                 if (response.IsSuccessStatusCode)
                 {
                     model.Clients.Remove(supressedclient);
-                    BindingContext = null;
+                    allClient.ItemsSource = null;
                     allClient.ItemsSource = model.Clients;
-                    BindingContext = model;
                 }
                 else
                     await Shell.Current.DisplayAlert("erreur", "Erreur de connexion avec le serveur", "Ok");

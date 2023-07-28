@@ -14,7 +14,7 @@
                 <Image Source="{Binding ImageSource}" HeightRequest="100" WidthRequest="100" Grid.Column="1" Grid.Row="1"/>
             </Grid>
             <CollectionView x:Name="allSoldProduct"
-                    SelectionMode="Single" >
+                    SelectionMode="Single" VerticalOptions="Start">
                 <CollectionView.ItemsLayout>
                     <LinearItemsLayout Orientation="Vertical"/>
                 </CollectionView.ItemsLayout>
@@ -32,9 +32,9 @@
             </CollectionView>
             <Button Text="Ajouter un produit" Clicked="NewProductAsync"/>
             <Grid ColumnDefinitions="auto,auto,auto" RowDefinitions="auto" VerticalOptions="EndAndExpand" HorizontalOptions="CenterAndExpand">
-                <Label Text="Prix :" Grid.Column="0" Grid.Row="0"/>
+                <Label Text="Prix :" Grid.Column="0" Grid.Row="0" VerticalOptions="End"/>
                 <Entry Grid.Column="1" Grid.Row="0" Keyboard="Numeric" Text="{Binding Menu.Price.FullMonnaie}"/>
-                <Label Text="," Grid.Column="2" Grid.Row="0"/>
+                <Label Text="," Grid.Column="2" Grid.Row="0" VerticalOptions="End"/>
                 <Entry Text="{Binding Menu.Price.Cent}" Grid.Column="3" Keyboard="Numeric" Grid.Row="0"/>
             </Grid>
             <Button Text="Valider" Clicked="OnValidateAsync"/>

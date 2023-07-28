@@ -5,9 +5,12 @@
              Title="RecapTableView"
              BackgroundColor="{DynamicResource BackgroundColor}">
     <VerticalStackLayout>
+        
         <Picker ItemsSource="{Binding AllEvents}" SelectedIndexChanged="OnEventSelection" x:Name="EventPicker" ItemDisplayBinding="{Binding Name}"/>
-        <Grid x:Name="table"  >
-            
-        </Grid>
+        <ScrollView Orientation="Horizontal">
+            <Grid x:Name="table"  >
+
+            </Grid>
+        </ScrollView>
     </VerticalStackLayout>
 </ContentPage>

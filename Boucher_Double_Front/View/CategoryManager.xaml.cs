@@ -117,21 +117,26 @@ namespace Boucher_Double_Front.View
         public async void OnSuppressionAsync(object sender,EventArgs args)
         {
             App appInstance = Application.Current as App;
-            if (int.Parse(CategoryId) != 0)
+            bool choice = await Shell.Current.DisplayAlert("Confirmation", "Attention supprimer cette catégorie supprimera tout les produits et toutes leurs commandes associés", "Oui", "Non");
+            if(choice)
             {
-                HttpClient client =await appInstance.PrepareQuery();
-                HttpResponseMessage response = await client.DeleteAsync($"Category/{CategoryId}");
-                var jsonString = await response.Content.ReadAsStringAsync();
-                if (response.IsSuccessStatusCode && bool.Parse(jsonString))
+                if (int.Parse(CategoryId) != 0)
                 {
-                    await Shell.Current.GoToAsync("..");
-                }
-                else
-                {
-                    await Shell.Current.DisplayAlert("Erreur", "Erreur Inconnue", "OK");
-                    return;
+                    HttpClient client = await appInstance.PrepareQuery();
+                    HttpResponseMessage response = await client.DeleteAsync($"Category/{CategoryId}");
+                    var jsonString = await response.Content.ReadAsStringAsync();
+                    if (response.IsSuccessStatusCode && bool.Parse(jsonString))
+                    {
+                        await Shell.Current.GoToAsync("..");
+                    }
+                    else
+                    {
+                        await Shell.Current.DisplayAlert("Erreur", "Erreur Inconnue", "OK");
+                        return;
+                    }
                 }
             }
+
         }
 
         public async void OnPickPhotoButtonClicked(object sender, EventArgs e)

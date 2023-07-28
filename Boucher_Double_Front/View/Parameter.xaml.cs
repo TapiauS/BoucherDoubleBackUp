@@ -14,6 +14,7 @@ namespace Boucher_Double_Front.View
             BindingContext = null;
             Shell.Current.Navigation.RemovePage(this);
         }
+
         private Dictionary<string, object> colorMap = new();
         public bool ClientSafe 
         { 

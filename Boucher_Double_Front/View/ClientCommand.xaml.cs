@@ -18,18 +18,26 @@ namespace Boucher_Double_Front.View
     {
         private ClientCommandModel model=new();
 
+        private bool firstAppear = true;
 
         public ClientCommand()
         {
             InitializeComponent();
-
+            App app = Application.Current as App;
+            if (app.ActivCommand != null)
+            {
+                Task.Run(async () => await model.GetAllEventAsync()).Wait();
+                BindingContext = model;
+                EventPicker.ItemsSource = model.CompatibleEvents;
+                EventPicker.ItemDisplayBinding=new Binding("Name");
+                allSoldProduct.ItemsSource = model.Lines;
+                base.OnAppearing();
+            }
         }
 
         protected override async void OnDisappearing()
         {
             base.OnDisappearing();
-            BindingContext = null;
-            Shell.Current.Navigation.RemovePage(this);
         }
 
         public void OnDelete(object sender,EventArgs args)
@@ -52,19 +60,21 @@ namespace Boucher_Double_Front.View
         }
         protected override async void OnAppearing()
         {
-            App app = Application.Current as App;
-            if (app.ActivCommand != null)
+            if(firstAppear)
             {
-                Task.Run(async () => await model.GetAllEventAsync()).Wait();
-                BindingContext = model;
-                allSoldProduct.ItemsSource = model.Lines;
-                base.OnAppearing();
+                App app = Application.Current as App;
+                firstAppear = false;
+                if (app.ActivCommand != null)
+                {
+                    base.OnAppearing();
+                }
+                else
+                {
+                    await Shell.Current.DisplayAlert("Erreur de commande", "Aucune commande active", "Ok");
+                    await Shell.Current.GoToAsync(nameof(Home));
+                }
+
             }
-            else
-            {
-                await Shell.Current.DisplayAlert("Erreur de commande", "Aucune commande active", "Ok");
-                await Shell.Current.GoToAsync(nameof(Home));
-            }    
         }
 
 

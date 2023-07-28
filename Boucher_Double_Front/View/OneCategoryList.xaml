@@ -4,7 +4,7 @@
              x:Class="Boucher_Double_Front.View.OneCategoryList"
              BackgroundColor="{DynamicResource BackgroundColor}">
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout MaximumWidthRequest="500">
             <CollectionView x:Name="allProduct"
                     SelectionMode="Single" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
                 <CollectionView.ItemsLayout>
@@ -12,7 +12,7 @@
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Grid ColumnDefinitions="*,*,auto" RowDefinitions="*,*">
+                        <Grid ColumnDefinitions="*,auto,auto,auto" RowDefinitions="50,*">
                             <Label Text="{Binding Product.Name}" Grid.Column="0" Grid.Row="0"/>
                             <Label Grid.Column="1" Grid.Row="0">
                                 <Label.Text>
@@ -22,7 +22,7 @@
                                     </MultiBinding>
                                 </Label.Text>
                             </Label>
-                            <Image Source="{Binding ImageSource}" Grid.Column="2" HeightRequest="100" WidthRequest="100"/>
+                            <Image Source="{Binding ImageSource}" Grid.Column="3" Grid.Row="0" Grid.RowSpan="2" HeightRequest="100" WidthRequest="100"/>
                             <Button Text="Modifier" Clicked="OnUpdateClickedAsync" CommandParameter="{Binding Product}" Grid.Column="0" Grid.Row="1"/>
                             <Button Text="Ajouter a la commande" Clicked="AddToCommand" CommandParameter="{Binding Product}" Grid.Column="1" Grid.Row="1"/>
                             <Button Text="Ajouter au menu" Clicked="AddToMenu" CommandParameter="{Binding Product}" Grid.Column="2" Grid.Row="1" IsVisible="{Binding IsMenuDefined}"/>
@@ -31,25 +31,25 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
             <Button Text="+" Clicked="NewProductClickedAsync"/>
-            <CollectionView x:Name="menuList" VerticalOptions="EndAndExpand" HorizontalOptions="CenterAndExpand">
+            <CollectionView x:Name="menuList" VerticalOptions="StartAndExpand" HorizontalOptions="CenterAndExpand">
                 <CollectionView.ItemsLayout>
                     <LinearItemsLayout Orientation="Vertical"/>
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Grid ColumnDefinitions="*,*,*,*">
+                        <Grid ColumnDefinitions="*,*,auto,auto" VerticalOptions="Start">
                             <Label Grid.Column="0" >
                                 <Label.Text>
-                                    <MultiBinding StringFormat="Nom: {0} - Prix: {1},{2}">
+                                    <MultiBinding StringFormat="Nom: {0} - Prix: {1},{2} €">
                                         <Binding Path="Product.Name" />
                                         <Binding Path="Product.Price.FullMonnaie" />
                                         <Binding Path="Product.Price.Cent"/>
                                     </MultiBinding>
                                 </Label.Text>
                             </Label>
-                            <Image Source="{Binding ImageSource}" Grid.Column="1"  WidthRequest="50" HeightRequest="50"/>
-                            <Button Text="Modifier" Clicked="OnUpdateMenuClickedAsync" CommandParameter="{Binding Product}" Grid.Column="2"/>
-                            <Button Text="Ajouter a la commande" Clicked="AddToCommand" CommandParameter="{Binding Product}" Grid.Column="3" />
+                            <Button Text="Modifier" Clicked="OnUpdateMenuClickedAsync" CommandParameter="{Binding Product}" Grid.Column="1"/>
+                            <Button Text="Ajouter a la commande" Clicked="AddToCommand" CommandParameter="{Binding Product}" Grid.Column="2" />
+                            <Image Source="{Binding ImageSource}" Grid.Column="3"  WidthRequest="50" HeightRequest="50"/>
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>

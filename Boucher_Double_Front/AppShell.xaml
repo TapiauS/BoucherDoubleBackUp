@@ -70,11 +70,7 @@
     <FlyoutItem Title="Magasin" Shell.BackgroundColor="Transparent">
         <ShellContent Title="Magasin" ContentTemplate="{DataTemplate view:RestaurantInfo}" IsVisible="{Binding IsAdmin}" Shell.BackgroundColor="Transparent" />
     </FlyoutItem>
-
-    <FlyoutItem Title="Modifier son compte" Shell.BackgroundColor="Transparent">
-        <ShellContent Title="Modifier son compte" ContentTemplate="{DataTemplate view:LogView}" IsVisible="{Binding IsAdmin}" Shell.BackgroundColor="Transparent" />
-    </FlyoutItem>
-
+    
     <FlyoutItem Title="Gerer l'accés au mail" Shell.BackgroundColor="Transparent">
         <ShellContent Title="Gerer l'accés au mail" ContentTemplate="{DataTemplate view:MailAccessParameter}" IsVisible="{Binding IsAdmin}" Shell.BackgroundColor="Transparent" />
     </FlyoutItem>

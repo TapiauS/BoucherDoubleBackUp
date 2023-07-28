@@ -60,7 +60,7 @@ namespace Boucher_Double_Front.ViewModel
                 return response.IsSuccessStatusCode;
             }
             else
-                return false;
+                return true;
         }
 
         public async Task GetOneCategoryAsync(int IdCategory)

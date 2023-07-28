@@ -58,36 +58,43 @@ namespace Boucher_Double_Front.View
         {
             App appInstance = Application.Current as App;
             HttpClient client =await appInstance.PrepareQuery();
-            string json;
-            if (model.BillOption.Id==0)
+            if (model.BillOption.Foot != "" && model.BillOption.Name != "" && model.BillOption.Mention != "" && model.BillOption.SpecialMention != "")
             {
-                json = JsonConvert.SerializeObject(model.BillOption);
-                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
-                HttpResponseMessage response = await client.PostAsync("BillParameter", content);
-                string contentString = await response.Content.ReadAsStringAsync();
-                if (response.IsSuccessStatusCode && int.Parse(contentString) > 0)
+                string json;
+                if (model.BillOption.Id == 0)
                 {
-                    appInstance.BillParameter = model.BillOption;
-                    appInstance.DatabaseHelper.SaveBillParameter(model.BillOption);
-                    await Shell.Current.GoToAsync("..");
+                    json = JsonConvert.SerializeObject(model.BillOption);
+                    StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                    HttpResponseMessage response = await client.PostAsync("BillParameter", content);
+                    string contentString = await response.Content.ReadAsStringAsync();
+                    if (response.IsSuccessStatusCode && int.Parse(contentString) > 0)
+                    {
+                        appInstance.BillParameter = model.BillOption;
+                        appInstance.DatabaseHelper.SaveBillParameter(model.BillOption);
+                        await Shell.Current.DisplayAlert("Réussite", "Paramétrage créé avec succés", "Ok");
+                    }
+                    else
+                        await Shell.Current.DisplayAlert("Erreur", "Erreur d'accés au serveur", "Ok");
                 }
                 else
-                    await Shell.Current.DisplayAlert("Erreur", "Erreur d'accés au serveur", "Ok");
-            } 
+                {
+                    json = JsonConvert.SerializeObject(model.BillOption);
+                    StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                    HttpResponseMessage response = await client.PutAsync("BillParameter", content);
+                    string contentString = await response.Content.ReadAsStringAsync();
+                    if (response.IsSuccessStatusCode && bool.Parse(contentString))
+                    {
+                        appInstance.BillParameter = BillPicker.SelectedItem as BillParameter;
+                        appInstance.DatabaseHelper.SaveBillParameter(appInstance.BillParameter);
+                        await Shell.Current.DisplayAlert("Réussite", "Paramétrage mis a jour avec succés", "Ok");
+                    }
+                    else
+                        await Shell.Current.DisplayAlert("Erreur", "Erreur d'accés au serveur", "Ok");
+                }
+            }
             else
             {
-                json = JsonConvert.SerializeObject(model.BillOption);
-                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
-                HttpResponseMessage response = await client.PutAsync("BillParameter", content);
-                string contentString = await response.Content.ReadAsStringAsync();
-                if (response.IsSuccessStatusCode && bool.Parse(contentString))
-                {
-                    appInstance.BillParameter = BillPicker.SelectedItem as BillParameter;
-                    appInstance.DatabaseHelper.SaveBillParameter(appInstance.BillParameter);
-                    await Shell.Current.GoToAsync("..");
-                }
-                else
-                    await Shell.Current.DisplayAlert("Erreur", "Erreur d'accés au serveur", "Ok");
+                await Shell.Current.DisplayAlert("Erreur de saisie", "Tout les champs sont obligatoires", "Ok");
             }
         }
 

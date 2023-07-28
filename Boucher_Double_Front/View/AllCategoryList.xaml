@@ -4,25 +4,25 @@
              x:Class="Boucher_Double_Front.View.AllCategoryList"
              BackgroundColor="{DynamicResource BackgroundColor}">
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
             <CollectionView x:Name="allCategory"
-                    SelectionMode="Single">
+                    SelectionMode="Single" VerticalOptions="Center" HorizontalOptions="Center">
                 <CollectionView.ItemsLayout>
                     <LinearItemsLayout Orientation="Vertical"/>
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Grid ColumnDefinitions="*,*" RowDefinitions="*,*,*" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+                        <Grid ColumnDefinitions="*,*,auto" RowDefinitions="*,*,*" >
                             <Label Text="{Binding Category.Name}" Grid.Column="0" Grid.Row="0"/>
                             <Button Text="Modifier" Clicked="UpdateCategoryAsync" Grid.Column="1" CommandParameter="{Binding Category}" Grid.Row="0"/>
                             <Button Text="Liste des produits" Clicked="GetProductAsync" Grid.Column="0" CommandParameter="{Binding Category}" Grid.Row="1"/>
                             <Button Text="Ajouter une sous categorie" Clicked="AddSubCategoryAsync" CommandParameter="{Binding Category}" Grid.Column="1" Grid.Row="1"/>
-                            <Image Source="{Binding ImageSource}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" WidthRequest="50" HeightRequest="50"/>
+                            <Image Source="{Binding ImageSource}" Grid.Column="2" Grid.RowSpan="2" Grid.Row="0" WidthRequest="100" HeightRequest="100"/>
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-            <Button Text="+" Clicked="NewCategory"/>
+            <Button Text="Ajouter une catégorie" Clicked="NewCategory"/>
             <CollectionView x:Name="menuList" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
                 <CollectionView.ItemsLayout>
                     <LinearItemsLayout Orientation="Vertical"/>

@@ -6,7 +6,7 @@
     <ContentPage.Content>
         <StackLayout>
             <CollectionView x:Name="allSellout"
-                    SelectionMode="Single" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+                    SelectionMode="Single" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" MaximumWidthRequest="700">
                 <CollectionView.ItemsLayout>
                     <LinearItemsLayout Orientation="Vertical"/>
                 </CollectionView.ItemsLayout>

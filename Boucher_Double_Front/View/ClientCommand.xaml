@@ -4,18 +4,19 @@
              x:Class="Boucher_Double_Front.View.ClientCommand"
              BackgroundColor="{DynamicResource BackgroundColor}">
     <ContentPage.Content>
-        <StackLayout>
-            <Grid RowDefinitions="auto,*,auto,auto" VerticalOptions="FillAndExpand">
-                <Picker x:Name="EventPicker" Grid.Row="0" ItemsSource="{Binding CompatibleEvents}" SelectedIndexChanged="PickerSelectedIndexChanged" 
-            ItemDisplayBinding="{Binding Name}"/>
+        <StackLayout VerticalOptions="Center" HorizontalOptions="CenterAndExpand">
+            <Grid RowDefinitions="auto,auto,*,auto,auto" HorizontalOptions="CenterAndExpand" ColumnDefinitions="500">
+                <Picker x:Name="EventPicker" Grid.Row="0"  SelectedIndexChanged="PickerSelectedIndexChanged" 
+                    HorizontalOptions="CenterAndExpand" Title="Choisissez un evenement"/>
+                <Label Text="Contenu de la commande" Grid.Row="1"/>
                 <CollectionView x:Name="allSoldProduct"
-                        SelectionMode="Single" Grid.Row="1">
+                        SelectionMode="Single" Grid.Row="2" >
                     <CollectionView.ItemsLayout>
                         <GridItemsLayout Orientation="Vertical"/>
                     </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <Grid RowDefinitions="auto,auto" ColumnDefinitions="auto,auto,auto" VerticalOptions="FillAndExpand">
+                            <Grid RowDefinitions="auto,auto" ColumnDefinitions="auto,auto,auto" HeightRequest="100" >
                                 <Label Text="{Binding SoldProduct.Name}" Grid.Row="0" Grid.Column="0"/>
                                 <Label Text="{Binding Quantity, StringFormat='Quantité: {0}'}" Grid.Row="0" Grid.Column="1"/>
                                 <Button Text="Supprimer" Grid.Row="1" Grid.Column="0" CommandParameter="{Binding}" Clicked="OnDelete"/>
@@ -25,8 +26,8 @@
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
-                <Button Text="Nouveau Produit" Grid.Row="2" Clicked="NewProductAsync"/>
-                <Button Text="Finaliser la Commande" Grid.Row="3"  Clicked="OnValidateAsync"/>
+                <Button Text="Nouveau Produit" Grid.Row="3" Clicked="NewProductAsync"/>
+                <Button Text="Finaliser la Commande" Grid.Row="4"  Clicked="OnValidateAsync"/>
             </Grid>
         </StackLayout>
     </ContentPage.Content>

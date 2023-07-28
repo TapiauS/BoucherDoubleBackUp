@@ -6,14 +6,14 @@
              BackgroundColor="{DynamicResource BackgroundColor}">
     <ContentPage.Content>
         <StackLayout>
-            <Grid RowDefinitions="auto,auto,auto,auto" ColumnDefinitions="*,*" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+            <Grid RowDefinitions="auto,auto,auto,auto" ColumnDefinitions="auto,*" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
                 <Label Grid.Column="0" Text="Nom" Grid.Row="0"/>
-                <Entry Grid.Column="1" Text="{Binding Product.Name}" Grid.Row="0"/>
-                <Grid ColumnDefinitions="auto,auto,auto" RowDefinitions="auto" VerticalOptions="EndAndExpand" HorizontalOptions="CenterAndExpand" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
-                    <Label Text="Prix :" Grid.Column="0" Grid.Row="0"/>
-                    <Entry Grid.Column="1" Grid.Row="0" Keyboard="Numeric" Text="{Binding Product.Price.FullMonnaie}"/>
-                    <Label Text="," Grid.Column="2" Grid.Row="0"/>
-                    <Entry Text="{Binding Product.Price.Cent}" Grid.Column="3" Keyboard="Numeric" Grid.Row="0"/>
+                <Entry Grid.Column="1" Text="{Binding Product.Name}" Grid.Row="0" HorizontalOptions="StartAndExpand"/>
+                <Label Text="Prix :" Grid.Column="0" Grid.Row="1" VerticalOptions="EndAndExpand"/>
+                <Grid ColumnDefinitions="auto,auto,auto" RowDefinitions="auto"  HorizontalOptions="StartAndExpand" Grid.Row="1" Grid.Column="1">
+                    <Entry Grid.Column="0" Grid.Row="0" Keyboard="Numeric" Text="{Binding Product.Price.FullMonnaie}"/>
+                    <Label Text="," Grid.Column="1" Grid.Row="0" VerticalOptions="EndAndExpand"/>
+                    <Entry Text="{Binding Product.Price.Cent}" Grid.Column="2" Keyboard="Numeric" Grid.Row="0"/>
                 </Grid>
                 <Button Text="Selectionner une illustration" Clicked="OnPickPhotoButtonClicked" Grid.Row="2" Grid.Column="0"/>
                 <Image Source="{Binding ImageSource}" Grid.Row="2" Grid.Column="1" HeightRequest="100" WidthRequest="100"/>

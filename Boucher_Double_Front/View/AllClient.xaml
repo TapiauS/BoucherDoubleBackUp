@@ -13,8 +13,8 @@
                     <LinearItemsLayout Orientation="Vertical"/>
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Grid ColumnDefinitions="*,auto,auto" >
+                    <DataTemplate >
+                        <Grid ColumnDefinitions="500,auto,auto" HeightRequest="50">
                             <Label Grid.Column="0">
                                 <Label.Text>
                                     <MultiBinding StringFormat="Nom: {0} - Tel: {1} - Mail: {2}">
