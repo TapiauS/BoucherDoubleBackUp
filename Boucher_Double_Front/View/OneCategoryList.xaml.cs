@@ -48,8 +48,9 @@ namespace Boucher_Double_Front.View
         {
             Button button = sender as Button;
             Product product = (Product)button.CommandParameter;
+
             App appInstance = Application.Current as App;
-            appInstance.ActivCommand.AddProduct(product);
+            appInstance.ActivCommand?.AddProduct(product);
             await Shell.Current.GoToAsync($"{nameof(ClientCommand)}");
         }
 

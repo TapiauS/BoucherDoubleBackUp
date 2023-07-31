@@ -22,13 +22,13 @@ namespace Boucher_Double_Front.ViewModel
                 else
                 {
                     App app = Application.Current as App;
-                    return $"{app.BaseUrl}Category/image/{imageSource}";
+                    return imageSource!=null|imageSource!=""?$"{app.BaseUrl}Category/image/{imageSource}":null;
                 }
             }
             set => imageSource = value;
         }
         private FileResult fileResult;
-        public FileResult FileResult { get => fileResult; set { fileResult = value; ImageSource = fileResult.FullPath; } }
+        public FileResult FileResult { get => fileResult; set { fileResult = value; ImageSource = fileResult?.FullPath; } }
         public string IdContainer { get; set; } = "0";
         public Category Category { get; set; } = new();
 

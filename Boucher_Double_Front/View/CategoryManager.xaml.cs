@@ -10,6 +10,8 @@ using Microsoft.Maui;
 using Microsoft.Maui.Controls.Xaml;
 using Newtonsoft.Json;
 using Boucher_Double_Front.ViewModel;
+using MailKit;
+using FFImageLoading;
 
 namespace Boucher_Double_Front.View
 {

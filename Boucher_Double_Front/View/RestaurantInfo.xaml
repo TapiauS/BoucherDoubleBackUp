@@ -7,8 +7,13 @@
              BackgroundColor="{DynamicResource BackgroundColor}">
     <ContentPage.Content>
         <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+            <HorizontalStackLayout>
+                <Entry Text="{Binding Store.Name}" />
+                <Label Text="Mettre a jour le nom du magasin:"/>
+            </HorizontalStackLayout>
             <Button Text="Selectionner une photo" Clicked="OnPickPhotoButtonClicked" />
             <Image Source="{Binding PicturePath}" HeightRequest="200" WidthRequest="200" />
+            <Button Text="Valider les changements" Clicked="OnValidateAsync"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

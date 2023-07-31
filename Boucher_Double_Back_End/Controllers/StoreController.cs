@@ -35,7 +35,6 @@ namespace Boucher_Double_Back_End.Controllers
                         string timestamp = DateTime.Now.ToString("yyyyMMddHHmmssfff");
                         string randomString = Path.GetRandomFileName().Replace(".", "");
                         string uniqueFileName = $"{timestamp}_{randomString}{fileExtension}";
-
                         var imagePath = "images/store/" + uniqueFileName;
                         Store store = await DAO.GetByIdAsync(id);
                         if (System.IO.File.Exists("images/store/" + store.LogoPath))
@@ -43,7 +42,6 @@ namespace Boucher_Double_Back_End.Controllers
                         store.LogoPath = uniqueFileName;
                         if (await DAO.UpdateAsync(store))
                         {
-
                             using (var image = Image.Load(file.OpenReadStream()))
                             {
                                 image.Save(imagePath);

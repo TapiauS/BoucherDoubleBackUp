@@ -12,8 +12,9 @@ namespace Boucher_Double_Front.ViewModel
     {
         public List<Event> ExistingsOption { get; set; }
 
-        public bool UpdateMode { get => Event.Id != 0; }
-        public Event Event { get; set; } = new() { Store=(Application.Current as App).User.Store};
+        public Event ActivEvent { 
+            get; 
+            set; } 
 
         public async Task GetAllEvent()
         {

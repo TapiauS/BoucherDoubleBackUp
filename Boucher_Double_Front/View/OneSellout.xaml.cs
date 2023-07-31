@@ -62,7 +62,7 @@ namespace Boucher_Double_Front.View
         public async void GetDeviceList()
         {
             IPrintService printService=DependencyService.Get<IPrintService>();
-            BlueToothPicker.ItemsSource = (await printService.GetDeviceList()).ToList();
+            BlueToothPicker.ItemsSource = printService == null?null:(await printService.GetDeviceList()).ToList();
         }
 
 
@@ -93,7 +93,7 @@ namespace Boucher_Double_Front.View
                     smtp.Send(email);
                     smtp.Disconnect(true);
                     smtp.Dispose();
-                    await printService.Print((string)BlueToothPicker.SelectedItem,Bill);
+                    await printService?.Print((string)BlueToothPicker.SelectedItem,Bill);
                 }
                 else
                 {

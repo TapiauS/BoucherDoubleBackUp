@@ -10,14 +10,22 @@ namespace Boucher_Double_Front
         public  User User { get; set; } = new User();
         public  Store Store { get; set; } = new Store();
 
-
+        private string storeImage;
         public string StoreImage
         {
             get
             {
-                App app=Application.Current as App;
-                return app.BaseUrl + "Store/image/" + app.User.Store.LogoPath;
+                if(storeImage == null)
+                {
+                    App app = Application.Current as App;
+                    return app.BaseUrl + "Store/image/" + app.User.Store.LogoPath;
+                }
+                else
+                {
+                    return storeImage;
+                }
             }
+            set =>storeImage = value;
         }
 
 
@@ -36,7 +44,6 @@ namespace Boucher_Double_Front
             Routing.RegisterRoute(nameof(CategoryManager), typeof(CategoryManager));
             Routing.RegisterRoute(nameof(ClientCommand), typeof(ClientCommand));
             Routing.RegisterRoute(nameof(DataBaseManager), typeof(DataBaseManager));
-            Routing.RegisterRoute(nameof(LoginPage), typeof(LoginPage));
             Routing.RegisterRoute(nameof(MailAccessParameter), typeof(MailAccessParameter));
             Routing.RegisterRoute(nameof(MailParameter), typeof(MailParameter));
             Routing.RegisterRoute(nameof(OneCategoryList), typeof(OneCategoryList));

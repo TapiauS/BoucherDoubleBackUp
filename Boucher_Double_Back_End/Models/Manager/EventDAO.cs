@@ -56,7 +56,7 @@ namespace Boucher_Double_Back_End.Models.Manager
                 using MySqlConnection connection = Connexion.getConnexion();
                 using MySqlCommand command = new() { Connection = connection };
                 command.CommandText = "DELETE FROM event WHERE id=@id AND id_store=@id_store";
-                command.Parameters.AddWithValue("@idstore", Store.IdStore);
+                command.Parameters.AddWithValue("@id_store", Store.IdStore);
                 command.Parameters.AddWithValue("@id", id);
                 return await command.ExecuteNonQueryAsync() > 0;
             }
@@ -72,7 +72,7 @@ namespace Boucher_Double_Back_End.Models.Manager
                         return false;
 
                     default:
-                        throw new DAOException("Erreur SQL grave", msqe, ErrorTypeDAO.SQLSEVERE);
+                        throw new DAOException("Erreur SQL grave: "+msqe.Message, msqe, ErrorTypeDAO.SQLSEVERE);
                 }
             }
             catch (Exception e)

@@ -60,25 +60,6 @@ namespace Boucher_Double_Front.View
                     }
                 }
             }
-            else
-            {
-                AppShell shell = Shell.Current as AppShell;
-                if (await shell.AskLogin())
-                {
-                    HttpClient client = await appInstance.PrepareQuery();
-                    string json = JsonConvert.SerializeObject(User);
-                    StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
-                    HttpResponseMessage response = await client.PutAsync($"User", content);
-                    var jsonString = await response.Content.ReadAsStringAsync();
-                    if (response.IsSuccessStatusCode && bool.Parse(jsonString))
-                    {
-                        appInstance.User.Login = User.Login;
-                        appInstance.User.Password = User.Password;
-                    }
-                }
-                else
-                    shell.DisplayAlert("Erreur", "Erreur de mot de passe ou de login", "Ok");
-            }
         }
     }
 }

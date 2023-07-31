@@ -26,7 +26,8 @@ namespace Boucher_Double_Front.View
             {
                 idContainer = value;
                 allCategory.ItemsSource=Task.Run(async ()=>await model.GetSubCategoryAsync(int.Parse(value))).Result;
-                menuList.ItemsSource = Task.Run(async () => await model.GetAllMenuAsync()).Result;
+                BindingContext = null;
+                BindingContext = model;
             } }
 
 
@@ -45,24 +46,15 @@ namespace Boucher_Double_Front.View
         }
 
 
-        public async void OnUpdateMenuClickedAsync(object sender, EventArgs e)
+        private async void AddToCommand(object sender, EventArgs args)
         {
             Button button = sender as Button;
-            Menu menu = button.CommandParameter as Menu;
-            await Shell.Current.GoToAsync($"{nameof(MenuManager)}?{nameof(MenuManager.IdMenu)}={menu.Id}");
+            Product product = (Product)button.CommandParameter;
+            App appInstance = Application.Current as App;
+            appInstance.ActivCommand.AddProduct(product);
+            await Shell.Current.GoToAsync($"{nameof(ClientCommand)}");
         }
 
-        public async void NewMenu(object sender,EventArgs e)
-        {
-            if (IdContainer != "0")
-            {
-                App app = Application.Current as App;
-                app.ActivMenu = new Menu() { Content = new List<SelloutLine>(), Price = new Price(0.01m), Name = "", PicturePath = "" };
-                await Shell.Current.GoToAsync($"{nameof(MenuManager)}?{nameof(MenuManager.IdCategory)}={IdContainer}");
-            }
-            else
-                await Shell.Current.DisplayAlert("Erreur", "Aucune catégorie de produit sélectionner", "Ok");
-        } 
 
         async void GetProductAsync(object sender, EventArgs args)
         {

@@ -4,12 +4,15 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
-
+using Boucher_DoubleModel.Models.Entitys;
 using Microsoft.Maui;
 using Microsoft.Maui.Controls.Xaml;
+using Newtonsoft.Json;
 using static System.Net.Mime.MediaTypeNames;
+using Application = Microsoft.Maui.Controls.Application;
 
 namespace Boucher_Double_Front.View
 {
@@ -19,6 +22,15 @@ namespace Boucher_Double_Front.View
         ImageSource Image { get; set; }
         public string PicturePath { get; set; }
         FileResult FileResult { get; set; }
+
+        public Store Store 
+        {
+            get
+            {
+                App app=Application.Current as App; 
+                return app.User.Store;
+            }
+        }
         public RestaurantInfo()
         {
             Resources = StyleDictionnary.GetInstance();
@@ -45,6 +57,49 @@ namespace Boucher_Double_Front.View
             }
         }
 
+        public async void OnValidateAsync(object sender,EventArgs e)
+        {
+            App app = Microsoft.Maui.Controls.Application.Current as App;
+            HttpClient httpClient = await app.PrepareQuery();
+            string json = JsonConvert.SerializeObject(Store);
+            StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+            HttpResponseMessage httpResponse =await httpClient.PutAsync("Store", content);
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                string result = await httpResponse.Content.ReadAsStringAsync();
+                if (bool.Parse(result))
+                {
+                    if (FileResult != null)
+                    {
+                        var stream = await FileResult.OpenReadAsync();
+                        HttpContent httpContent = new StreamContent(stream);
+
+                        var formData = new MultipartFormDataContent
+                    {
+                        { httpContent, "file",FileResult.FileName }
+                    };
+                        var response = await httpClient.PostAsync($"Store/upload/{app.User.Store.IdStore}", formData);
+                        string resultString = await response.Content.ReadAsStringAsync();
+                        if (response.IsSuccessStatusCode)
+                        {
+                            AppShell appShell = Shell.Current as AppShell;
+                            appShell.StoreImage = FileResult.FullPath;
+                            await Shell.Current.DisplayAlert("Succés", "Image sauvegardée avec succés", "Ok");
+                        }
+                        else
+                        {
+                            await Shell.Current.DisplayAlert("Erreur", "Erreur lors de la sauvegarde de l'image", "Ok");
+                        }
+                    }
+                    await Shell.Current.GoToAsync($"{nameof(Home)}");
+                }
+                else
+                    await Shell.Current.DisplayAlert("Erreur", "Erreur de sauvegarde du nom", "Ok");
+            }
+            else
+                await Shell.Current.DisplayAlert("Erreur", "Erreur d'accés au serveur", "Ok");
+        }
+
         async void OnPickPhotoButtonClicked(object sender, EventArgs e)
         {
             try
@@ -63,28 +118,6 @@ namespace Boucher_Double_Front.View
                     }
                 }
                 FileResult = result;
-                if (result != null)
-                {
-                    App app= Microsoft.Maui.Controls.Application.Current as App;
-                    HttpClient httpClient =await app.PrepareQuery();
-                    var stream = await result.OpenReadAsync();
-                    HttpContent httpContent = new StreamContent(stream);
-
-                    var formData = new MultipartFormDataContent
-                    {
-                        { httpContent, "file",result.FileName }
-                    };
-                    var response = await httpClient.PostAsync($"Store/upload/{app.User.Store.IdStore}", formData);
-                    string resultString= await response.Content.ReadAsStringAsync();    
-                    if (response.IsSuccessStatusCode)
-                    {
-                        await Shell.Current.DisplayAlert("Succés", "Image sauvegardée avec succés", "Ok");
-                    }
-                    else
-                    {
-                        await Shell.Current.DisplayAlert("Erreur", "Erreur lors de la sauvegarde de l'image", "Ok");
-                    }
-                }
             }
             catch (Exception ex)
             {

@@ -5,7 +5,7 @@
              xmlns:view="clr-namespace:Boucher_Double_Front.View" 
              BackgroundColor="{DynamicResource BackgroundColor}">
     <ContentPage.Content>
-        <Grid ColumnDefinitions="*,auto" RowDefinitions="*,*,*,*,*,*" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+        <Grid ColumnDefinitions="*,auto" RowDefinitions="*,*,*,*,*,*,*" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
             <Label Text="Choisissez un paramétrage" Grid.Row="0" Grid.Column="0"/>
             <Picker x:Name="BillPicker" SelectedIndexChanged="PickerSelectedIndexChanged" Grid.Row="0" Grid.Column="1" ItemsSource="{Binding ExistingsOption}"
             ItemDisplayBinding="{Binding Name}"/>
@@ -23,6 +23,7 @@
             <Entry Text="{Binding BillOption.Mention}" Margin="0,5" Grid.Row="4" Grid.Column="1" />
 
             <Button x:Name="ValidationButton" Text="Sauvegarder" Margin="0,20" Clicked="OnValidateAsync" Grid.Row="5" Grid.ColumnSpan="2"/>
+            <Button x:Name="DeleteButton" Text="Supprimer" Grid.Row="6" Grid.ColumnSpan="2" Clicked="OnDeleteClickedAsync" IsVisible="false"/>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

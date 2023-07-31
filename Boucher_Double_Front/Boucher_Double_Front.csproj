@@ -65,6 +65,7 @@
 	  <PackageReference Include="SQLitePCLRaw.core" Version="2.1.5" />
 	  <PackageReference Include="SQLitePCLRaw.provider.dynamic_cdecl" Version="2.1.5" />
 	  <PackageReference Include="SQLitePCLRaw.provider.sqlite3" Version="2.1.5" />
+	  <PackageReference Include="Xamarin.FFImageLoading" Version="2.4.11.982" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -108,9 +109,6 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\Home.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="View\LoginPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\LogView.xaml">

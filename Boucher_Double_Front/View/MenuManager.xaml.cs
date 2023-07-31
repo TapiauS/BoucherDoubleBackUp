@@ -64,6 +64,7 @@ namespace Boucher_Double_Front.View
             InitializeComponent();
             BindingContext = model;
             allSoldProduct.ItemsSource = model.Lines;
+            DeleteButton.Text = "Annuler";
         }
 
 
@@ -77,7 +78,28 @@ namespace Boucher_Double_Front.View
 
         public async void OnAbortAsync(object sender,EventArgs args)
         {
-
+            App app = Application.Current as App;
+            if (model.Menu.Id != 0)
+            {
+                bool choice = await Shell.Current.DisplayAlert("Confirmation", "Attention supprimer ce produit supprimera toutes les commandes associées", "Oui", "Non");
+                if (choice)
+                {
+                    HttpClient client = await app.PrepareQuery();
+                    HttpResponseMessage response = await client.DeleteAsync($"Menu/{model.Menu.Id}");
+                    string result = await response.Content.ReadAsStringAsync();
+                    if (response.IsSuccessStatusCode && bool.Parse(result))
+                    {
+                        await Shell.Current.GoToAsync("..");
+                    }
+                    else
+                        await Shell.Current.DisplayAlert("Erreur", "Erreur d'accés au serveur", "Ok");
+                }
+            }
+            else
+            {
+                app.ActivMenu = null;
+                await Shell.Current.GoToAsync("..");
+            }
         } 
 
         public void AddProduct(object sender, EventArgs args)
@@ -104,8 +126,6 @@ namespace Boucher_Double_Front.View
         {
             await Shell.Current.GoToAsync($"{nameof(AllCategoryList)}");
         }
-
-
 
         public async void OnValidateAsync(object sender, EventArgs args)
         {

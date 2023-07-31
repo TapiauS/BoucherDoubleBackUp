@@ -35,6 +35,7 @@ namespace Boucher_Double_Front.View
             {
                 model.BillOption=BillPicker.SelectedItem as BillParameter;
                 ValidationButton.Text = "Mettre à jour";
+                DeleteButton.IsVisible = true;
                 BindingContext = null;
                 BindingContext = model;
             }
@@ -42,11 +43,25 @@ namespace Boucher_Double_Front.View
             {
                 model.BillOption =new() { IdStore = (Application.Current as App).User.Store.IdStore };
                 ValidationButton.Text = "Valider";
+                DeleteButton.IsVisible = false;
                 BindingContext = null;
                 BindingContext = model;
             }
         }
-
+        public async void OnDeleteClickedAsync(object sender, EventArgs e)
+        {
+            App app = Application.Current as App;
+            HttpClient client = await app.PrepareQuery();
+            HttpResponseMessage response = await client.DeleteAsync($"BillParameter/{model.BillOption.Id}");
+            string json=await response.Content.ReadAsStringAsync();
+            if (response.IsSuccessStatusCode && bool.Parse(json))
+            {
+                await Shell.Current.DisplayAlert("Succés", "Paramétrage supprimé avec succés", "Ok");
+                await Shell.Current.GoToAsync($"{nameof(Home)}");
+            }
+            else
+                await Shell.Current.DisplayAlert("Erreur", "Erreur d'accés au serveur", "Ok");
+        }
         protected override async void OnDisappearing()
         {
             base.OnDisappearing();

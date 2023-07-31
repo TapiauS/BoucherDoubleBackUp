@@ -16,7 +16,7 @@
                     <Entry Text="{Binding Product.Price.Cent}" Grid.Column="2" Keyboard="Numeric" Grid.Row="0"/>
                 </Grid>
                 <Button Text="Selectionner une illustration" Clicked="OnPickPhotoButtonClicked" Grid.Row="2" Grid.Column="0"/>
-                <Image Source="{Binding ImageSource}" Grid.Row="2" Grid.Column="1" HeightRequest="100" WidthRequest="100"/>
+                <Image Source="{Binding ImageSource}" Grid.Row="2" Grid.Column="1" HeightRequest="100" WidthRequest="100" />
                 <Button Text="Valider" Grid.Row="3" Grid.Column="0" Clicked="OnSaveAsync"/>
                 <Button Text="Supprimer" Grid.Row="3" Grid.Column="1" Clicked="OnDeleteAsync"/>
             </Grid>

@@ -24,6 +24,8 @@ namespace Boucher_Double_Front.View
             {
                 idCategory = value;
                 Task.Run(async()=>await model.GetOneCategoryAsync(int.Parse(idCategory))).Wait();
+                if(IdProduct == "0")
+                    BindingContext = model;
             } }
 
         public ProductManager()
@@ -52,7 +54,7 @@ namespace Boucher_Double_Front.View
         }
 
         
-
+       
 
         public async void OnSaveAsync(object sender, EventArgs args)
         {
@@ -150,20 +152,25 @@ namespace Boucher_Double_Front.View
 
         public async void OnDeleteAsync(object sender, EventArgs args)
         {
-            App app = Application.Current as App;
-            if (IdProduct != "0")
+            App appInstance = Application.Current as App;
+            bool choice = await Shell.Current.DisplayAlert("Confirmation", "Attention supprimer ce produit supprimera toutes les commandes associées", "Oui", "Non");
+            if (choice)
             {
-                HttpClient client =await app.PrepareQuery();
-                HttpResponseMessage response = await client.DeleteAsync($"Product/{IdProduct}");
-                var jsonString = await response.Content.ReadAsStringAsync();
-                if (response.IsSuccessStatusCode && bool.Parse(jsonString))
+                App app = Application.Current as App;
+                if (IdProduct != "0")
                 {
-                    await Shell.Current.GoToAsync("..");
-                }
-                else
-                {
-                    await Shell.Current.DisplayAlert("Erreur", "Erreur Inconnue", "OK");
-                    return;
+                    HttpClient client = await app.PrepareQuery();
+                    HttpResponseMessage response = await client.DeleteAsync($"Product/{IdProduct}");
+                    var jsonString = await response.Content.ReadAsStringAsync();
+                    if (response.IsSuccessStatusCode && bool.Parse(jsonString))
+                    {
+                        await Shell.Current.GoToAsync("..");
+                    }
+                    else
+                    {
+                        await Shell.Current.DisplayAlert("Erreur", "Erreur Inconnue", "OK");
+                        return;
+                    }
                 }
             }
         }

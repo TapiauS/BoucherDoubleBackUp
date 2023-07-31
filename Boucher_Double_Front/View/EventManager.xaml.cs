@@ -13,23 +13,39 @@ public partial class EventManager : ContentPage
 	{
         Resources = StyleDictionnary.GetInstance();
         InitializeComponent();
-		Task.Run(async ()=>await model.GetAllEvent()).Wait();
-		BindingContext = model;
+        Task.Run(async () => await model.GetAllEvent()).Wait();
+        EventPicker.ItemsSource = model.ExistingsOption;
+        EventPicker.ItemDisplayBinding = new Binding("Name");
+        BindingContext = model;
 	}
 
+
+    public async void OnDeleteAsync(object sender,EventArgs args)
+    {
+        App app=Application.Current as App;
+        HttpClient client = await app.PrepareQuery();
+        HttpResponseMessage response = await client.DeleteAsync($"Event/{model.ActivEvent.Id}") ;
+        string json=await response.Content.ReadAsStringAsync() ;
+        if (response.IsSuccessStatusCode && bool.Parse(json))
+            await Shell.Current.GoToAsync($"{nameof(Home)}");
+        else
+            await Shell.Current.DisplayAlert("Erreur", "Erreur d'accés au serveur", "Ok");
+    } 
 	public void PickerSelectedIndexChanged(object sender, EventArgs e)
 	{
         if (EventPicker.SelectedIndex >= 1)
         {
-            model.Event = EventPicker.SelectedItem as Event;
+            model.ActivEvent = EventPicker.SelectedItem as Event;
             ValidationButton.Text = "Mettre à jour";
+            DeleteButton.IsVisible = true;
             BindingContext = null;
             BindingContext = model;
         }
         else
         {
-            model.Event = new() { Store = (Application.Current as App).User.Store };
+            model.ActivEvent = new() { Store = (Application.Current as App).User.Store };
             ValidationButton.Text = "Valider";
+            DeleteButton.IsVisible = false;
             BindingContext = null;
             BindingContext = model;
         }
@@ -38,8 +54,6 @@ public partial class EventManager : ContentPage
     protected override async void OnDisappearing()
     {
         base.OnDisappearing();
-        BindingContext = null;
-        Shell.Current.Navigation.RemovePage(this);
     }
 
     public async void OnValidateAsync(object sender, EventArgs e)
@@ -47,28 +61,28 @@ public partial class EventManager : ContentPage
         App appInstance = Application.Current as App;
         HttpClient client = await appInstance.PrepareQuery();
         string json;
-        if (model.Event.Id == 0)
+        if (model.ActivEvent.Id == 0)
         {
-            json = JsonConvert.SerializeObject(model.Event);
+            json = JsonConvert.SerializeObject(model.ActivEvent);
             StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
             HttpResponseMessage response = await client.PostAsync("Event", content);
             string contentString = await response.Content.ReadAsStringAsync();
             if (response.IsSuccessStatusCode && int.Parse(contentString) > 0)
             {
-                await Shell.Current.GoToAsync("..");
+                await Shell.Current.GoToAsync($"{nameof(Home)}");
             }
             else
                 await Shell.Current.DisplayAlert("Erreur", "Erreur d'accés au serveur", "Ok");
         }
         else
         {
-            json = JsonConvert.SerializeObject(model.Event);
+            json = JsonConvert.SerializeObject(model.ActivEvent);
             StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
             HttpResponseMessage response = await client.PutAsync("Event", content);
             string contentString = await response.Content.ReadAsStringAsync();
             if (response.IsSuccessStatusCode && bool.Parse(contentString))
             {
-                await Shell.Current.GoToAsync("..");
+                await Shell.Current.GoToAsync($"{nameof(Home)}");
             }
             else
                 await Shell.Current.DisplayAlert("Erreur", "Erreur d'accés au serveur", "Ok");
@@ -85,6 +99,7 @@ public partial class EventManager : ContentPage
             if (await appShell.AskLogin())
             {
                 base.OnAppearing();
+
                 FirstAppear = false;
             }
             else

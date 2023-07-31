@@ -16,7 +16,7 @@
                             <Label Text="{Binding Product.Name}" Grid.Column="0" Grid.Row="0"/>
                             <Label Grid.Column="1" Grid.Row="0">
                                 <Label.Text>
-                                    <MultiBinding StringFormat="Price: {0},{1}€">
+                                    <MultiBinding StringFormat="Prix: {0},{1}€">
                                         <Binding Path="Product.Price.FullMonnaie" />
                                         <Binding Path="Product.Price.Cent" />
                                     </MultiBinding>
