@@ -6,7 +6,7 @@
              BackgroundColor="{DynamicResource BackgroundColor}">
     <ContentPage.Content>
         <StackLayout>
-            <Grid ColumnDefinitions="auto,*" RowDefinitions="auto,auto,auto,auto,auto,auto" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+            <Grid ColumnDefinitions="auto,*" RowDefinitions="auto,auto,auto,auto,auto,auto,auto" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
                 <Label Text="Selectionner un réglage existant" Grid.Row="0" Grid.Column="0"/>
                 <Picker x:Name="MailContentPicker" Grid.Row="0" Grid.Column="1" SelectedIndexChanged="PickerSelectedIndexChanged"/>
 
@@ -23,6 +23,7 @@
                 <Entry Text="{Binding CurrentMailParameter.MailFoot}" Grid.Row="4" Grid.Column="1"/>
 
                 <Button x:Name="ValidationButton" Text="Valider" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Clicked="OnValidateAsync"/>
+                <Button x:Name="DeleteButton" Text="Supprimer" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Clicked="OnDeleteAsync" IsVisible="False" />
             </Grid>
         </StackLayout>
     </ContentPage.Content>

@@ -53,14 +53,13 @@ namespace Boucher_Double_Front
             }
             return base.CreateWindow(activationState);
         }
-
         public async Task<HttpClient> PrepareQuery()
         {
-            HttpClient client = new HttpClient() { BaseAddress=new Uri(BaseUrl)};
+            HttpClient client = new() { BaseAddress = new Uri(BaseUrl) };
             client.DefaultRequestHeaders.Add("X-CSRF-TOKEN", CsrfToken);
             HttpResponseMessage connectedResponse = await client.GetAsync("User/Connected");
-            string content=await connectedResponse.Content.ReadAsStringAsync();
-            if(connectedResponse.IsSuccessStatusCode && bool.Parse(content))
+            string content = await connectedResponse.Content.ReadAsStringAsync();
+            if (connectedResponse.IsSuccessStatusCode && bool.Parse(content))
             {
                 return client;
             }
@@ -69,6 +68,8 @@ namespace Boucher_Double_Front
                 UserAccess userAccess = new UserAccess() { Password = User.Password, Pseudo = User.Login };
                 if (await Connect(userAccess))
                 {
+                    client.DefaultRequestHeaders.Remove("X-CSRF-TOKEN");
+                    client.DefaultRequestHeaders.Add("X-CSRF-TOKEN", CsrfToken);
                     return client;
                 }
                 else

@@ -19,11 +19,12 @@
                 <Label Text="Adresse :" Grid.Row="4" Grid.Column="0"/>
                 <Entry Text="{Binding NewStore.Adress}" Grid.Row="4" Grid.Column="1"/>
                 <Label Text="Mail :" Grid.Row="5" Grid.Column="0"/>
-                <Entry Text="{Binding NewStore.Mail}" Grid.Row="5" Grid.Column="1" Keyboard="Email"/>
+                <Entry Text="{Binding NewStore.Mail}" Grid.Row="5" Grid.Column="1" Keyboard="Email" TextChanged="MailTextChanged"/>
                 <Label Text="Numero de télephone" Grid.Row="6" Grid.Column="0"/>
-                <Entry Text="{Binding NewStore.PhoneNumber}" Grid.Row="6" Grid.Column="1" Keyboard="Telephone"/>
+                <Entry Text="{Binding NewStore.PhoneNumber}" Grid.Row="6" Grid.Column="1" Keyboard="Telephone" TextChanged="OnPhoneNumberChanged"/>
                 <Button Text="Valider" Grid.Row="7" Grid.ColumnSpan="2" Clicked="ValidateStoreAsync" Grid.Column="0"/>
             </Grid>
+            
             <Grid RowDefinitions="*,*,*,*,*,*,*,*,*,*" ColumnDefinitions="*,*" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
                 <Label Text="Creez un nouveau utilisateur" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"/>
                 <Label Text="Selectionner un role :" Grid.Row="1" Grid.Column="0"/>
@@ -33,15 +34,15 @@
                 <Label Text="Prenom: " Grid.Row="3" Grid.Column="0"/>
                 <Entry Text="{Binding NewUser.Surname}" Grid.Row="3" Grid.Column="1"/>
                 <Label Text="Mail :" Grid.Row="4" Grid.Column="0"/>
-                <Entry Text="{Binding NewUser.Mail}" Grid.Column="1" Grid.Row="4"/>
-                <Label Text="¨Pseudo :" Grid.Row="5" Grid.Column="0"/>
-                <Entry Text="{Binding NewUser.Password}" Grid.Row="5" Grid.Column="1"/>
+                <Entry Text="{Binding NewUser.Mail}" Grid.Column="1" Grid.Row="4" TextChanged="MailTextChanged"/>
+                <Label Text="Pseudo :" Grid.Row="5" Grid.Column="0"/>
+                <Entry Text="{Binding NewUser.Login}" Grid.Row="5" Grid.Column="1"/>
                 <Label Text="Mot de passe :" Grid.Row="6" Grid.Column="0"/>
-                <Entry Text="{Binding NewUser.Password}" IsPassword="True" Grid.Row="6" Grid.Column="1" />
+                <Entry Text="{Binding NewUser.Password}" IsPassword="True" Grid.Row="6" Grid.Column="1"  TextChanged="OnPasswordChanged" />
                 <Label Text="Confirmer le mot de passe" Grid.Row="7" Grid.Column="0" />
                 <Entry IsPassword="True" Grid.Row="7" Grid.Column="1" x:Name="PasswordChecker"/>
                 <Label Text="Numéro de télephone" Grid.Row="8" Grid.Column="0"/>
-                <Entry Text="{Binding NewUser.PhoneNumber}" Keyboard="Telephone" Grid.Row="8" Grid.Column="1"/>
+                <Entry Text="{Binding NewUser.PhoneNumber}" Keyboard="Telephone" Grid.Row="8" Grid.Column="1" TextChanged="OnPhoneNumberChanged"/>
                 <Button Text="Valider" Clicked="ValidateUserAsync" Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2"/>
             </Grid>
         </StackLayout>

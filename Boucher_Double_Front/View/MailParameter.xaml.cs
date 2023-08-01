@@ -42,14 +42,27 @@ namespace Boucher_Double_Front.View
                     model.CurrentMailParameter.Id = int.Parse(contentString);
                     appInstance.MailParameter = model.CurrentMailParameter;
                     appInstance.DatabaseHelper.SaveMailContentParameter(model.CurrentMailParameter);
-                    await Shell.Current.GoToAsync("..");
+                    await Shell.Current.DisplayAlert("Succés", "Paramétrage créé et selectionné avec succés", "Ok");
+                    await Shell.Current.GoToAsync($"..");
                 }
+                else
+                    await Shell.Current.DisplayAlert("Erreur", "Erreur d'accés au serveur", "Ok");
             }
             else
             {
-                appInstance.MailParameter = MailContentPicker.SelectedItem as MailContentParameter;
-                appInstance.DatabaseHelper.SaveMailContentParameter(appInstance.MailParameter);
-                await Shell.Current.GoToAsync("..");
+                json = JsonConvert.SerializeObject(model.CurrentMailParameter);
+                StringContent content = new(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PutAsync("MailContentParameter", content);
+                string contentString = await response.Content.ReadAsStringAsync();
+                if (response.IsSuccessStatusCode && bool.Parse(contentString))
+                {
+                    appInstance.MailParameter = MailContentPicker.SelectedItem as MailContentParameter;
+                    appInstance.DatabaseHelper.SaveMailContentParameter(appInstance.MailParameter);
+                    await Shell.Current.DisplayAlert("Succés", "Paramétrage mis à jour et selectionné avec succés", "Ok");
+                    await Shell.Current.GoToAsync("..");
+                }
+                else
+                    await Shell.Current.DisplayAlert("Erreur", "Erreur d'accés au serveur", "Ok");
             }
         }
 
@@ -59,6 +72,7 @@ namespace Boucher_Double_Front.View
             {
                 model.CurrentMailParameter = MailContentPicker.SelectedItem as MailContentParameter;
                 ValidationButton.Text = "Mettre a jour";
+                DeleteButton.IsVisible = true;
                 BindingContext = null;
                 BindingContext = model;
             }
@@ -66,15 +80,30 @@ namespace Boucher_Double_Front.View
             {
                 model.CurrentMailParameter = new() { IdStore = (Application.Current as App).User.Store.IdStore };
                 ValidationButton.Text = "Valider";
+                DeleteButton.IsVisible = false;
                 BindingContext = null;
                 BindingContext = model;
             }
         }
 
+        public async void OnDeleteAsync(object sender,EventArgs args)
+        {
+            App appInstance = Application.Current as App;
+            HttpClient client = await appInstance.PrepareQuery();
+            HttpResponseMessage response=await client.DeleteAsync($"MailContentParameter/{model.CurrentMailParameter.Id}");
+            string json=await response.Content.ReadAsStringAsync();
+            if (response.IsSuccessStatusCode && bool.Parse(json))
+            {
+                await Shell.Current.DisplayAlert("Succés", "Paramétrage supprimer avec succés", "Ok");
+                await Shell.Current.GoToAsync($"{nameof(Home)}");
+            }
+            else
+                await Shell.Current.DisplayAlert("Erreur", "Erreur d'accés au serveur", "Ok");
+        }
+
         protected override async void OnDisappearing()
         {
             base.OnDisappearing();
-            BindingContext = null;
             Shell.Current.Navigation.RemovePage(this);
         }
 

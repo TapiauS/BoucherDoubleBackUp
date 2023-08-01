@@ -8,8 +8,16 @@
     <ContentPage.Content>
         <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
             <HorizontalStackLayout>
-                <Entry Text="{Binding Store.Name}" />
                 <Label Text="Mettre a jour le nom du magasin:"/>
+                <Entry Text="{Binding Store.Name}" />
+            </HorizontalStackLayout>
+            <HorizontalStackLayout>
+                <Label Text="Mettre a jour le mail:"/>
+                <Entry Text="{Binding Store.Mail}" TextChanged="MailTextChanged"/>
+            </HorizontalStackLayout>
+            <HorizontalStackLayout>
+                <Label Text="Mettre a jour le numéro de télephone:"/>
+                <Entry Text="{Binding Store.PhoneNumber}" TextChanged="OnPhoneNumberChanged"/>
             </HorizontalStackLayout>
             <Button Text="Selectionner une photo" Clicked="OnPickPhotoButtonClicked" />
             <Image Source="{Binding PicturePath}" HeightRequest="200" WidthRequest="200" />

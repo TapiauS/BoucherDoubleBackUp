@@ -65,7 +65,6 @@ namespace Boucher_Double_Front.View
         protected override async void OnDisappearing()
         {
             base.OnDisappearing();
-            BindingContext = null;
             Shell.Current.Navigation.RemovePage(this);
         }
 

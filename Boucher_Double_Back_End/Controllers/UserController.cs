@@ -46,12 +46,12 @@ namespace Boucher_Double_Back_End.Controllers
             }
             catch (DAOException daoe)
             {
-                logger.LogError("An datatabase error occurred while processing GET request", daoe);
+                logger.LogError("An datatabase error occurred while processing GET request "+daoe.Message, daoe);
                 throw new Exception(daoe.Message);
             }
             catch (Exception ex)
             {
-                logger.LogError("An unknow error occurred while processing GET request", ex);
+                logger.LogError("An unknow error occurred while processing GET request "+ex.Message, ex);
                 throw new Exception(ex.Message);
             }
 

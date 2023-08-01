@@ -12,6 +12,7 @@ using Microsoft.Maui;
 using Microsoft.Maui.Controls.Xaml;
 using System.Net.Http.Json;
 using Boucher_Double_Front.ViewModel;
+using System.Text.RegularExpressions;
 
 namespace Boucher_Double_Front.View
 {
@@ -25,11 +26,52 @@ namespace Boucher_Double_Front.View
         {
             Resources = StyleDictionnary.GetInstance();
             InitializeComponent();
-            RolePicker.ItemsSource=Enum.GetValues(typeof(Role)).Cast<Role>().ToList();
+            App app = Application.Current as App;
+            RolePicker.ItemsSource=Enum.GetValues(typeof(Role)).Cast<Role>().Where(role=>role<=app.User.Role).ToList();
             Task.Run(async () => await model.GetAllStoreAsync()).Wait();
             StorePicker.ItemsSource = model.Stores;
             StorePicker.ItemDisplayBinding = new Binding("Name");
             BindingContext = model;
+        }
+
+        public void MailTextChanged(object sender, EventArgs e)
+        {
+            Entry entry = sender as Entry;
+            string mailRegex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
+            if (entry != null)
+            {
+                if (Regex.IsMatch(entry.Text, mailRegex))
+                    entry.BackgroundColor = Color.FromRgba(255, 255, 0, 0.5);
+                else
+                    entry.BackgroundColor = Color.FromRgba(255, 0, 0, 0.5);
+            }
+        }
+
+        public void OnPhoneNumberChanged(object sender, EventArgs e)
+        {
+            Entry entry = sender as Entry;
+            string phoneNumberRegex = "^\\d{10}$";
+            if (entry != null)
+            {
+                if (Regex.IsMatch(entry.Text, phoneNumberRegex))
+                    entry.BackgroundColor = Color.FromRgba(255, 255, 0, 0.5);
+                else
+                    entry.BackgroundColor = Color.FromRgba(255, 0, 0, 0.5);
+            }
+
+        }
+
+        public void OnPasswordChanged(object sender, EventArgs e)
+        {
+            Entry entry=sender as Entry;
+            string passwordRegex = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$";
+            if(entry != null)
+            {
+                if(Regex.IsMatch(entry.Text, passwordRegex))
+                    entry.BackgroundColor = Color.FromRgba(255, 255, 0, 0.5);
+                else
+                    entry.BackgroundColor = Color.FromRgba(255, 0, 0, 0.5);
+            }
         }
 
         private bool FirstAppear = true;
@@ -55,21 +97,24 @@ namespace Boucher_Double_Front.View
         public async void ValidateUserAsync(object sender,EventArgs args)
         {
             string password = PasswordChecker.Text;
+            string phoneNumberRegex = "^\\d{10}$";
+            string passwordRegex = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$";
+            string mailRegex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
             if (password==model.NewUser.Password)
             {
-                if (model.NewUser.Password != "" && model.NewUser.Mail != "" && model.NewUser.Surname != "" && model.NewUser.Name != "" && model.NewUser.Login != "" && model.NewUser.PhoneNumber != "")
+                if (Regex.IsMatch(model.NewUser.Password, passwordRegex) && Regex.IsMatch(model.NewUser.Mail, mailRegex) && model.NewUser.Surname != "" && model.NewUser.Name != "" && model.NewUser.Login != "" && Regex.IsMatch(model.NewUser.PhoneNumber, phoneNumberRegex))
                 {
                     App app = Application.Current as App;
                     HttpClient client = await app.PrepareQuery();
                     if (model.NewUser.Store == null)
-                        model.NewUser.Store =app.user.Store;
-                    string json=JsonConvert.SerializeObject(model.NewUser);
-                    StringContent content = new (json, Encoding.UTF8, "application/json");
-                    HttpResponseMessage responseMessage=await client.PostAsync("User", content);
-                    if(responseMessage.IsSuccessStatusCode)
+                        model.NewUser.Store = app.user.Store;
+                    string json = JsonConvert.SerializeObject(model.NewUser);
+                    StringContent content = new(json, Encoding.UTF8, "application/json");
+                    HttpResponseMessage responseMessage = await client.PostAsync("User", content);
+                    if (responseMessage.IsSuccessStatusCode)
                     {
-                        string jsoncontent=await responseMessage.Content.ReadAsStringAsync();
-                        if(bool.Parse(jsoncontent))
+                        string jsoncontent = await responseMessage.Content.ReadAsStringAsync();
+                        if (int.Parse(jsoncontent) > 0)
                         {
                             await Shell.Current.DisplayAlert("Succés", "Compte créé avec succés", "Ok");
                         }
@@ -78,9 +123,11 @@ namespace Boucher_Double_Front.View
                             await Shell.Current.DisplayAlert("Erreur", "Mot de passe ou pseudo indisponible", "Ok");
                         }
                     }
+                    else
+                        await Shell.Current.DisplayAlert("Erreur", "Erreur d'accés au serveur", "Ok");
                 }
-
-                
+                else
+                    await Shell.Current.DisplayAlert("Erreur de saisie", "Certains champs sont incorrects, ils sont tous obligatoire", "Ok");
             }
             else
             {
@@ -90,7 +137,8 @@ namespace Boucher_Double_Front.View
 
         public async void ValidateStoreAsync(object sender,EventArgs args)
         {
-
+            string phoneNumberRegex = "^\\d{10}$";
+            string mailRegex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
             if (StorePicker.SelectedIndex > 0)
             {
                 model.NewUser.Store = StorePicker.SelectedItem as Store;
@@ -101,16 +149,23 @@ namespace Boucher_Double_Front.View
 
             else
             {
-                App appInstance = Application.Current as App;
-                HttpClient client = await appInstance.PrepareQuery();
-                string json = JsonConvert.SerializeObject(model.NewStore);
-                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
-                HttpResponseMessage response = await client.PostAsync("Store", content);
-                string jsonresult=await response.Content.ReadAsStringAsync();
-                if (response.IsSuccessStatusCode&&bool.Parse(jsonresult)) 
+                if(Regex.IsMatch(model.NewStore.Mail, mailRegex)&&  model.NewStore.Name != "" && Regex.IsMatch(model.NewStore.PhoneNumber, phoneNumberRegex) && model.NewStore.Adress != "" && model.NewStore.Town != "")
                 {
-                    model.NewUser.Store = model.NewStore;
+                    App appInstance = Application.Current as App;
+                    HttpClient client = await appInstance.PrepareQuery();
+                    string json = JsonConvert.SerializeObject(model.NewStore);
+                    StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                    HttpResponseMessage response = await client.PostAsync("Store", content);
+                    string jsonresult = await response.Content.ReadAsStringAsync();
+                    if (response.IsSuccessStatusCode && int.Parse(jsonresult) > 0)
+                    {
+                        model.NewUser.Store = model.NewStore;
+                    }
+                    else
+                        await Shell.Current.DisplayAlert("Erreur", "Erreur d'accés au serveur", "Ok");
                 }
+                else
+                    await Shell.Current.DisplayAlert("Erreur de saisie", "Certains champs sont incorrects, ils sont tous obligatoire", "Ok");
             }
 
         }

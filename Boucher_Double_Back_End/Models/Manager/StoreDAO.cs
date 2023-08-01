@@ -15,62 +15,68 @@ namespace Boucher_Double_Back_End.Models.Manager
         {
             try
             {
-                using MySqlConnection connection = Connexion.getConnexion();
-
-                if (entity.Id == 0)
+                if (User.Role > Boucher_DoubleModel.Models.Role.SUPERADMIN)
                 {
-                    using MySqlCommand command = new()
+                    using MySqlConnection connection = Connexion.getConnexion();
+
+                    if (entity.Id == 0)
                     {
-                        Connection = connection,
-                        CommandText = "INSERT INTO person(name, mail,phone_number) VALUES (@name, @mail,@phone) RETURNING id"
-                    };
-                    command.Parameters.AddWithValue("@name", entity.Name);
-                    command.Parameters.AddWithValue("@mail", entity.Mail);
-                    command.Parameters.AddWithValue("@phone", entity.PhoneNumber);
-                    using MySqlDataReader reader = command.ExecuteReader();
-                    if (await reader.ReadAsync())
-                    {
-                        using MySqlConnection connection1 = Connexion.getConnexion();
-                        using MySqlCommand command1 = new()
+                        using MySqlCommand command = new()
                         {
-                            Connection = connection1
+                            Connection = connection,
+                            CommandText = "INSERT INTO person(name, mail,phone_number) VALUES (@name, @mail,@phone) RETURNING id"
                         };
-                        int id = reader.GetInt32(0);
-                        entity.Id = id;
-                        command1.CommandText = "INSERT INTO store(town, adress, id_person, logo_path) VALUES (@town, @adress, @id_person, @logo_path) RETURNING id";
-                        command1.Parameters.Clear();
-                        command1.Parameters.AddWithValue("@town", entity.Town);
-                        command1.Parameters.AddWithValue("@adress", entity.Adress);
-                        command1.Parameters.AddWithValue("@id_person", id);
-                        command1.Parameters.AddWithValue("@logo_path", entity.LogoPath);
-                        using MySqlDataReader reader1 = command1.ExecuteReader();
-                        if (await reader1.ReadAsync())
-                            return reader1.GetInt32(0);
+                        command.Parameters.AddWithValue("@name", entity.Name);
+                        command.Parameters.AddWithValue("@mail", entity.Mail);
+                        command.Parameters.AddWithValue("@phone", entity.PhoneNumber);
+                        using MySqlDataReader reader = command.ExecuteReader();
+                        if (await reader.ReadAsync())
+                        {
+                            using MySqlConnection connection1 = Connexion.getConnexion();
+                            using MySqlCommand command1 = new()
+                            {
+                                Connection = connection1
+                            };
+                            int id = reader.GetInt32(0);
+                            entity.Id = id;
+                            command1.CommandText = "INSERT INTO store(town, adress, id_person, logo_path) VALUES (@town, @adress, @id_person, @logo_path) RETURNING id";
+                            command1.Parameters.Clear();
+                            command1.Parameters.AddWithValue("@town", entity.Town);
+                            command1.Parameters.AddWithValue("@adress", entity.Adress);
+                            command1.Parameters.AddWithValue("@id_person", id);
+                            command1.Parameters.AddWithValue("@logo_path", entity.LogoPath);
+                            using MySqlDataReader reader1 = command1.ExecuteReader();
+                            if (await reader1.ReadAsync())
+                                return reader1.GetInt32(0);
+                            else
+                                return 0;
+                        }
+                        else
+                        {
+                            return 0;
+                        }
+                    }
+                    else
+                    {
+                        using MySqlCommand command = new()
+                        {
+                            Connection = connection,
+                            CommandText = "INSERT INTO store(town, adress, id_person, logo_path) VALUES (@town, @adress, @id_person, @logo_path) RETURNING id"
+                        };
+                        command.Parameters.AddWithValue("@town", entity.Town);
+                        command.Parameters.AddWithValue("@adress", entity.Adress);
+                        command.Parameters.AddWithValue("@id_person", entity.Id);
+                        command.Parameters.AddWithValue("@logo_path", entity.LogoPath);
+                        using MySqlDataReader reader = command.ExecuteReader();
+                        if (await reader.ReadAsync())
+                            return reader.GetInt32(0);
                         else
                             return 0;
                     }
-                    else
-                    {
-                        return 0;
-                    }
                 }
                 else
-                {
-                    using MySqlCommand command = new()
-                    {
-                        Connection = connection,
-                        CommandText = "INSERT INTO store(town, adress, id_person, logo_path) VALUES (@town, @adress, @id_person, @logo_path) RETURNING id"
-                    };
-                    command.Parameters.AddWithValue("@town", entity.Town);
-                    command.Parameters.AddWithValue("@adress", entity.Adress);
-                    command.Parameters.AddWithValue("@id_person", entity.Id);
-                    command.Parameters.AddWithValue("@logo_path", entity.LogoPath);
-                    using MySqlDataReader reader = command.ExecuteReader();
-                    if (await reader.ReadAsync())
-                        return reader.GetInt32(0);
-                    else
-                        return 0;
-                }
+                    return 0;
+
             }
             catch (IOException ioe)
             {
@@ -98,15 +104,20 @@ namespace Boucher_Double_Back_End.Models.Manager
         {
             try
             {
-                using MySqlConnection connection = Connexion.getConnexion();
-
-                using MySqlCommand command = new()
+                if (User.Role >= Boucher_DoubleModel.Models.Role.SUPERADMIN)
                 {
-                    Connection = connection,
-                    CommandText = "DELETE FROM person WHERE id = @id"
-                };
-                command.Parameters.AddWithValue("@id", id);
-                return await command.ExecuteNonQueryAsync() > 0;
+                    using MySqlConnection connection = Connexion.getConnexion();
+
+                    using MySqlCommand command = new()
+                    {
+                        Connection = connection,
+                        CommandText = "DELETE FROM person WHERE id = @id"
+                    };
+                    command.Parameters.AddWithValue("@id", id);
+                    return await command.ExecuteNonQueryAsync() > 0;
+                }
+                else
+                    return false;
             }
             catch (IOException ioe)
             {
@@ -134,33 +145,39 @@ namespace Boucher_Double_Back_End.Models.Manager
         {
             try
             {
-                using MySqlConnection connection = Connexion.getConnexion();
-
-                using MySqlCommand command = new()
+                if (User.Role >= Boucher_DoubleModel.Models.Role.SUPERADMIN)
                 {
-                    Connection = connection,
-                    CommandText = "SELECT * FROM full_store"
-                };
+                    using MySqlConnection connection = Connexion.getConnexion();
 
-                using MySqlDataReader reader = command.ExecuteReader();
-                List<Store> list = new();
-
-                while (await reader.ReadAsync())
-                {
-                    Store store = new ()
+                    using MySqlCommand command = new()
                     {
-                        Adress = reader.GetString(reader.GetOrdinal("adress")),
-                        Town = reader.GetString(reader.GetOrdinal("town")),
-                        Name = reader.GetString(reader.GetOrdinal("name")),
-                        LogoPath = reader.GetString(reader.GetOrdinal("logo_path")),
-                        Id = reader.GetInt32(reader.GetOrdinal("id")),
-                        IdStore = reader.GetInt32(reader.GetOrdinal("id_store")),
-                        PhoneNumber = reader.GetString(reader.GetOrdinal("phone_number"))
+                        Connection = connection,
+                        CommandText = "SELECT * FROM full_store"
                     };
 
-                    list.Add(store);
+                    using MySqlDataReader reader = command.ExecuteReader();
+                    List<Store> list = new();
+
+                    while (await reader.ReadAsync())
+                    {
+                        Store store = new()
+                        {
+                            Adress = reader.GetString(reader.GetOrdinal("adress")),
+                            Town = reader.GetString(reader.GetOrdinal("town")),
+                            Name = reader.GetString(reader.GetOrdinal("name")),
+                            LogoPath = reader.GetString(reader.GetOrdinal("logo_path")),
+                            Id = reader.GetInt32(reader.GetOrdinal("id")),
+                            IdStore = reader.GetInt32(reader.GetOrdinal("id_store")),
+                            PhoneNumber = reader.GetString(reader.GetOrdinal("phone_number")),
+                            Mail=reader.GetString(reader.GetOrdinal("mail")),
+                        };
+
+                        list.Add(store);
+                    }
+                    return list;
                 }
-                return list;
+                else
+                    return default;
             }
             catch (IOException ioe)
             {
@@ -249,10 +266,11 @@ namespace Boucher_Double_Back_End.Models.Manager
                 using MySqlCommand command = new()
                 {
                     Connection = connection,
-                    CommandText = "UPDATE person SET name=@name,mail=@mail WHERE id=@id"
+                    CommandText = "UPDATE person SET name=@name,mail=@mail,phone_number=@phone WHERE id=@id"
                 };
                 command.Parameters.AddWithValue("name", entity.Name);
                 command.Parameters.AddWithValue("mail", entity.Mail);
+                command.Parameters.AddWithValue("@phone", entity.PhoneNumber);
                 command.Parameters.AddWithValue("id", entity.Id);
                 if (await command.ExecuteNonQueryAsync() > 0)
                 {

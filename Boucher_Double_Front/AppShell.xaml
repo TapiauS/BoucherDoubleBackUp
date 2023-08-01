@@ -94,4 +94,8 @@
     <FlyoutItem Title="Tableau récapitulatif" Shell.BackgroundColor="Transparent">
         <ShellContent Title="Tableau récapitulatif" ContentTemplate="{DataTemplate view:RecapTableView}" Shell.BackgroundColor="Transparent" />
     </FlyoutItem>
+
+    <FlyoutItem Title="Gérer les utilisateurs" Shell.BackgroundColor="Transparent">
+        <ShellContent Title="Gérer les utilisateurs" ContentTemplate="{DataTemplate view:UserManager}" Shell.BackgroundColor="Transparent" />
+    </FlyoutItem>
 </Shell>

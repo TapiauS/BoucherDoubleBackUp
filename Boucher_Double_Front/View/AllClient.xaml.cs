@@ -27,7 +27,11 @@ namespace Boucher_Double_Front.View
         }
 
 
-
+        protected override async void OnDisappearing()
+        {
+            base.OnDisappearing();
+            Shell.Current.Navigation.RemovePage(this);
+        }
         public async void OnDeleteAsync(object sender, EventArgs e)
         {
 

@@ -10,6 +10,7 @@ using Microsoft.Maui;
 using Microsoft.Maui.Controls.Xaml;
 using Newtonsoft.Json;
 using Boucher_Double_Front.ViewModel;
+using System.Text.RegularExpressions;
 
 namespace Boucher_Double_Front.View
 {
@@ -36,6 +37,11 @@ namespace Boucher_Double_Front.View
             InitializeComponent();
         }
 
+        protected override async void OnDisappearing()
+        {
+            base.OnDisappearing();
+            Shell.Current.Navigation.RemovePage(this);
+        }
 
 
         private bool FirstAppear = true;
@@ -57,25 +63,59 @@ namespace Boucher_Double_Front.View
             }
         }
 
+        public void MailTextChanged(object sender, EventArgs e)
+        {
+            Entry entry = sender as Entry;
+            string mailRegex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
+            if (entry != null)
+            {
+                if (Regex.IsMatch(entry.Text, mailRegex))
+                    entry.BackgroundColor = Color.FromRgba(255, 255, 0, 0.5);
+                else
+                    entry.BackgroundColor = Color.FromRgba(255, 0, 0, 0.5);
+            }
+        }
+
+        public void OnPhoneNumberChanged(object sender, EventArgs e)
+        {
+            Entry entry = sender as Entry;
+            string phoneNumberRegex = "^\\d{10}$";
+            if (entry != null)
+            {
+                if (Regex.IsMatch(entry.Text, phoneNumberRegex))
+                    entry.BackgroundColor = Color.FromRgba(255, 255, 0, 0.5);
+                else
+                    entry.BackgroundColor = Color.FromRgba(255, 0, 0, 0.5);
+            }
+
+        }
+
         public async void OnValidateAsync(object sender,EventArgs args)
         {
             App app = Application.Current as App;
-            HttpClient httpClient =await app.PrepareQuery();
-            string json=JsonConvert.SerializeObject(model.Client);
-            StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
-            HttpResponseMessage httpResponse=await httpClient.PutAsync("Client", content);
-            string jsonResult=await httpResponse.Content.ReadAsStringAsync();
-            if(httpResponse.IsSuccessStatusCode) 
+            string phoneNumberRegex = "^\\d{10}$";
+            string mailRegex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
+            if (model.Client.Name != "" && model.Client.Surname != "" && Regex.IsMatch(model.Client.PhoneNumber, phoneNumberRegex) && Regex.IsMatch(model.Client.Mail, mailRegex))
             {
-                if (bool.Parse(jsonResult))
-                    await Shell.Current.GoToAsync("..");
+                HttpClient httpClient = await app.PrepareQuery();
+                string json = JsonConvert.SerializeObject(model.Client);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage httpResponse = await httpClient.PutAsync("Client", content);
+                string jsonResult = await httpResponse.Content.ReadAsStringAsync();
+                if (httpResponse.IsSuccessStatusCode)
+                {
+                    if (bool.Parse(jsonResult))
+                        await Shell.Current.GoToAsync("..");
+                    else
+                        await Shell.Current.DisplayAlert("Erreur", "Mail non disponible", "Ok");
+                }
                 else
-                    await Shell.Current.DisplayAlert("Erreur", "Mail non disponible", "Ok");
+                {
+                    await Shell.Current.DisplayAlert("Erreur", "Erreur d'accés au serveur", "Ok");
+                }
             }
             else
-            {
-                await Shell.Current.DisplayAlert("Erreur", "Erreur d'accés au serveur", "Ok");
-            }
+                await Shell.Current.DisplayAlert("Erreur", "Certains champs sont incorrect , ils sont tous obligatoire", "Ok");
         }
 
         public async void OnStopAsync(object sender,EventArgs args)

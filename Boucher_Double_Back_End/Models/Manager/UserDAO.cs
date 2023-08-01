@@ -17,7 +17,7 @@ namespace Boucher_Double_Back_End.Models.Manager
 
         public async Task<int> CreateAsync(User entity)
         {
-            if (User.Role == Role.ADMIN)
+            if (User.Role >= Role.ADMIN)
             {
                 try
                 {
@@ -35,7 +35,6 @@ namespace Boucher_Double_Back_End.Models.Manager
                         using MySqlDataReader reader = command.ExecuteReader();
                         if (await reader.ReadAsync())
                         {
-
                             int id = reader.GetInt32(0);
                             MySqlConnection connexion1 = Connexion.getConnexion();
 
@@ -76,22 +75,22 @@ namespace Boucher_Double_Back_End.Models.Manager
                 }
                 catch (IOException ioe)
                 {
-                    throw new DAOException("Erreur de connexion", ioe, ErrorTypeDAO.IOE);
+                    throw new DAOException("Erreur de connexion : "+ioe.Message, ioe, ErrorTypeDAO.IOE);
                 }
                 catch (MySqlException msqe)
                 {
                     switch (msqe.ErrorCode)
                     {
                         case MySqlErrorCode.DuplicateKeyEntry:
-                            return default;
+                            return 0;
                             break;
                         default:
-                            throw new DAOException("Erreur SQL grave", msqe, ErrorTypeDAO.SQLSEVERE);
+                            throw new DAOException("Erreur SQL grave : "+msqe.Message, msqe, ErrorTypeDAO.SQLSEVERE);
                     }
                 }
                 catch (Exception e)
                 {
-                    throw new DAOException("Erreur inconnue", e, ErrorTypeDAO.UNKNOW);
+                    throw new DAOException("Erreur inconnue : "+e.Message, e, ErrorTypeDAO.UNKNOW);
                 }
 
             }
@@ -101,7 +100,7 @@ namespace Boucher_Double_Back_End.Models.Manager
 
         public async Task<bool> DeleteAsync(int id)
         {
-            if (User.Role == Role.ADMIN)
+            if (User.Role >= Role.ADMIN)
             {
                 try
                 {
@@ -115,7 +114,7 @@ namespace Boucher_Double_Back_End.Models.Manager
                 }
                 catch (IOException ioe)
                 {
-                    throw new DAOException("Erreur de connexion", ioe, ErrorTypeDAO.IOE);
+                    throw new DAOException("Erreur de connexion : "+ioe.Message, ioe, ErrorTypeDAO.IOE);
                 }
                 catch (MySqlException msqe)
                 {
@@ -125,12 +124,12 @@ namespace Boucher_Double_Back_End.Models.Manager
                             return default;
                             break;
                         default:
-                            throw new DAOException("Erreur SQL grave", msqe, ErrorTypeDAO.SQLSEVERE);
+                            throw new DAOException("Erreur SQL grave : "+msqe.Message, msqe, ErrorTypeDAO.SQLSEVERE);
                     }
                 }
                 catch (Exception e)
                 {
-                    throw new DAOException("Erreur inconnue", e, ErrorTypeDAO.UNKNOW);
+                    throw new DAOException("Erreur inconnue : "+e.Message, e, ErrorTypeDAO.UNKNOW);
                 }
             }
             else
@@ -141,7 +140,7 @@ namespace Boucher_Double_Back_End.Models.Manager
         {
             try
             {
-                if (User.Role == Role.ADMIN)
+                if (User.Role >= Role.ADMIN)
                 {
                     MySqlConnection connexion = Connexion.getConnexion();
                     
@@ -155,6 +154,7 @@ namespace Boucher_Double_Back_End.Models.Manager
                         users.Add(new()
                         {
                             Surname = reader.GetString(reader.GetOrdinal("surname")),
+                            Password="",
                             Name = reader.GetString(reader.GetOrdinal("name")),
                             Id = reader.GetInt32(reader.GetOrdinal("id")),
                             Login = reader.GetString(reader.GetOrdinal("pseudo")),
@@ -171,7 +171,7 @@ namespace Boucher_Double_Back_End.Models.Manager
             }
             catch (IOException ioe)
             {
-                throw new DAOException("Erreur de connexion", ioe, ErrorTypeDAO.IOE);
+                throw new DAOException("Erreur de connexion : " + ioe.Message, ioe, ErrorTypeDAO.IOE);
             }
             catch (MySqlException msqe)
             {
@@ -181,12 +181,12 @@ namespace Boucher_Double_Back_End.Models.Manager
                         return default;
                         break;
                     default:
-                        throw new DAOException("Erreur SQL grave", msqe, ErrorTypeDAO.SQLSEVERE);
+                        throw new DAOException("Erreur SQL grave : "+msqe.Message, msqe, ErrorTypeDAO.SQLSEVERE);
                 }
             }
             catch (Exception e)
             {
-                throw new DAOException("Erreur inconnue", e, ErrorTypeDAO.UNKNOW);
+                throw new DAOException("Erreur inconnue : "+e.Message, e, ErrorTypeDAO.UNKNOW);
             }
         }
 
@@ -194,7 +194,7 @@ namespace Boucher_Double_Back_End.Models.Manager
         {
             try
             {
-                if (User.Role == Role.ADMIN)
+                if (User.Role >= Role.ADMIN)
                 {
                     MySqlConnection connexion = Connexion.getConnexion();
                     using MySqlCommand command = new();
@@ -209,6 +209,7 @@ namespace Boucher_Double_Back_End.Models.Manager
                         {
                             Surname = reader.GetString(reader.GetOrdinal("surname")),
                             Name = reader.GetString(reader.GetOrdinal("name")),
+                            Password="",
                             Id = reader.GetInt32(reader.GetOrdinal("id")),
                             Login = reader.GetString(reader.GetOrdinal("pseudo")),
                             Store = await new StoreDAO().GetByIdAsync(reader.GetInt32(reader.GetOrdinal("id_store"))),
@@ -224,7 +225,7 @@ namespace Boucher_Double_Back_End.Models.Manager
             }
             catch (IOException ioe)
             {
-                throw new DAOException("Erreur de connexion", ioe, ErrorTypeDAO.IOE);
+                throw new DAOException("Erreur de connexion : " + ioe.Message, ioe, ErrorTypeDAO.IOE);
             }
             catch (MySqlException msqe)
             {
@@ -234,12 +235,12 @@ namespace Boucher_Double_Back_End.Models.Manager
                         return default;
                         break;
                     default:
-                        throw new DAOException("Erreur SQL grave", msqe, ErrorTypeDAO.SQLSEVERE);
+                        throw new DAOException("Erreur SQL grave : " +msqe.Message, msqe, ErrorTypeDAO.SQLSEVERE);
                 }
             }
             catch (Exception e)
             {
-                throw new DAOException("Erreur inconnue", e, ErrorTypeDAO.UNKNOW);
+                throw new DAOException("Erreur inconnue : "+e.Message, e, ErrorTypeDAO.UNKNOW);
             }
         }
 
@@ -247,7 +248,7 @@ namespace Boucher_Double_Back_End.Models.Manager
         {
             try
             {
-                if (User.Role == Role.ADMIN)
+                if (User.Role >= Role.ADMIN)
                 {
                     using MySqlConnection connection = Connexion.getConnexion();
 
@@ -271,7 +272,7 @@ namespace Boucher_Double_Back_End.Models.Manager
             }
             catch (IOException ioe)
             {
-                throw new DAOException("Erreur de connexion", ioe, ErrorTypeDAO.IOE);
+                throw new DAOException("Erreur de connexion : "+ioe.Message, ioe, ErrorTypeDAO.IOE);
             }
             catch (MySqlException msqe)
             {
@@ -281,12 +282,12 @@ namespace Boucher_Double_Back_End.Models.Manager
                         return default;
                         break;
                     default:
-                        throw new DAOException("Erreur SQL grave", msqe, ErrorTypeDAO.SQLSEVERE);
+                        throw new DAOException("Erreur SQL grave : " + msqe.Message, msqe, ErrorTypeDAO.SQLSEVERE);
                 }
             }
             catch (Exception e)
             {
-                throw new DAOException("Erreur inconnue", e, ErrorTypeDAO.UNKNOW);
+                throw new DAOException("Erreur inconnue : "+e.Message, e, ErrorTypeDAO.UNKNOW);
             }
         }
 
@@ -337,7 +338,7 @@ namespace Boucher_Double_Back_End.Models.Manager
                             Id = reader.GetInt32(reader.GetOrdinal("id"))
                         };
                         int storeId = reader.GetInt32(reader.GetOrdinal("id_store"));
-                        Store store = await new StoreDAO().GetByIdAsync(storeId);
+                        Store store = await new StoreDAO() { Store = Store,User=User }.GetByIdAsync(storeId);
                         user.Store = store;
                         return user;
                     }
@@ -349,7 +350,7 @@ namespace Boucher_Double_Back_End.Models.Manager
             }
             catch (IOException ioe)
             {
-                throw new DAOException("Erreur de connexion", ioe, ErrorTypeDAO.IOE);
+                throw new DAOException("Erreur de connexion : "+ioe.Message, ioe, ErrorTypeDAO.IOE);
             }
             catch (MySqlException msqe)
             {
@@ -359,12 +360,12 @@ namespace Boucher_Double_Back_End.Models.Manager
                         return null;
                         break;
                     default:
-                        throw new DAOException("Erreur SQL grave", msqe, ErrorTypeDAO.SQLSEVERE);
+                        throw new DAOException("Erreur SQL grave : "+msqe.Message, msqe, ErrorTypeDAO.SQLSEVERE);
                 }
             }
             catch (Exception e)
             {
-                throw new DAOException("Erreur inconnue", e, ErrorTypeDAO.UNKNOW);
+                throw new DAOException("Erreur inconnue : "+e.Message, e, ErrorTypeDAO.UNKNOW);
             }
 
         }

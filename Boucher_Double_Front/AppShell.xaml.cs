@@ -30,6 +30,7 @@ namespace Boucher_Double_Front
 
 
         public bool IsAdmin { get=> User.Role >= Boucher_DoubleModel.Models.Role.ADMIN; }
+        public bool IsSuperAdmin { get => User.Role >= Boucher_DoubleModel.Models.Role.SUPERADMIN; }
         public AppShell(User user)
         {
             Resources = StyleDictionnary.GetInstance();
@@ -56,6 +57,7 @@ namespace Boucher_Double_Front
             Routing.RegisterRoute(nameof(AddClientPhone), typeof(AddClientPhone));
             Routing.RegisterRoute(nameof(EventManager), typeof(EventManager));
             Routing.RegisterRoute(nameof(RecapTableView), typeof(RecapTableView));
+            Routing.RegisterRoute(nameof(UserManager), typeof(UserManager));
             User = user;
             BindingContext = this;
         }
