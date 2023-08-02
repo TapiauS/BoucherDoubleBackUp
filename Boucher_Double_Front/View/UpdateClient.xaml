@@ -8,11 +8,11 @@
         <Grid RowDefinitions="*,*,*,*" ColumnDefinitions="*,*" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
             <Label Text="Nom" Grid.Column="0" Grid.Row="0"/>
             <Entry Text="{Binding Client.Name}" Grid.Column="1" Grid.Row="0"/>
-            <Label Text="Prenom" Grid.Column="0" Grid.Row="1"/>
+            <Label Text="Prénom" Grid.Column="0" Grid.Row="1"/>
             <Entry Text="{Binding Client.Surname}" Grid.Column="1" Grid.Row="1"/>
             <Label Text="Mail" Grid.Column="0" Grid.Row="2"/>
             <Entry Text="{Binding Client.Mail}" Grid.Column="1" Grid.Row="2" Keyboard="Email" TextChanged="MailTextChanged"/>
-            <Label Text="Numéro de telepehone" Grid.Column="0" Grid.Row="3"/>
+            <Label Text="Numéro de téléphone" Grid.Column="0" Grid.Row="3"/>
             <Entry Text="{Binding Client.PhoneNumber}" Grid.Column="1" Grid.Row="3" Keyboard="Telephone" TextChanged="OnPhoneNumberChanged"/>
         </Grid>
         <Grid ColumnDefinitions="*,*" VerticalOptions="EndAndExpand" HorizontalOptions="CenterAndExpand">

@@ -10,7 +10,7 @@
             <Label Text="{Binding Bill}"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
-            <Picker x:Name="BlueToothPicker" Title="Selectionner une imprimante" ItemDisplayBinding="{Binding .}"/>
+            <Picker x:Name="BlueToothPicker" Title="Sélectionner une imprimante" ItemDisplayBinding="{Binding .}"/>
             <Button Text="Valider" Clicked="ValidateAndSendMail" HorizontalOptions="Center"/>
         </StackLayout>
     </ContentPage.Content>

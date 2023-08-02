@@ -6,7 +6,7 @@
              BackgroundColor="{DynamicResource BackgroundColor}">
     <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
         <Grid ColumnDefinitions="auto,auto" RowDefinitions="auto,auto" BackgroundColor="{DynamicResource BackgroundColor}">
-            <Label Text="Entrer un numero de télephone :" Grid.Row="0" Grid.Column="0"/>
+            <Label Text="Entrer un numéro de télephone :" Grid.Row="0" Grid.Column="0"/>
             <Entry Text="{Binding Client.PhoneNumber}"  Keyboard="Telephone" TextChanged="OnPhoneNumberChanged" x:Name="phoneEntry" Grid.Row="0" Grid.Column="1"/>
             <Button Text="Valider" Clicked="OnValidateAsync" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"/>
         </Grid>

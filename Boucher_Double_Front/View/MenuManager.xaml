@@ -30,11 +30,12 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
             <Button Text="Ajouter un produit" Clicked="NewProductAsync"/>
-            <Grid ColumnDefinitions="auto,auto,auto" RowDefinitions="auto" VerticalOptions="EndAndExpand" HorizontalOptions="CenterAndExpand">
+            <Grid ColumnDefinitions="auto,auto,auto,auto" RowDefinitions="auto" VerticalOptions="EndAndExpand" HorizontalOptions="CenterAndExpand">
                 <Label Text="Prix :" Grid.Column="0" Grid.Row="0" VerticalOptions="End"/>
                 <Entry Grid.Column="1" Grid.Row="0" Keyboard="Numeric" Text="{Binding Menu.Price.FullMonnaie}"/>
                 <Label Text="," Grid.Column="2" Grid.Row="0" VerticalOptions="End"/>
                 <Entry Text="{Binding Menu.Price.Cent}" Grid.Column="3" Keyboard="Numeric" Grid.Row="0"/>
+                <Label Text="€" Grid.Column="4" VerticalOptions="EndAndExpand"/>
             </Grid>
             <Button Text="Valider" Clicked="OnValidateAsync"/>
             <Button x:Name="DeleteButton" Clicked="OnAbortAsync"/>

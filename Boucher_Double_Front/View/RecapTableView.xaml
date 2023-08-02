@@ -4,11 +4,11 @@
              x:Class="Boucher_Double_Front.View.RecapTableView"
              Title="RecapTableView"
              BackgroundColor="{DynamicResource BackgroundColor}">
-    <VerticalStackLayout>
-        
-        <Picker ItemsSource="{Binding AllEvents}" SelectedIndexChanged="OnEventSelection" x:Name="EventPicker" ItemDisplayBinding="{Binding Name}"/>
-        <ScrollView Orientation="Horizontal">
-            <Grid x:Name="table"  >
+    <VerticalStackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+
+        <Picker ItemsSource="{Binding AllEvents}" Title="Selectionner un évenement" SelectedIndexChanged="OnEventSelection" x:Name="EventPicker" ItemDisplayBinding="{Binding Name}" HorizontalOptions="CenterAndExpand"/>
+        <ScrollView Orientation="Horizontal" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+            <Grid x:Name="table"  HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
 
             </Grid>
         </ScrollView>

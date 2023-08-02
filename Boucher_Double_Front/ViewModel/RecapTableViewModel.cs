@@ -37,6 +37,10 @@ namespace Boucher_Double_Front.ViewModel
         private void DefineTableInfo()
         {
             CompletedSellouts = filteredSellouts.Select(sellout => new CompletedSellout(products, sellout)).GroupBy(completedsellout=>completedsellout.Sellout.Client.Id).ToList();
+            foreach (var key in Total.Keys)
+            {
+                Total[key] = 0;
+            }
             foreach (var selloutgroup in CompletedSellouts)
             {
                 foreach(var sellout in selloutgroup)

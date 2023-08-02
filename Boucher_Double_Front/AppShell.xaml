@@ -71,7 +71,7 @@
         <ShellContent Title="Magasin" ContentTemplate="{DataTemplate view:RestaurantInfo}" IsVisible="{Binding IsAdmin}" Shell.BackgroundColor="Transparent" />
     </FlyoutItem>
     
-    <FlyoutItem Title="Gerer l'accés au mail" Shell.BackgroundColor="Transparent">
+    <FlyoutItem Title="Gérer l'accés au mail" Shell.BackgroundColor="Transparent">
         <ShellContent Title="Gerer l'accés au mail" ContentTemplate="{DataTemplate view:MailAccessParameter}" IsVisible="{Binding IsAdmin}" Shell.BackgroundColor="Transparent" />
     </FlyoutItem>
 
@@ -79,7 +79,7 @@
         <ShellContent Title="Paramétres" ContentTemplate="{DataTemplate view:Parameter}" IsVisible="{Binding IsAdmin}" Shell.BackgroundColor="Transparent" />
     </FlyoutItem>
 
-    <FlyoutItem Title="Gerer les clients" Shell.BackgroundColor="Transparent">
+    <FlyoutItem Title="Gérer les clients" Shell.BackgroundColor="Transparent">
         <ShellContent Title="Gerer les clients" ContentTemplate="{DataTemplate view:AllClient}" IsVisible="{Binding IsAdmin}" Shell.BackgroundColor="Transparent" />
     </FlyoutItem>
 

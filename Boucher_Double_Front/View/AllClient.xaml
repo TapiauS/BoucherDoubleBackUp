@@ -25,7 +25,7 @@
                                 </Label.Text>
                             </Label>
                             <Button Text="Supprimer" Clicked="OnDeleteAsync" CommandParameter="{Binding}" Grid.Column="1" />
-                            <Button Text="Mettre a jour" Clicked="OnUpdateAsync" CommandParameter="{Binding}" Grid.Column="2"/>
+                            <Button Text="Mettre à jour" Clicked="OnUpdateAsync" CommandParameter="{Binding}" Grid.Column="2"/>
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>

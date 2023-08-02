@@ -7,7 +7,7 @@
     <ContentPage.Content>
         <VerticalStackLayout VerticalOptions="CenterAndExpand">
             <Grid ColumnDefinitions="*,auto" RowDefinitions="*,*,*,*,*,*" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
-                <Label Text="Choisissez un evennement à mettre a jour" Grid.Row="0" Grid.Column="0"/>
+                <Label Text="Choisissez un événement à mettre à jour" Grid.Row="0" Grid.Column="0"/>
                 <Picker x:Name="EventPicker" SelectedIndexChanged="PickerSelectedIndexChanged" Grid.Row="0" Grid.Column="1" />
 
                 <Label Text="Nom:" Grid.Row="1" Grid.Column="0"/>
@@ -20,7 +20,7 @@
                 <DatePicker Date="{Binding ActivEvent.End}" Margin="0,5" Grid.Row="3" Grid.Column="1" Format="yyyy-MM-dd"/>
 
                 <Button x:Name="ValidationButton" Text="Sauvegarder" Margin="0,20" Clicked="OnValidateAsync" Grid.Row="4" Grid.ColumnSpan="2"/>
-                <Button x:Name="DeleteButton" Text="Supprimer l'évenement" Clicked="OnDeleteAsync" IsVisible="False" Grid.Row="5" Grid.ColumnSpan="2"/>
+                <Button x:Name="DeleteButton" Text="Supprimer l'événement" Clicked="OnDeleteAsync" IsVisible="False" Grid.Row="5" Grid.ColumnSpan="2"/>
             </Grid>
         </VerticalStackLayout>
     </ContentPage.Content>

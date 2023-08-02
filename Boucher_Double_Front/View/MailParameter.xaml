@@ -7,7 +7,7 @@
     <ContentPage.Content>
         <StackLayout>
             <Grid ColumnDefinitions="auto,*" RowDefinitions="auto,auto,auto,auto,auto,auto,auto" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
-                <Label Text="Selectionner un réglage existant" Grid.Row="0" Grid.Column="0"/>
+                <Label Text="Sélectionner un réglage existant" Grid.Row="0" Grid.Column="0"/>
                 <Picker x:Name="MailContentPicker" Grid.Row="0" Grid.Column="1" SelectedIndexChanged="PickerSelectedIndexChanged"/>
 
                 <Label Text="Nom: " Grid.Row="1" Grid.Column="0"/>

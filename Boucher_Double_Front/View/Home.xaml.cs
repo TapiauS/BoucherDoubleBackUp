@@ -18,7 +18,7 @@ namespace Boucher_Double_Front.View
             Resources = StyleDictionnary.GetInstance();
             InitializeComponent();
             BindingContext = Application.Current as App;
-            welcomeLabel.SetBinding(Label.TextProperty, "User.Store.Name", stringFormat: "Bienvenue {0}");
+            welcomeLabel.SetBinding(Label.TextProperty, "User.Store.Name", stringFormat: "Bienvenu {0}");
         }
     }
 }

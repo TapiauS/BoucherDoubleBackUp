@@ -340,6 +340,11 @@ namespace Boucher_Double_Back_End.Models.Manager
                         int storeId = reader.GetInt32(reader.GetOrdinal("id_store"));
                         Store store = await new StoreDAO() { Store = Store,User=User }.GetByIdAsync(storeId);
                         user.Store = store;
+                        //Update of the lat used date , used for rgpd suppression of account
+                        MySqlConnection connectionnotif = Connexion.getConnexion();
+                        MySqlCommand commandnotif = new () { Connection = connectionnotif,CommandText="UPDATE person SET last_used=NOW() WHERE id=@id" };
+                        commandnotif.Parameters.AddWithValue("@id",user.Id);
+                        commandnotif.ExecuteReader();
                         return user;
                     }
                 }

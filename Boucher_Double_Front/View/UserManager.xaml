@@ -4,7 +4,7 @@
              x:Class="Boucher_Double_Front.View.UserManager"
              Title="UserManager"
              BackgroundColor="{DynamicResource BackgroundColor}">
-    <VerticalStackLayout VerticalOptions="CenterAndExpand">
+    <VerticalStackLayout VerticalOptions="CenterAndExpand" >
         <CollectionView x:Name="allUser"
                     SelectionMode="Single" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" MaximumWidthRequest="700">
             <CollectionView.ItemsLayout>
@@ -12,10 +12,10 @@
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <HorizontalStackLayout HeightRequest="100">
-                        <Label Text="{Binding Login}" />
-                        <Button Text="Supprimer" Clicked="OnDeleteUserAsync" CommandParameter="{Binding}"/>
-                    </HorizontalStackLayout>
+                    <Grid ColumnDefinitions="*,*" HeightRequest="75">
+                        <Label Text="{Binding Login}" Grid.Column="0"/>
+                        <Button Text="Supprimer" Clicked="OnDeleteUserAsync" CommandParameter="{Binding}" Grid.Column="1"/>
+                    </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
@@ -26,10 +26,10 @@
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <HorizontalStackLayout HeightRequest="100">
-                        <Label Text="{Binding Name}" />
-                        <Button Text="Supprimer" Clicked="OnDeleteStoreAsync" CommandParameter="{Binding}"/>
-                    </HorizontalStackLayout>
+                    <Grid ColumnDefinitions="*,*" HeightRequest="75">
+                        <Label Text="{Binding Name}" Grid.Column="0"/>
+                        <Button Text="Supprimer" Clicked="OnDeleteStoreAsync" CommandParameter="{Binding}" Grid.Column="1"/>
+                    </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>

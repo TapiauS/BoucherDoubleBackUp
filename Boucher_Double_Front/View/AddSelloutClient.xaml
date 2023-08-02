@@ -11,15 +11,15 @@
                 <Label Text="Nouveau Client" Grid.ColumnSpan="2" Grid.Row="0" Grid.Column="0"/>
                 <Label Text="Nom" Grid.Column="0" Grid.Row="1"/>
                 <Entry Text="{Binding Client.Name}" Grid.Column="1" Grid.Row="1" IsEnabled="{Binding IsEditable}"/>
-                <Label Text="Prenom" Grid.Column="0" Grid.Row="2"/>
+                <Label Text="Prénom" Grid.Column="0" Grid.Row="2"/>
                 <Entry Text="{Binding Client.Surname}" Grid.Column="1" Grid.Row="2" IsEnabled="{Binding IsEditable}"/>
                 <Label Text="Mail" Grid.Column="0" Grid.Row="3"/>
                 <Entry Text="{Binding Client.Mail}" Grid.Column="1" Grid.Row="3" Keyboard="Email" IsEnabled="{Binding IsEditable}" TextChanged="MailTextChanged"/>
-                <Label Text="Numéro de telephone" Grid.Column="0" Grid.Row="4"/>
+                <Label Text="Numéro de téléphone" Grid.Column="0" Grid.Row="4"/>
                 <Entry Text="{Binding Client.PhoneNumber}" Grid.Column="1" Grid.Row="4" Keyboard="Telephone" IsEnabled="{Binding IsEditable}" TextChanged="OnPhoneNumberChanged"/>
             </Grid>
             <Grid RowDefinitions="*,*,*" Grid.Row="2" VerticalOptions="Start" HorizontalOptions="CenterAndExpand">
-                <Label Text="Selectionner une date" Grid.Row="0"/>
+                <Label Text="Sélectionner une date" Grid.Row="0"/>
                 <DatePicker Date="{Binding Sellout.SelloutDate}" Format="yyyy-MM-dd" Grid.Row="1" />
                 <Button Text="Valider" Clicked="OnValidateAsync" Grid.Row="2"/>
             </Grid>
