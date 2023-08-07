@@ -42,18 +42,16 @@ CREATE OR REPLACE TRIGGER update_client_ref
 BEFORE CREATE OR UPDATE ON buy
 FOR EACH ROW
 BEGIN
-    UPDATE person SET last_used=NOW() WHERE id=NEW.id_person
-    RETURN NEW
+    UPDATE person SET last_used=NOW() WHERE id=NEW.id_person;
 END//
 
 
 CREATE OR REPLACE TRIGGER update_user_ref
-BEFORE CREATE OR UPDATE ON user
+BEFORE CREATE OR UPDATE ON _user
 FOR EACH ROW
 BEGIN
-    UPDATE person SET last_used=NOW() WHERE id=NEW.id_person
-    RETURN NEW
-END//
+    UPDATE person SET last_used=NOW() WHERE id=NEW.id_person;
+END
 
 CREATE OR REPLACE TRIGGER check_client_before_update
 BEFORE UPDATE ON buy

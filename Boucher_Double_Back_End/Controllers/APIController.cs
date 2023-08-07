@@ -78,9 +78,6 @@ namespace Boucher_Double_Back_End.Controllers
             logger = _logger;
         }
 
-
-        //TODO implement CSRF verification once the client part implement it too
-
         /// <summary>
         /// Return all the entity if the User is connected using CSRF protection
         /// </summary>

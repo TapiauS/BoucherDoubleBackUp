@@ -93,7 +93,8 @@ namespace Boucher_Double_Front.View
                     smtp.Send(email);
                     smtp.Disconnect(true);
                     smtp.Dispose();
-                    await printService?.Print((string)BlueToothPicker.SelectedItem,Bill);
+                    if(BlueToothPicker.SelectedIndex>0)
+                        await printService.Print((string)BlueToothPicker.SelectedItem,Bill);
                 }
                 else
                 {

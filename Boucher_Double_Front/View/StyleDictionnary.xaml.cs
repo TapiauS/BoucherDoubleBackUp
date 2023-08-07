@@ -89,8 +89,6 @@ public partial class StyleDictionnary : ResourceDictionary
         ShellColor = Color.FromArgb(app.Theme.ShellColorHexCode);
         ButtonColor = Color.FromArgb(app.Theme.ButtonColorHexCode);
         TextColor = Color.FromArgb(app.Theme.TextColorHexCode);
-
-
         InitializeComponent();
 	}
 
