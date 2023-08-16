@@ -16,14 +16,28 @@ namespace Boucher_Double_Front.View
             get => idProduct; 
             set { 
                 idProduct = value;
-                Task.Run(async () => await model.LoadProductAsync(value)).Wait();
+                try
+                {
+                    Task.Run(async () => await model.LoadProductAsync(value)).Wait();
+                }
+                catch(Exception ex)
+                {
+                    Shell.Current.DisplayAlert("Erreur", "Erreur Inconnue", "OK");
+                }
                 BindingContext = model;
             } }
         public string idCategory;
         public string IdCategory { get=>idCategory; set
             {
                 idCategory = value;
-                Task.Run(async()=>await model.GetOneCategoryAsync(int.Parse(idCategory))).Wait();
+                try
+                {
+                    Task.Run(async () => await model.GetOneCategoryAsync(int.Parse(idCategory))).Wait();
+                }
+                catch(Exception ex) 
+                {
+                    Shell.Current.DisplayAlert("Erreur", "Erreur Inconnue", "OK");
+                }
                 if(IdProduct == "0")
                     BindingContext = model;
             } }
@@ -53,9 +67,6 @@ namespace Boucher_Double_Front.View
             }
         }
 
-        
-       
-
         public async void OnSaveAsync(object sender, EventArgs args)
         {
             App app = Application.Current as App;
@@ -80,7 +91,6 @@ namespace Boucher_Double_Front.View
                             await Shell.Current.GoToAsync("..");
                             return;
                         }
-
                     }
                     else
                     {
@@ -144,7 +154,7 @@ namespace Boucher_Double_Front.View
             }
             catch (Exception ex)
             {
-                // The user canceled or something went wrong
+                await Shell.Current.DisplayAlert("Erreur", "Erreur de chargement de l'image", "OK");
             }
         }
 

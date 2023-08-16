@@ -21,7 +21,14 @@ namespace Boucher_Double_Front.View
         {
             Resources = StyleDictionnary.GetInstance();
             InitializeComponent();
-            allSellout.ItemsSource=Task.Run(async () => await model.GetAllSelloutAsync()).Result;
+            try
+            {
+                allSellout.ItemsSource = Task.Run(async () => await model.GetAllSelloutAsync()).Result;
+            }
+            catch (Exception ex)
+            {
+                Shell.Current.DisplayAlert("Erreur", "Erreur de connexion avec le server", "Ok");
+            }
             BindingContext = model;
         }
 

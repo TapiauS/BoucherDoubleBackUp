@@ -13,7 +13,14 @@ public partial class EventManager : ContentPage
 	{
         Resources = StyleDictionnary.GetInstance();
         InitializeComponent();
-        Task.Run(async () => await model.GetAllEvent()).Wait();
+        try
+        {
+            Task.Run(async () => await model.GetAllEvent()).Wait();
+        }
+        catch (Exception ex)
+        {
+            Shell.Current.DisplayAlert("Erreur", "Erreur d'accés au serveur", "Ok");
+        }
         EventPicker.ItemsSource = model.ExistingsOption;
         EventPicker.ItemDisplayBinding = new Binding("Name");
         BindingContext = model;
@@ -99,7 +106,6 @@ public partial class EventManager : ContentPage
             if (await appShell.AskLogin())
             {
                 base.OnAppearing();
-
                 FirstAppear = false;
             }
             else

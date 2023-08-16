@@ -28,7 +28,14 @@ namespace Boucher_Double_Front.View
             InitializeComponent();
             App app = Application.Current as App;
             RolePicker.ItemsSource=Enum.GetValues(typeof(Role)).Cast<Role>().Where(role=>role<=app.User.Role).ToList();
-            Task.Run(async () => await model.GetAllStoreAsync()).Wait();
+            try
+            {
+                Task.Run(async () => await model.GetAllStoreAsync()).Wait();
+            }
+            catch (Exception ex)
+            {
+                Shell.Current.DisplayAlert("Erreur", "Erreur de connexion avec le serveur", "Ok");
+            }
             StorePicker.ItemsSource = model.Stores;
             StorePicker.ItemDisplayBinding = new Binding("Name");
             BindingContext = model;
@@ -38,7 +45,7 @@ namespace Boucher_Double_Front.View
         {
             Entry entry = sender as Entry;
             string mailRegex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
-            if (entry != null)
+            if (entry != null&&entry.Text!=null)
             {
                 if (Regex.IsMatch(entry.Text, mailRegex))
                     entry.BackgroundColor = Color.FromRgba(255, 255, 0, 0.5);
@@ -51,7 +58,7 @@ namespace Boucher_Double_Front.View
         {
             Entry entry = sender as Entry;
             string phoneNumberRegex = "^\\d{10}$";
-            if (entry != null)
+            if (entry != null && entry.Text != null)
             {
                 if (Regex.IsMatch(entry.Text, phoneNumberRegex))
                     entry.BackgroundColor = Color.FromRgba(255, 255, 0, 0.5);
@@ -61,11 +68,21 @@ namespace Boucher_Double_Front.View
 
         }
 
+        public void SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(StorePicker.SelectedIndex > 0)
+                model.IsEditable = false;
+            else
+                model.IsEditable = true;
+            BindingContext = null;
+            BindingContext = model;
+        }
+
         public void OnPasswordChanged(object sender, EventArgs e)
         {
             Entry entry=sender as Entry;
             string passwordRegex = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$";
-            if(entry != null)
+            if(entry != null && entry.Text != null)
             {
                 if(Regex.IsMatch(entry.Text, passwordRegex))
                     entry.BackgroundColor = Color.FromRgba(255, 255, 0, 0.5);

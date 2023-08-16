@@ -32,12 +32,12 @@ namespace Boucher_Double_Front.ViewModel
             {
                 string json = await response.Content.ReadAsStringAsync();
                 List<Event> _events = JsonConvert.DeserializeObject<List<Event>>(json);
-                List<Event> filteredEvents = _events.Where(_event => _event.End > app.ActivCommand.SelloutDate&&_event.Begin<app.ActivCommand.ReceiptDate).ToList() ;
+                List<Event> filteredEvents = _events.Where(_event => _event.End > app.ActivCommand.SelloutDate && _event.Begin < app.ActivCommand.ReceiptDate).ToList();
                 filteredEvents.Insert(0, new() { Name = "Aucune de ces options" });
                 CompatibleEvents = filteredEvents;
             }
             else
-                await Shell.Current.DisplayAlert("Erreur", "Erreur d'accés au serveur", "Ok");
+                throw new Exception("Server access error");
         }
     }
 }

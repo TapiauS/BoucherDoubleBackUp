@@ -35,8 +35,10 @@ namespace Boucher_Double_Front.ViewModel
             {
                 var jsonString = await httpResponse.Content.ReadAsStringAsync();
                 Clients = JsonConvert.DeserializeObject<List<Client>>(jsonString);
-                Clients.Insert(0, new Client() { PhoneNumber="Aucune selection"} );
+                Clients.Insert(0, new Client() { PhoneNumber = "Aucune selection" });
             }
+            else
+                throw new Exception("Servor access error");
         }
 
     }

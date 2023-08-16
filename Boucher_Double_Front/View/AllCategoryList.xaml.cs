@@ -25,7 +25,15 @@ namespace Boucher_Double_Front.View
             set
             {
                 idContainer = value;
-                allCategory.ItemsSource=Task.Run(async ()=>await model.GetSubCategoryAsync(int.Parse(value))).Result;
+                try
+                {
+                    allCategory.ItemsSource = Task.Run(async () => await model.GetSubCategoryAsync(int.Parse(value))).Result;
+                }
+                catch (Exception ex)
+                {
+                    Shell.Current.DisplayAlert("Erreur", "Erreur Inconnue", "OK");
+                }
+
                 BindingContext = null;
                 BindingContext = model;
             } }
@@ -42,7 +50,17 @@ namespace Boucher_Double_Front.View
         {
             base.OnAppearing();
             if(IdContainer == "0")
-                allCategory.ItemsSource = await model.GetAllCategoryAsync();
+            {
+                try
+                {
+                    allCategory.ItemsSource = await model.GetAllCategoryAsync();
+                }
+                catch(Exception ex)
+                {
+                    Shell.Current.DisplayAlert("Erreur", "Erreur Inconnue", "OK");
+                }
+            }
+
         }
 
 

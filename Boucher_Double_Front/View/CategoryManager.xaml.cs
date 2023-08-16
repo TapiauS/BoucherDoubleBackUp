@@ -32,7 +32,14 @@ namespace Boucher_Double_Front.View
                 categoryId = value;
                 if(categoryId != "0")
                 {
-                    Task.Run(async () => await model.GetOneCategoryAsync(int.Parse(categoryId))).Wait();
+                    try
+                    {
+                        Task.Run(async () => await model.GetOneCategoryAsync(int.Parse(categoryId))).Wait();
+                    }
+                    catch(Exception ex) 
+                    {
+                        Shell.Current.DisplayAlert("Erreur", "Erreur Inconnue", "OK");
+                    }
                     BindingContext = null;
                     BindingContext = model;
                 }

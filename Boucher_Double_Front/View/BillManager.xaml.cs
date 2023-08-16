@@ -21,7 +21,14 @@ namespace Boucher_Double_Front.View
         {
             Resources = StyleDictionnary.GetInstance();
             InitializeComponent();
-            Task.Run(async () => await model.GetAllOptionsAsync()).Wait();
+            try
+            {
+                Task.Run(async () => await model.GetAllOptionsAsync()).Wait();
+            }
+            catch (Exception ex)
+            {
+                Shell.Current.DisplayAlert("Erreur", "Erreur Inconnue", "OK");
+            }
             BillPicker.ItemsSource = model.ExistingsOption;
             BillPicker.ItemDisplayBinding = new Binding("Name");
             BindingContext = model;

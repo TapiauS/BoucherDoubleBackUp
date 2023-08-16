@@ -1,5 +1,6 @@
 
 using Boucher_Double_Back_End.Logging;
+using Boucher_Double_Back_End.Models.ServerModel;
 using Microsoft.Extensions.Logging;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,6 +22,7 @@ builder.Services.AddScoped<ILogger>(serviceProvider =>
     var fileLogger = new BoucherDoubleFileLogger(new BoucherDoubleLoggerProvider(loggerOptions));
     return fileLogger;
 });
+builder.Services.AddHostedService<RepeatingServices>();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSession(session =>
 {

@@ -144,9 +144,9 @@ namespace Boucher_Double_Back_End.Models.Manager
                         id_person = reader.GetInt32(reader.GetOrdinal("id_person"));
                         receipt_date = reader.GetDateTime(reader.GetOrdinal("receipt_date"));
                         sellout_date = reader.GetDateTime(reader.GetOrdinal("livraison_date"));
-                        _event = reader.IsDBNull(reader.GetOrdinal("id_event")) ? null : new Event
+                        _event = reader.IsDBNull(reader.GetOrdinal("event_id")) ? null : new Event
                         {
-                            Id = reader.GetInt32(reader.GetOrdinal("id_event")),
+                            Id = reader.GetInt32(reader.GetOrdinal("event_id")),
                             Name = reader.GetString(reader.GetOrdinal("name")),
                             Begin = reader.GetDateTime(reader.GetOrdinal("start")),
                             End = reader.GetDateTime(reader.GetOrdinal("end"))
@@ -192,7 +192,7 @@ namespace Boucher_Double_Back_End.Models.Manager
             }
             catch (IOException ioe)
             {
-                throw new DAOException("Erreur de connexion", ioe, ErrorTypeDAO.IOE);
+                throw new DAOException("Erreur de connexion :"+ioe.Message, ioe, ErrorTypeDAO.IOE);
             }
             catch (MySqlException msqe)
             {
@@ -202,12 +202,12 @@ namespace Boucher_Double_Back_End.Models.Manager
                         return default;
                         break;
                     default:
-                        throw new DAOException("Erreur SQL grave", msqe, ErrorTypeDAO.SQLSEVERE);
+                        throw new DAOException("Erreur SQL grave :"+msqe.Message, msqe, ErrorTypeDAO.SQLSEVERE);
                 }
             }
             catch (Exception e)
             {
-                throw new DAOException("Erreur inconnue", e, ErrorTypeDAO.UNKNOW);
+                throw new DAOException("Erreur inconnue :"+e.Message, e, ErrorTypeDAO.UNKNOW);
             }
 
         }

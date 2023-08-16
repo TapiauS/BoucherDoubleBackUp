@@ -8,6 +8,7 @@ using System.Net.Http.Json;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Boucher_Double_Front.ViewModel;
 using Boucher_DoubleModel.Models.Entitys;
 using Microsoft.Maui;
 using Microsoft.Maui.Controls.Xaml;
@@ -20,23 +21,12 @@ namespace Boucher_Double_Front.View
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class RestaurantInfo : ContentPage
     {
-        ImageSource Image { get; set; }
-        public string PicturePath { get; set; }
-        FileResult FileResult { get; set; }
-
-        public Store Store 
-        {
-            get
-            {
-                App app=Application.Current as App; 
-                return app.User.Store;
-            }
-        }
+        private RestaurantInfoModel model = new();
         public RestaurantInfo()
         {
             Resources = StyleDictionnary.GetInstance();
             InitializeComponent();
-            BindingContext = this;
+            BindingContext = model;
         }
 
         private bool FirstAppear = true;
@@ -82,19 +72,18 @@ namespace Boucher_Double_Front.View
                 else
                     entry.BackgroundColor = Color.FromRgba(255, 0, 0, 0.5);
             }
-
         }
 
 
         public async void OnValidateAsync(object sender,EventArgs e)
         {
-            App app = Microsoft.Maui.Controls.Application.Current as App;
+            App app = Application.Current as App;
             string phoneNumberRegex = "^\\d{10}$";
             string mailRegex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
-            if (Regex.IsMatch(Store.PhoneNumber, phoneNumberRegex) && Regex.IsMatch(Store.Mail, mailRegex))
+            if (Regex.IsMatch(model.Store.PhoneNumber, phoneNumberRegex) && Regex.IsMatch(model.Store.Mail, mailRegex))
             {
                 HttpClient httpClient = await app.PrepareQuery();
-                string json = JsonConvert.SerializeObject(Store);
+                string json = JsonConvert.SerializeObject(model.Store);
                 StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
                 HttpResponseMessage httpResponse = await httpClient.PutAsync("Store", content);
                 if (httpResponse.IsSuccessStatusCode)
@@ -103,21 +92,21 @@ namespace Boucher_Double_Front.View
                     if (bool.Parse(result))
                     {
                         await Shell.Current.DisplayAlert("Succés", "Modification sauvegardée avec succés", "Ok");
-                        if (FileResult != null)
+                        if (model.FileResult != null)
                         {
-                            var stream = await FileResult.OpenReadAsync();
+                            var stream = await model.FileResult.OpenReadAsync();
                             HttpContent httpContent = new StreamContent(stream);
 
                             var formData = new MultipartFormDataContent
                                 {
-                                    { httpContent, "file",FileResult.FileName }
+                                    { httpContent, "file",model.FileResult.FileName }
                                 };
                             var response = await httpClient.PostAsync($"Store/upload/{app.User.Store.IdStore}", formData);
                             string resultString = await response.Content.ReadAsStringAsync();
                             if (response.IsSuccessStatusCode)
                             {
                                 AppShell appShell = Shell.Current as AppShell;
-                                appShell.StoreImage = FileResult.FullPath;
+                                appShell.StoreImage = model.FileResult.FullPath;
                                 await Shell.Current.DisplayAlert("Succés", "Image sauvegardée avec succés", "Ok");
                             }
                             else
@@ -148,17 +137,16 @@ namespace Boucher_Double_Front.View
                 var result = await FilePicker.PickAsync(PickOptions.Images);
                 if (result != null)
                 {
-                    PicturePath = result.FullPath;
-                    BindingContext = null;
-                    BindingContext = this;
+                    model.PicturePath = result.FullPath;
                     if (result.FileName.EndsWith("jpg", StringComparison.OrdinalIgnoreCase) ||
                         result.FileName.EndsWith("png", StringComparison.OrdinalIgnoreCase))
                     {
                         var stream = await result.OpenReadAsync();
-                        Image = ImageSource.FromStream(() => stream);
+                        Logo.Source=model.PicturePath;
+                        model.Image = ImageSource.FromStream(() => stream);
                     }
                 }
-                FileResult = result;
+                model.FileResult = result;
             }
             catch (Exception ex)
             {

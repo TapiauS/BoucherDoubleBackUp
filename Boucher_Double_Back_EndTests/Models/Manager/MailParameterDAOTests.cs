@@ -26,8 +26,6 @@ namespace Boucher_Double_Back_End.Models.Manager.Tests
             {
                 Server = "test",
                 IdStore = user.Store.IdStore,
-                Name = "test",
-                ConnexionType = "test",
                 Port=0,
                 Login="test",
                 Password="test123a,",
@@ -73,7 +71,6 @@ namespace Boucher_Double_Back_End.Models.Manager.Tests
 
             Assert.AreEqual(10, (await dao.GetByIdAsync(9)).Port);
             Assert.AreEqual("testserveur", (await dao.GetByIdAsync(9)).Login);
-            Assert.AreEqual("test1", (await dao.GetByIdAsync(9)).Name);
             Assert.AreEqual("simon", (await dao.GetByIdAsync(9)).Password);
             Assert.AreEqual("type", (await dao.GetByIdAsync(9)).ConnexionType);
         }
@@ -91,8 +88,6 @@ namespace Boucher_Double_Back_End.Models.Manager.Tests
             {
                 Server = "test",
                 IdStore = user.Store.IdStore,
-                Name = "test",
-                ConnexionType = "test",
                 Port = 0,
                 Login = "test",
                 Password = "test123a,",

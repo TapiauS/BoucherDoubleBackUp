@@ -77,7 +77,7 @@ namespace Boucher_Double_Front.ViewModel
             }
             else
             {
-                await Shell.Current.DisplayAlert("Erreur", "Erreur Inconnue", "OK");
+                throw new Exception("Server error");
             }
         }
         public void Filter(Event? _event)
@@ -107,7 +107,7 @@ namespace Boucher_Double_Front.ViewModel
             }
             else
             {
-                await Shell.Current.DisplayAlert("Erreur", "Erreur Inconnue", "OK");
+                throw new Exception("Server error");
             }
         }
 
@@ -124,7 +124,7 @@ namespace Boucher_Double_Front.ViewModel
                 AllEvents = _events;
             }
             else
-                await Shell.Current.DisplayAlert("Erreur", "Erreur d'accés au serveur", "Ok");
+                throw new Exception("Server error");
         }
         public async Task GetAllSelloutAsync()
         {
@@ -144,7 +144,7 @@ namespace Boucher_Double_Front.ViewModel
             }
             else
             {
-                await Shell.Current.DisplayAlert("Erreur", "Erreur de connexion avec le server", "Ok");
+                throw new Exception("Server error");
             }
         }
     }

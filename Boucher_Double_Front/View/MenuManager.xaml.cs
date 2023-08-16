@@ -28,7 +28,14 @@ namespace Boucher_Double_Front.View
                 idCategory = value;
                 if (model.Menu != null&&model.Menu.Category==null&&IdMenu=="0")
                 {
-                    Task.Run(async() =>await model.GetOneCategoryAsync(int.Parse(idCategory))).Wait();
+                    try
+                    {
+                        Task.Run(async () => await model.GetOneCategoryAsync(int.Parse(idCategory))).Wait();
+                    }
+                    catch(Exception) 
+                    {
+                        Shell.Current.DisplayAlert("Erreur", "Erreur Inconnue", "OK");
+                    }
                 }
 
             }
@@ -46,11 +53,19 @@ namespace Boucher_Double_Front.View
                     {
                         DeleteButton.Text = "Supprimer";
                     }
-                    Task.Run(async () => await model.LoadOneMenuAsync(int.Parse(idMenu))).Wait() ;
-                    if(IdCategory!="0")
+                    try
                     {
-                        Task.Run(async () => await model.GetOneCategoryAsync(int.Parse(idCategory))).Wait();
+                        Task.Run(async () => await model.LoadOneMenuAsync(int.Parse(idMenu))).Wait();
+                        if (IdCategory != "0")
+                        {
+                            Task.Run(async () => await model.GetOneCategoryAsync(int.Parse(idCategory))).Wait();
+                        }
                     }
+                    catch (Exception) 
+                    {
+                        Shell.Current.DisplayAlert("Erreur", "Erreur d'accés au serveur", "Ok");
+                    }
+
                 }
             }
         }
@@ -212,7 +227,7 @@ namespace Boucher_Double_Front.View
             }
             catch (Exception ex)
             {
-                // The user canceled or something went wrong
+                await Shell.Current.DisplayAlert("Erreur", "Erreur de selection de l'image", "Ok");
             }
         }
         private void RefreshSoldProducts()

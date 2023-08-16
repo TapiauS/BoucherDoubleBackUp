@@ -8,10 +8,18 @@ namespace Boucher_Double_Front.View;
 
 public partial class RecapTableView : ContentPage
 {
-	private RecapTableViewModel model=new();
+	private RecapTableViewModel model;
 	public RecapTableView()
 	{
         Resources = StyleDictionnary.GetInstance();
+        try
+        {
+            model = new();
+        }
+        catch(Exception ex)
+        {
+            Shell.Current.DisplayAlert("Erreur", "Erreur d'accés au serveur", "OK");
+        }
         InitializeComponent();
         BindingContext = model;
         FillGrid();

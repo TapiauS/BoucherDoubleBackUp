@@ -20,6 +20,8 @@ namespace Boucher_Double_Front.ViewModel
                 return app.User.Role >= Role.SUPERADMIN;
             }
         }
+
+        public bool IsEditable { get; set; } = true;
         public List<Store> Stores { get; set; }
         public Store NewStore { get; set; } = new();
 
@@ -41,7 +43,7 @@ namespace Boucher_Double_Front.ViewModel
                     Stores = stores;
                 }
                 else
-                    Shell.Current.DisplayAlert("Erreur", "Erreur de connexion avec le serveur", "Ok");
+                    throw new Exception("Servor access error");
             }
         }
     }

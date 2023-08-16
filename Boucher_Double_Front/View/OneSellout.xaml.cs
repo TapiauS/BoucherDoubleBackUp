@@ -103,7 +103,7 @@ namespace Boucher_Double_Front.View
             }
             else
             {
-                await Shell.Current.DisplayAlert("Error", "Vous devez définir vos paramétre d'accés au mail, voir avec un admin", "Ok");
+                await Shell.Current.DisplayAlert("Error", "Vous devez définir vos paramétres d'accés au mail, voir avec un admin", "Ok");
             }
         }
 

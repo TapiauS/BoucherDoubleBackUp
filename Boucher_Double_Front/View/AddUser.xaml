@@ -10,18 +10,18 @@
         <StackLayout>
             <Grid IsVisible="{Binding IsSuperAdmin}" RowDefinitions="*,*,*,*,*,*,*,*,*" ColumnDefinitions="*,*" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
                 <Label Text="Selectionner un magasin" Grid.Row="0" Grid.Column="0"/>
-                <Picker x:Name="StorePicker" Grid.Row="0" Grid.Column="1"/>
-                <Label Text="Creer un nouveau magasin" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" />
+                <Picker x:Name="StorePicker" Grid.Row="0" Grid.Column="1" SelectedIndexChanged="SelectedIndexChanged"/>
+                <Label Text="Creer un nouveau magasin" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" IsEnabled="{Binding IsEditable}"/>
                 <Label Text="Nom :" Grid.Row="2" Grid.Column="0"/>
-                <Entry Text="{Binding NewStore.Name}" Grid.Row="2" Grid.Column="1"/>
+                <Entry Text="{Binding NewStore.Name}" Grid.Row="2" Grid.Column="1" IsEnabled="{Binding IsEditable}"/>
                 <Label Text="Ville: " Grid.Row="3" Grid.Column="0" />
-                <Entry Text="{Binding NewStore.Town}" Grid.Row="3" Grid.Column="1" />
+                <Entry Text="{Binding NewStore.Town}" Grid.Row="3" Grid.Column="1" IsEnabled="{Binding IsEditable}"/>
                 <Label Text="Adresse :" Grid.Row="4" Grid.Column="0"/>
-                <Entry Text="{Binding NewStore.Adress}" Grid.Row="4" Grid.Column="1"/>
+                <Entry Text="{Binding NewStore.Adress}" Grid.Row="4" Grid.Column="1" IsEnabled="{Binding IsEditable}"/>
                 <Label Text="Mail :" Grid.Row="5" Grid.Column="0"/>
-                <Entry Text="{Binding NewStore.Mail}" Grid.Row="5" Grid.Column="1" Keyboard="Email" TextChanged="MailTextChanged"/>
+                <Entry Text="{Binding NewStore.Mail}" Grid.Row="5" Grid.Column="1" Keyboard="Email" TextChanged="MailTextChanged" IsEnabled="{Binding IsEditable}"/>
                 <Label Text="Numéro de télephone" Grid.Row="6" Grid.Column="0"/>
-                <Entry Text="{Binding NewStore.PhoneNumber}" Grid.Row="6" Grid.Column="1" Keyboard="Telephone" TextChanged="OnPhoneNumberChanged"/>
+                <Entry Text="{Binding NewStore.PhoneNumber}" Grid.Row="6" Grid.Column="1" Keyboard="Telephone" TextChanged="OnPhoneNumberChanged" IsEnabled="{Binding IsEditable}"/>
                 <Button Text="Valider" Grid.Row="7" Grid.ColumnSpan="2" Clicked="ValidateStoreAsync" Grid.Column="0"/>
             </Grid>
             

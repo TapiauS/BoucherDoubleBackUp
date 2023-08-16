@@ -26,7 +26,14 @@ namespace Boucher_Double_Front.View
             set 
             { 
                 clientId = value;
-                Task.Run(async ()=>await model.LoadOneClientAsync(int.Parse(clientId))).Wait();
+                try
+                {
+                    Task.Run(async () => await model.LoadOneClientAsync(int.Parse(clientId))).Wait();
+                }
+                catch(Exception ex) 
+                {
+                    Shell.Current.DisplayAlert("Erreur", "Erreur d'accés au serveur", "OK");
+                }
                 BindingContext = model;
             } 
         }

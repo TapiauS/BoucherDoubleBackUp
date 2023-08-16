@@ -26,7 +26,14 @@ namespace Boucher_Double_Front.View
             App app = Application.Current as App;
             if (app.ActivCommand != null)
             {
-                Task.Run(async () => await model.GetAllEventAsync()).Wait();
+                try
+                {
+                    Task.Run(async () => await model.GetAllEventAsync()).Wait();
+                }
+                catch(Exception ex)
+                {
+                    Shell.Current.DisplayAlert("Erreur", "Erreur d'accés au serveur", "OK");
+                }
                 BindingContext = model;
                 EventPicker.ItemsSource = model.CompatibleEvents;
                 EventPicker.ItemDisplayBinding=new Binding("Name");

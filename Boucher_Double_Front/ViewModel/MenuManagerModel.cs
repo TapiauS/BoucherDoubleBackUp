@@ -75,8 +75,7 @@ namespace Boucher_Double_Front.ViewModel
             }
             else
             {
-                await Shell.Current.DisplayAlert("Erreur", "Erreur Inconnue", "OK");
-                return;
+                throw new Exception("Server error");
             }
         }
 
@@ -91,7 +90,7 @@ namespace Boucher_Double_Front.ViewModel
                 app.ActivMenu = JsonConvert.DeserializeObject<Boucher_DoubleModel.Models.Entitys.Menu>(jsoncontent);
             }
             else
-                Shell.Current.DisplayAlert("Erreur", "Erreur d'accés au serveur", "Ok");
+                throw new Exception("Server error");
         }
     }
 }

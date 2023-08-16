@@ -12,9 +12,7 @@ namespace Boucher_Double_Back_End.Controllers
         public static void AddUserWithExpiration(string key, User user, TimeSpan expirationTime)
         {
             ConnectedUser.TryAdd(key, user);
-
-            // Start a timer to remove the key after the expiration time
-            Timer timer = new Timer(RemoveUser, key, expirationTime, Timeout.InfiniteTimeSpan);
+            Timer timer = new (RemoveUser, key, expirationTime, Timeout.InfiniteTimeSpan);
         }
 
         protected static void RemoveUser(object state)

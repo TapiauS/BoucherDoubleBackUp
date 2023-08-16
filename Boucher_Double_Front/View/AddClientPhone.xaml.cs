@@ -10,7 +10,15 @@ public partial class AddClientPhone : ContentPage
     public AddClientPhone()
     {
         BindingContext = model;
-        Task.Run(async() =>model.GetAllClientAsync()).Wait();
+        try
+        {
+            Task.Run(async () => model.GetAllClientAsync()).Wait();
+        }
+        catch (Exception ex)
+        {
+            Shell.Current.DisplayAlert("Erreur", "Erreur d'accés au serveur", "Ok");
+        }
+
         Resources = StyleDictionnary.GetInstance();
         InitializeComponent();
     }

@@ -21,7 +21,14 @@ namespace Boucher_Double_Front.View
         {
             Resources = StyleDictionnary.GetInstance();
             InitializeComponent();
-            Task.Run(async () => await model.LoadMailContentParameterAsync()).Wait();
+            try
+            {
+                Task.Run(async () => await model.LoadMailContentParameterAsync()).Wait();
+            }
+            catch(Exception ex)
+            {
+                Shell.Current.DisplayAlert("Erreur", "Erreur d'accés au serveur", "Ok");
+            }
             MailContentPicker.ItemsSource = model.MailParameters;
             MailContentPicker.ItemDisplayBinding = new Binding("Name");
         }

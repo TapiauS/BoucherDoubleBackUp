@@ -25,11 +25,11 @@ namespace Boucher_Double_Front.ViewModel
             {
                 string json = await response.Content.ReadAsStringAsync();
                 List<Event> _events = JsonConvert.DeserializeObject<List<Event>>(json);
-                _events.Insert(0, new() {Name="Aucune de ces options" });
+                _events.Insert(0, new() { Name = "Aucune de ces options" });
                 ExistingsOption = _events;
             }
             else
-                await Shell.Current.DisplayAlert("Erreur", "Erreur d'accés au serveur", "Ok");
+                throw new Exception("Server access error");
         }
 
     }

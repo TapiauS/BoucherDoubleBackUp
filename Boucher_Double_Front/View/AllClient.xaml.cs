@@ -21,7 +21,14 @@ namespace Boucher_Double_Front.View
         {
             Resources = StyleDictionnary.GetInstance();
             InitializeComponent();
-            Task.Run(async ()=>await model.GetAllClientAsync()).Wait();
+            try
+            {
+                Task.Run(async () => await model.GetAllClientAsync()).Wait();
+            }
+            catch (Exception ex)
+            {
+                Shell.Current.DisplayAlert("Erreur", "Erreur d'accés au serveur", "Ok");
+            }
             allClient.ItemsSource = model.Clients;
             BindingContext = model;
         }

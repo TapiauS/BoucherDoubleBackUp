@@ -24,8 +24,15 @@ namespace Boucher_Double_Front.View
             set
             { 
                 categoryId = value;
-                allProduct.ItemsSource = Task.Run(async ()=>await model.GetAllProductAsync(int.Parse(categoryId))).Result;
-                menuList.ItemsSource=Task.Run(async()=>await model.GetAllMenuAsync(int.Parse(categoryId))).Result;
+                try
+                {
+                    allProduct.ItemsSource = Task.Run(async () => await model.GetAllProductAsync(int.Parse(categoryId))).Result;
+                    menuList.ItemsSource = Task.Run(async () => await model.GetAllMenuAsync(int.Parse(categoryId))).Result;
+                }
+                catch(Exception ex) 
+                {
+                    Shell.Current.DisplayAlert("Erreur", "Erreur d'accés au serveur", "Ok");
+                }
             } }
         public OneCategoryList()
         {

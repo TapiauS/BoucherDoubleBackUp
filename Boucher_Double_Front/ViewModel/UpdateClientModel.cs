@@ -23,7 +23,7 @@ namespace Boucher_Double_Front.ViewModel
             }
             else
             {
-                await Shell.Current.DisplayAlert("Erreur", "Erreur d'accés au serveur", "Ok");
+                throw new Exception("Server error");
             }
         }
     }

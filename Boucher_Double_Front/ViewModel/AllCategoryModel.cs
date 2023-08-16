@@ -28,9 +28,8 @@ namespace Boucher_Double_Front.ViewModel
             }
             else
             {
-                await Shell.Current.DisplayAlert("Erreur", "Erreur Inconnue", "OK");
-                return null;
-            };
+                throw new Exception("Servor access error");
+            }
         }
 
 
@@ -46,8 +45,7 @@ namespace Boucher_Double_Front.ViewModel
             }
             else
             {
-                await Shell.Current.DisplayAlert("Erreur", "Erreur Inconnue", "OK");
-                return new();
+                throw new Exception("Servor access error");
             }
         }
     }

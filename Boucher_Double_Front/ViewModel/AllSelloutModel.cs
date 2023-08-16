@@ -25,11 +25,8 @@ namespace Boucher_Double_Front.ViewModel
             }
             else
             {
-                await Shell.Current.DisplayAlert("Erreur", "Erreur de connexion avec le server", "Ok");
-                return default;
+                throw new Exception("Server access error");
             }
-
-            
         }
     }
 }

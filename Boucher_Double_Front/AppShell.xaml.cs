@@ -44,7 +44,6 @@ namespace Boucher_Double_Front
             Routing.RegisterRoute(nameof(BillManager), typeof(BillManager));
             Routing.RegisterRoute(nameof(CategoryManager), typeof(CategoryManager));
             Routing.RegisterRoute(nameof(ClientCommand), typeof(ClientCommand));
-            Routing.RegisterRoute(nameof(DataBaseManager), typeof(DataBaseManager));
             Routing.RegisterRoute(nameof(MailAccessParameter), typeof(MailAccessParameter));
             Routing.RegisterRoute(nameof(MailParameter), typeof(MailParameter));
             Routing.RegisterRoute(nameof(OneCategoryList), typeof(OneCategoryList));
