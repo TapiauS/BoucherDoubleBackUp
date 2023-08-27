@@ -113,12 +113,12 @@ namespace Boucher_Double_Back_End.Controllers
             }
             catch (DAOException daoe)
             {
-                logger.LogError(daoe.Message, daoe);
+                logger.LogError(daoe, "Error while processing a getall request");
                 throw new Exception();
             }
             catch(Exception e)
             {
-                logger.LogError(e.Message, e);
+                logger.LogError(e, "Error while processing a getall request");
                 throw new Exception();
             }
 
@@ -160,12 +160,12 @@ namespace Boucher_Double_Back_End.Controllers
             }
             catch (DAOException daoe)
             {
-                logger.LogError(daoe.Message, daoe);
+                logger.LogError(daoe, "Error while processing a get request");
                 throw new Exception();
             }
             catch (Exception e)
             {
-                logger.LogError(e.Message, e);
+                logger.LogError(e, "Error while processing a get request");
                 throw new Exception();
             }
         }
@@ -206,12 +206,12 @@ namespace Boucher_Double_Back_End.Controllers
             }
             catch (DAOException daoe)
             {
-                logger.LogError(daoe.Message, daoe);
+                logger.LogError(daoe, "Error while processing a post request");
                 throw new Exception();
             }
             catch (Exception e)
             {
-                logger.LogError(e.Message, e);
+                logger.LogError(e, "Error while processing a post request");
                 throw new Exception();
             }
         }
@@ -251,12 +251,12 @@ namespace Boucher_Double_Back_End.Controllers
             }
             catch (DAOException daoe)
             {
-                logger.LogError(daoe.Message, daoe);
+                logger.LogError(daoe, "Error while processing a put request");
                 throw new Exception();
             }
             catch (Exception e)
             {
-                logger.LogError(e.Message, e);
+                logger.LogError(e, "Error while processing a put request");
                 throw new Exception();
             }
         }
@@ -296,12 +296,12 @@ namespace Boucher_Double_Back_End.Controllers
             }
             catch (DAOException daoe)
             {
-                logger.LogError(daoe.Message, daoe);
+                logger.LogError(daoe, "Error while processing a delete request");
                 throw new Exception();
             }
             catch (Exception e)
             {
-                logger.LogError(e.Message, e);
+                logger.LogError(e, "Error while processing a delete request");
                 throw new Exception();
             }
         }

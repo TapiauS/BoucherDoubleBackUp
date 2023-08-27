@@ -12,7 +12,7 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 
 		<!-- Display name -->
-		<ApplicationTitle>Boucher_Double_Front</ApplicationTitle>
+		<ApplicationTitle>BoucheeDouble</ApplicationTitle>
 		<!-- App Identifier -->
 		<ApplicationId>com.companyname.boucher_double_front</ApplicationId>
 		<ApplicationIdGuid>cac8dcfc-c075-44f8-af5d-2af535220226</ApplicationIdGuid>
@@ -64,6 +64,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <PackageReference Include="AppActions.Icons.Maui" Version="1.0.0" />
 	  <PackageReference Include="MailKit" Version="4.1.0" />
 	  <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="7.0.9" />
 	  <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />

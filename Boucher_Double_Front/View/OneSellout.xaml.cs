@@ -95,6 +95,8 @@ namespace Boucher_Double_Front.View
                     smtp.Dispose();
                     if(BlueToothPicker.SelectedIndex>0)
                         await printService.Print((string)BlueToothPicker.SelectedItem,Bill);
+                    app.ActivCommand = null;
+                    await Shell.Current.GoToAsync($"{nameof(Home)}");
                 }
                 else
                 {

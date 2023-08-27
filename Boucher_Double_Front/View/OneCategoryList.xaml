@@ -24,7 +24,6 @@
                             </Label>
                             <Image Source="{Binding ImageSource}" Grid.Column="3" Grid.Row="0" Grid.RowSpan="2" HeightRequest="100" WidthRequest="100"/>
                             <Button Text="Modifier" Clicked="OnUpdateClickedAsync" CommandParameter="{Binding Product}" Grid.Column="0" Grid.Row="1"/>
-                            <Button Text="Ajouter à la commande" Clicked="AddToCommand" CommandParameter="{Binding Product}" Grid.Column="1" Grid.Row="1"/>
                             <Button Text="Ajouter au menu" Clicked="AddToMenu" CommandParameter="{Binding Product}" Grid.Column="2" Grid.Row="1" IsVisible="{Binding IsMenuDefined}"/>
                         </Grid>
                     </DataTemplate>
@@ -48,7 +47,6 @@
                                 </Label.Text>
                             </Label>
                             <Button Text="Modifier" Clicked="OnUpdateMenuClickedAsync" CommandParameter="{Binding Product}" Grid.Column="1"/>
-                            <Button Text="Ajouter a la commande" Clicked="AddToCommand" CommandParameter="{Binding Product}" Grid.Column="2" />
                             <Image Source="{Binding ImageSource}" Grid.Column="3"  WidthRequest="50" HeightRequest="50"/>
                         </Grid>
                     </DataTemplate>

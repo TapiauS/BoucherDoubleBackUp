@@ -19,6 +19,7 @@ namespace Boucher_Double_Front.View
                 try
                 {
                     Task.Run(async () => await model.LoadProductAsync(value)).Wait();
+                    DeleteButton.Text = "Supprimer";
                 }
                 catch(Exception ex)
                 {

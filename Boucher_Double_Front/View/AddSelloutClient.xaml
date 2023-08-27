@@ -19,7 +19,7 @@
                 <Entry Text="{Binding Client.PhoneNumber}" Grid.Column="1" Grid.Row="4" Keyboard="Telephone" IsEnabled="{Binding IsEditable}" TextChanged="OnPhoneNumberChanged"/>
             </Grid>
             <Grid RowDefinitions="*,*,*" Grid.Row="2" VerticalOptions="Start" HorizontalOptions="CenterAndExpand">
-                <Label Text="Sélectionner une date" Grid.Row="0"/>
+                <Label Text="Sélectionner une date pour la vente" Grid.Row="0"/>
                 <DatePicker Date="{Binding Sellout.SelloutDate}" Format="yyyy-MM-dd" Grid.Row="1" />
                 <Button Text="Valider" Clicked="OnValidateAsync" Grid.Row="2"/>
             </Grid>

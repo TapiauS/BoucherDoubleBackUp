@@ -58,12 +58,12 @@ namespace Boucher_Double_Back_End.Controllers
             }
             catch (DAOException daoe)
             {
-                logger.LogError(daoe.Message, daoe);
+                logger.LogError(daoe, "Error while processing a post request");
                 return BadRequest();
             }
             catch (Exception e)
             {
-                logger.LogError(e.Message, e);
+                logger.LogError(e, "Error while processing a post request");
                 return BadRequest();
             }
 
@@ -88,8 +88,8 @@ namespace Boucher_Double_Back_End.Controllers
             }
             catch (Exception ex)
             {
-                //TODO logger ici
-                throw new Exception(ex.Message, ex);
+                logger.LogError(ex, "Error while retriewing an image");
+                return BadRequest();
             }
         }
     }

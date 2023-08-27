@@ -29,6 +29,7 @@ namespace Boucher_Double_Front.View
                 try
                 {
                     Task.Run(async () => await model.GetAllEventAsync()).Wait();
+                    allCategory.ItemsSource=Task.Run(async() =>await model.GetAllCategoryAsync()).Result;
                 }
                 catch(Exception ex)
                 {
@@ -42,6 +43,74 @@ namespace Boucher_Double_Front.View
             }
         }
 
+
+        public void OnBackClicked(object sender, EventArgs e)
+        {
+            if (model.ActiveCategory.Category.SubCategory.Count>0) 
+            { 
+                model.ActiveCategory=model.ParentCategory.Last();
+                model.ParentCategory = model.ParentCategory.Where(category=>category.Category.Id!=model.ActiveCategory.Category.Id).ToList();
+                if (model.ParentCategory.Count <= 0)
+                {
+                    model.ActiveCategory = null;
+                    mainCategory.IsVisible = true;
+                    oneSubCategory.IsVisible = false;
+                    BackButton.IsVisible = false;
+                }
+            }
+            else
+            {
+                model.ActiveCategory =model.ParentCategory.Count>0?model.ParentCategory.Last():null;
+                model.ParentCategory = model.ParentCategory.Where(category => category.Category.Id != model.ActiveCategory.Category.Id).ToList();
+                productList.IsVisible = false;
+                if (model.ParentCategory.Count <= 0)
+                {
+                    model.ActiveCategory = null;
+                    mainCategory.IsVisible = true;
+                    oneSubCategory.IsVisible = false;
+                    BackButton.IsVisible = false;
+                }
+            }
+        }
+
+        private async void AddToCommand(object sender, EventArgs args)
+        {
+            Button button = sender as Button;
+            Product product = (Product)button.CommandParameter;
+
+            App appInstance = Application.Current as App;
+            appInstance.ActivCommand?.AddProduct(product);
+            allSoldProduct.ItemsSource = null;
+            RefreshSoldProducts();
+        }
+
+
+        async void GetProductAsync(object sender, EventArgs args)
+        {
+            Button button = sender as Button;
+            BackButton.IsVisible = true;
+            Category category = (Category)button.CommandParameter;
+            if (category.SubCategory.Count == 0)
+            {
+                model.ActiveCategory = new() { Category = category, ImageSource = $"{(Application.Current as App).BaseUrl}Category/image/{category.PicturePath}" };
+                subCategory.ItemsSource = null;
+                allProduct.ItemsSource = await model.GetAllProductAsync(model.ActiveCategory.Category.Id);
+                productList.IsVisible = true;
+                mainCategory.IsVisible = false;
+                oneSubCategory.IsVisible = false;
+            }
+            else
+            {
+                model.ActiveCategory = new() { Category = category, ImageSource = $"{(Application.Current as App).BaseUrl}Category/image/{category.PicturePath}" };
+                model.ParentCategory.Add(new() { Category = category, ImageSource = $"{(Application.Current as App).BaseUrl}Category/image/{category.PicturePath}" });
+                allProduct.ItemsSource=null;
+                subCategory.ItemsSource = await model.GetSubCategoryAsync(model.ActiveCategory.Category.Id);
+
+                productList.IsVisible = false;
+                mainCategory.IsVisible = false;
+                oneSubCategory.IsVisible = true;
+            }
+        }
         protected override async void OnDisappearing()
         {
             base.OnDisappearing();

@@ -28,7 +28,7 @@ namespace Boucher_Double_Back_End.Logging
                 return;
             }
             string fullFilePath = string.Format("{0}/{1}", _provider.Options.FolderPath, _provider.Options.FilePath.Replace("{date}",DateTime.UtcNow.ToString("yyyyMMdd")));
-            string logRecord = string.Format("{0} [{1}] {2} {3} Error Messsage:{4}", DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:Gss"), logLevel.ToString(), formatter(state, exception), exception != null ? exception.StackTrace : "", exception != null ? exception.Message : "");
+            string logRecord = string.Format("{0} [{1}] {2} {3} Error Message:{4}", DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:Gss"), logLevel.ToString(), formatter(state, exception), exception != null ? exception.StackTrace : "", exception != null ? exception.Message : "");
             using StreamWriter streamWriter = new(fullFilePath,true);
             streamWriter.WriteLine(logRecord);
         }

@@ -10,7 +10,8 @@
        Shell.TabBarTitleColor="{DynamicResource ShellColor}"
        Shell.TabBarBackgroundColor="{DynamicResource ShellColor}"
        Shell.TabBarIsVisible="False"
-       Shell.NavBarIsVisible="False">
+       Shell.NavBarIsVisible="False"
+       Shell.TitleColor="{DynamicResource TextColor}">
     <Shell.Resources>
         <ResourceDictionary>
         </ResourceDictionary>

@@ -6,7 +6,7 @@
              BackgroundColor="{DynamicResource BackgroundColor}">
     <VerticalStackLayout VerticalOptions="CenterAndExpand" >
         <CollectionView x:Name="allUser"
-                    SelectionMode="Single" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" MaximumWidthRequest="700">
+                    SelectionMode="Single" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout Orientation="Vertical"/>
             </CollectionView.ItemsLayout>
@@ -20,7 +20,7 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
         <CollectionView x:Name="allStore"
-                    SelectionMode="Single" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" MaximumWidthRequest="700">
+                    SelectionMode="Single" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" >
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout Orientation="Vertical"/>
             </CollectionView.ItemsLayout>

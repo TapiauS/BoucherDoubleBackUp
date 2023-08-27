@@ -51,15 +51,7 @@ namespace Boucher_Double_Front.View
             await Shell.Current.GoToAsync($"{nameof(ProductManager)}?{nameof(ProductManager.IdCategory)}={product.Category.Id}&{nameof(ProductManager.IdProduct)}={product.Id}");
         }
 
-        private async void AddToCommand(object sender, EventArgs args)
-        {
-            Button button = sender as Button;
-            Product product = (Product)button.CommandParameter;
 
-            App appInstance = Application.Current as App;
-            appInstance.ActivCommand?.AddProduct(product);
-            await Shell.Current.GoToAsync($"{nameof(ClientCommand)}");
-        }
 
         private async void AddToMenu(object sender,EventArgs args)
         {

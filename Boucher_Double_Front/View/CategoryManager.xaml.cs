@@ -35,6 +35,7 @@ namespace Boucher_Double_Front.View
                     try
                     {
                         Task.Run(async () => await model.GetOneCategoryAsync(int.Parse(categoryId))).Wait();
+                        DeleteButton.Text = "Supprimer";
                     }
                     catch(Exception ex) 
                     {
