@@ -36,7 +36,7 @@ namespace Boucher_Double_Back_End.Controllers
                     HttpContext.Session.SetString("UserId", user.IdUser.ToString());
                     HttpContext.Session.SetString("Username", user.Login);
                     HttpContext.Session.SetString("IdStore", user.Store.IdStore.ToString());
-                    HttpContext.Session.SetString("CSRF", csrfToken);v
+                    HttpContext.Session.SetString("CSRF", csrfToken);
                     HttpContext.Session.SetString("role", user.Role.ToString());
                     AddUserWithExpiration(csrfToken, user, TimeSpan.FromMinutes(60));
                     return new JsonResult(new { success = true, csrf = csrfToken, user = user });

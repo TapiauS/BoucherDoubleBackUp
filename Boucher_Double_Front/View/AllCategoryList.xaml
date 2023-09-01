@@ -12,13 +12,18 @@
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Grid ColumnDefinitions="*,*,auto" RowDefinitions="*,*,*" >
-                            <Label Text="{Binding Category.Name}" Grid.Column="0" Grid.Row="0"/>
-                            <Button Text="Modifier" Clicked="UpdateCategoryAsync" Grid.Column="1" CommandParameter="{Binding Category}" Grid.Row="0"/>
-                            <Button Text="Liste des produits" Clicked="GetProductAsync" Grid.Column="0" CommandParameter="{Binding Category}" Grid.Row="1"/>
-                            <Button Text="Ajouter une sous catégorie" Clicked="AddSubCategoryAsync" CommandParameter="{Binding Category}" Grid.Column="1" Grid.Row="1"/>
-                            <Image Source="{Binding ImageSource}" Grid.Column="2" Grid.RowSpan="2" Grid.Row="0" WidthRequest="100" HeightRequest="100"/>
-                        </Grid>
+                        <Border Stroke="Black" 
+                                StrokeThickness="2" 
+                                VerticalOptions="Fill"
+                                HorizontalOptions="CenterAndExpand">
+                            <Grid ColumnDefinitions="*,*,auto" RowDefinitions="*,*,*" >
+                                <Label Text="{Binding Category.Name}" Grid.Column="0" Grid.Row="0"/>
+                                <Button Text="Modifier" Clicked="UpdateCategoryAsync" Grid.Column="1" CommandParameter="{Binding Category}" Grid.Row="0"/>
+                                <Button Text="Liste des produits" Clicked="GetProductAsync" Grid.Column="0" CommandParameter="{Binding Category}" Grid.Row="1"/>
+                                <Button Text="Ajouter une sous catégorie" Clicked="AddSubCategoryAsync" CommandParameter="{Binding Category}" Grid.Column="1" Grid.Row="1"/>
+                                <Image Source="{Binding ImageSource}" Grid.Column="2" Grid.RowSpan="2" Grid.Row="0" WidthRequest="100" HeightRequest="100"/>
+                            </Grid>
+                        </Border>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>

@@ -22,6 +22,7 @@ namespace Boucher_DoubleModel.Models.Entitys
                     throw new BoucherDoubleModelException("Invalid category name");
             }
         }
+        public Event? Event { get; set; }
         public Store Store { get; set; }
 
         public string? PicturePath { get; set; }

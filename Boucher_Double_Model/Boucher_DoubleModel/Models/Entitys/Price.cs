@@ -21,6 +21,8 @@ namespace Boucher_DoubleModel.Models.Entitys
             }
         }
 
+        public Event? Event { get; set; }
+
         public Price()
         {
         }

@@ -44,12 +44,12 @@ namespace Boucher_Double_Front.View
         }
 
 
-        public void OnBackClicked(object sender, EventArgs e)
+        public async void OnBackClicked(object sender, EventArgs e)
         {
             if (model.ActiveCategory.Category.SubCategory.Count>0) 
             { 
-                model.ActiveCategory=model.ParentCategory.Last();
                 model.ParentCategory = model.ParentCategory.Where(category=>category.Category.Id!=model.ActiveCategory.Category.Id).ToList();
+                model.ActiveCategory = model.ParentCategory.Count>0?model.ParentCategory.Last():null;
                 if (model.ParentCategory.Count <= 0)
                 {
                     model.ActiveCategory = null;
@@ -60,8 +60,8 @@ namespace Boucher_Double_Front.View
             }
             else
             {
-                model.ActiveCategory =model.ParentCategory.Count>0?model.ParentCategory.Last():null;
                 model.ParentCategory = model.ParentCategory.Where(category => category.Category.Id != model.ActiveCategory.Category.Id).ToList();
+                model.ActiveCategory = model.ParentCategory.Count > 0 ? model.ParentCategory.Last() : null;
                 productList.IsVisible = false;
                 if (model.ParentCategory.Count <= 0)
                 {
@@ -69,6 +69,11 @@ namespace Boucher_Double_Front.View
                     mainCategory.IsVisible = true;
                     oneSubCategory.IsVisible = false;
                     BackButton.IsVisible = false;
+                }
+                else
+                {
+                    subCategory.ItemsSource = await model.GetSubCategoryAsync(model.ActiveCategory.Category.Id);
+                    oneSubCategory.IsVisible = true;
                 }
             }
         }
@@ -93,6 +98,7 @@ namespace Boucher_Double_Front.View
             if (category.SubCategory.Count == 0)
             {
                 model.ActiveCategory = new() { Category = category, ImageSource = $"{(Application.Current as App).BaseUrl}Category/image/{category.PicturePath}" };
+                model.ParentCategory.Add(new() { Category = category, ImageSource = $"{(Application.Current as App).BaseUrl}Category/image/{category.PicturePath}" });
                 subCategory.ItemsSource = null;
                 allProduct.ItemsSource = await model.GetAllProductAsync(model.ActiveCategory.Category.Id);
                 productList.IsVisible = true;
@@ -105,12 +111,22 @@ namespace Boucher_Double_Front.View
                 model.ParentCategory.Add(new() { Category = category, ImageSource = $"{(Application.Current as App).BaseUrl}Category/image/{category.PicturePath}" });
                 allProduct.ItemsSource=null;
                 subCategory.ItemsSource = await model.GetSubCategoryAsync(model.ActiveCategory.Category.Id);
-
                 productList.IsVisible = false;
                 mainCategory.IsVisible = false;
                 oneSubCategory.IsVisible = true;
             }
         }
+
+
+        protected override void OnSizeAllocated(double width, double height)
+        {
+            base.OnSizeAllocated(width, height);
+            if (width > 600)
+                phoneChecker.Orientation=StackOrientation.Horizontal;
+            else
+                phoneChecker.Orientation=StackOrientation.Vertical;
+        }
+
         protected override async void OnDisappearing()
         {
             base.OnDisappearing();

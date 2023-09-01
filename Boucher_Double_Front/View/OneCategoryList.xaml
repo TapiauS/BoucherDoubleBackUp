@@ -12,20 +12,26 @@
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Grid ColumnDefinitions="*,auto,auto,auto" RowDefinitions="50,*">
-                            <Label Text="{Binding Product.Name}" Grid.Column="0" Grid.Row="0"/>
-                            <Label Grid.Column="1" Grid.Row="0">
-                                <Label.Text>
-                                    <MultiBinding StringFormat="Prix: {0},{1} €">
-                                        <Binding Path="Product.Price.FullMonnaie" />
-                                        <Binding Path="Product.Price.Cent" />
-                                    </MultiBinding>
-                                </Label.Text>
-                            </Label>
-                            <Image Source="{Binding ImageSource}" Grid.Column="3" Grid.Row="0" Grid.RowSpan="2" HeightRequest="100" WidthRequest="100"/>
-                            <Button Text="Modifier" Clicked="OnUpdateClickedAsync" CommandParameter="{Binding Product}" Grid.Column="0" Grid.Row="1"/>
-                            <Button Text="Ajouter au menu" Clicked="AddToMenu" CommandParameter="{Binding Product}" Grid.Column="2" Grid.Row="1" IsVisible="{Binding IsMenuDefined}"/>
-                        </Grid>
+                        <Border Stroke="Black" 
+                                        StrokeThickness="2" 
+                                        VerticalOptions="Fill"
+                                        HorizontalOptions="CenterAndExpand"
+                                        StrokeShape="Rectangle">
+                            <Grid ColumnDefinitions="*,auto,auto,auto" RowDefinitions="50,*">
+                                <Label Text="{Binding Product.Name}" Grid.Column="0" Grid.Row="0"/>
+                                <Label Grid.Column="1" Grid.Row="0">
+                                    <Label.Text>
+                                        <MultiBinding StringFormat="Prix: {0},{1} €">
+                                            <Binding Path="Product.Price.FullMonnaie" />
+                                            <Binding Path="Product.Price.Cent" />
+                                        </MultiBinding>
+                                    </Label.Text>
+                                </Label>
+                                <Image Source="{Binding ImageSource}" Grid.Column="3" Grid.Row="0" Grid.RowSpan="2" HeightRequest="100" WidthRequest="100"/>
+                                <Button Text="Modifier" Clicked="OnUpdateClickedAsync" CommandParameter="{Binding Product}" Grid.Column="0" Grid.Row="1"/>
+                                <Button Text="Ajouter au menu" Clicked="AddToMenu" CommandParameter="{Binding Product}" Grid.Column="2" Grid.Row="1" IsVisible="{Binding IsMenuDefined}"/>
+                            </Grid>
+                        </Border>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
@@ -36,19 +42,25 @@
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Grid ColumnDefinitions="*,*,auto,auto" VerticalOptions="Start">
-                            <Label Grid.Column="0" >
-                                <Label.Text>
-                                    <MultiBinding StringFormat="Nom: {0} - Prix: {1},{2} €">
-                                        <Binding Path="Product.Name" />
-                                        <Binding Path="Product.Price.FullMonnaie" />
-                                        <Binding Path="Product.Price.Cent"/>
-                                    </MultiBinding>
-                                </Label.Text>
-                            </Label>
-                            <Button Text="Modifier" Clicked="OnUpdateMenuClickedAsync" CommandParameter="{Binding Product}" Grid.Column="1"/>
-                            <Image Source="{Binding ImageSource}" Grid.Column="3"  WidthRequest="50" HeightRequest="50"/>
-                        </Grid>
+                        <Border Stroke="Black" 
+                                        StrokeThickness="2" 
+                                        VerticalOptions="Fill"
+                                        HorizontalOptions="CenterAndExpand"
+                                        StrokeShape="Rectangle">
+                            <Grid ColumnDefinitions="*,*,auto,auto" VerticalOptions="Start">
+                                <Label Grid.Column="0" >
+                                    <Label.Text>
+                                        <MultiBinding StringFormat="Nom: {0} - Prix: {1},{2} €">
+                                            <Binding Path="Product.Name" />
+                                            <Binding Path="Product.Price.FullMonnaie" />
+                                            <Binding Path="Product.Price.Cent"/>
+                                        </MultiBinding>
+                                    </Label.Text>
+                                </Label>
+                                <Button Text="Modifier" Clicked="OnUpdateMenuClickedAsync" CommandParameter="{Binding Product}" Grid.Column="1"/>
+                                <Image Source="{Binding ImageSource}" Grid.Column="3"  WidthRequest="50" HeightRequest="50"/>
+                            </Grid>
+                        </Border>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
